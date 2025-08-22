@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- TODOS: 
+        - FORM: 
+            - Nick
+            - Dificultad
+            - Número de tarjetas
+            - Avatar
+        - LOGO
+    -->
+    <header>
+        <img src="images/logo.png" alt="Logo">
+    </header>
+    <form>
+        <label>Nick
+            <input type="text" id="nick" name="nick">
+        </label>
+        <label>Dificultad
+            <select name="dificultad" id="dificultad">
+                <option value="baja">Baja</option>
+                <option value="media">Media</option>
+                <option value="alta">Alta</option>
+            </select>
+        </label>
+        <label>Número de tarjetas
+            <select name="tarjetas" id="tarjetas">
+                <option value="9">9</option>
+                <option value="16">16</option>
+                <option value="25">25</option>
+            </select>
+        </label>
+        <label>Avatar
+            <select name="avatar" id="avatar">
+                <option value="avatar1">Avatar 1</option>
+                <option value="avatar2">Avatar 2</option>
+                <option value="avatar3">Avatar 3</option>
+            </select>
+        </label>
+        <button>Jugar</button>
+    </form>
+</body>
+</html>
