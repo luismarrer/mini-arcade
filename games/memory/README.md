@@ -15,18 +15,19 @@ Utilizando los contenidos vistos en el curso te proponemos crear un proyecto de 
     1. [ ] Validar HTML.
     2. [ ] Validar CSS.
 3. [X] Definir una página de entrada del jugador. - ya está es index.html
-    1. [ ] Logo
-    2. [ ] Formulario con los siguientes campos:
-        1. [ ] Nick de juego
-        2. [ ] Dificultad del juego: baja, media o alta
-        3. [ ] Número de tarjetas: 9, 16 o 25 (3x3, 4x4, 5x5)
-        4. [ ] Avatar del jugador relacionada con la temática elegida
+    1. [X] Logo
+    2. [X] Elegir temática. DC
+    3. [X] Formulario con los siguientes campos:
+        1. [X] Nick de juego
+        2. [X] Dificultad del juego: baja, media o alta
+        3. [X] Número de tarjetas: 9, 16 o 25 (3x3, 4x4, 5x5)
+        4. [X] Avatar del jugador relacionada con la temática elegida
 4. [ ] Página de juego en el que se intentará emparejar tarjetas de personajes que correspondan a villanos y superhéroes:
-    1. En un primer momento todas las tarjetas están boca-abajo
-    2. El jugador hace clic sobre dos tarjetas y se dan la vuelta. Dependiendo de la dificultad, el tiempo que las tarjetas estén visibles será mayor o menor
-    3. Contador de tiradas que debe ser limitado dependiendo de la dificultad
-    4. Las tarjetas que se emparejen quedarán al descubierto y se añadirá la puntuación
-    5. El juego finaliza bien cuando el usuario empareja todas las cartas o bien cuando se acaban las tiradas
+    1. [X] En un primer momento todas las tarjetas están boca-abajo
+    2. [ ] El jugador hace clic sobre dos tarjetas y se dan la vuelta. Dependiendo de la dificultad, el tiempo que las tarjetas estén visibles será mayor o menor
+    3. [ ] Contador de tiradas que debe ser limitado dependiendo de la dificultad
+    4. [ ] Las tarjetas que se emparejen quedarán al descubierto y se añadirá la puntuación
+    5. [ ] El juego finaliza bien cuando el usuario empareja todas las cartas o bien cuando se acaban las tiradas
 5. [ ] Se debe usar en el proyecto como mínimo:
     1. DOM + Eventos
     2. API Drag&Drop

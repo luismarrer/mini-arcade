@@ -6,42 +6,43 @@
     <title>Memory Game</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/card.css">
+    <script type="module" src="js/userData.js" defer></script>
+    <script type="module" src="js/gameInfo.js" ></script>
+    <script type="module" src="js/app.js" defer></script>
 </head>
 <body>
-    <!-- TODOS: 
-        - FORM: 
-            - Nick
-            - Dificultad
-            - Número de tarjetas
-            - Avatar
-        - LOGO
-    -->
     <header>
-        <img src="images/logo.png" alt="Logo">
+        <img src="images/logo.png" alt="Logo" width="100">
     </header>
-    <form>
+    <form action="game.html">
         <label>Nick
-            <input type="text" id="nick" name="nick">
+            <input type="text" id="nick" name="nick" required placeholder="Pepe" pattern="[a-zA-Z0-9]{3,15}">
         </label>
         <label>Dificultad
-            <select name="dificultad" id="dificultad">
+            <select name="dificultad" id="dificultad" required>
                 <option value="baja">Baja</option>
                 <option value="media">Media</option>
                 <option value="alta">Alta</option>
             </select>
         </label>
         <label>Número de tarjetas
-            <select name="tarjetas" id="tarjetas">
+            <select name="tarjetas" id="tarjetas" required>
                 <option value="9">9</option>
                 <option value="16">16</option>
                 <option value="25">25</option>
             </select>
         </label>
         <label>Avatar
-            <select name="avatar" id="avatar">
-                <option value="avatar1">Avatar 1</option>
-                <option value="avatar2">Avatar 2</option>
-                <option value="avatar3">Avatar 3</option>
+            <select name="avatar" id="avatar" required>
+                <option value="batman">Batman</option>
+                <option value="superman">Superman</option>
+                <option value="wonderwoman">Wonder Woman</option>
+                <option value="flash">Flash</option>
+                <option value="greenlantern">Green Lantern</option>
+                <option value="lois lane">Lois Lane</option>
+                <option value="catwoman">Catwoman</option>
+                <option value="supergirl">Super Girl</option>
             </select>
         </label>
         <button>Jugar</button>

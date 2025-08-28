@@ -1,0 +1,129 @@
+/* Estilos para las tarjetas del juego de memoria */
+
+.tarjeta {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    cursor: pointer;
+    perspective: 1000px;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.tarjeta:hover {
+    transform: scale(1.05);
+}
+
+.tarjeta-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 12px;
+}
+
+.tarjeta.volteada .tarjeta-inner {
+    transform: rotateY(180deg);
+}
+
+.tarjeta-front,
+.tarjeta-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 3px solid #2c3e50;
+}
+
+/* Cara frontal (boca abajo) */
+.tarjeta-front {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+
+.tarjeta-front::before {
+    content: "?";
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Cara trasera (boca arriba) */
+.tarjeta-back {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+/* Estados especiales */
+.tarjeta.matched {
+    animation: matchPulse 0.6s ease-in-out;
+}
+
+.tarjeta.matched .tarjeta-front,
+.tarjeta.matched .tarjeta-back {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    border-color: #1e8449;
+}
+
+.tarjeta.disabled {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Animaciones */
+@keyframes matchPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.tarjeta.no-match {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .tarjeta-front::before {
+        font-size: 2rem;
+    }
+    
+    .tarjeta-front,
+    .tarjeta-back {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tarjeta-front::before {
+        font-size: 1.5rem;
+    }
+    
+    .tarjeta-front,
+    .tarjeta-back {
+        font-size: 1.2rem;
+    }
+}
