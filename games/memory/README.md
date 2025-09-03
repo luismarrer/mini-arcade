@@ -24,14 +24,15 @@ Utilizando los contenidos vistos en el curso te proponemos crear un proyecto de 
         4. [X] Avatar del jugador relacionada con la temática elegida
 4. [ ] Página de juego en el que se intentará emparejar tarjetas de personajes que correspondan a villanos y superhéroes:
     1. [X] En un primer momento todas las tarjetas están boca-abajo
-    2. [ ] El jugador hace clic sobre dos tarjetas y se dan la vuelta. Dependiendo de la dificultad, el tiempo que las tarjetas estén visibles será mayor o menor
-    3. [ ] Contador de tiradas que debe ser limitado dependiendo de la dificultad
-    4. [ ] Las tarjetas que se emparejen quedarán al descubierto y se añadirá la puntuación
-    5. [ ] El juego finaliza bien cuando el usuario empareja todas las cartas o bien cuando se acaban las tiradas
+    2. [X] El jugador hace clic sobre dos tarjetas y se dan la vuelta.
+    3. [X] Dependiendo de la dificultad, el tiempo que las tarjetas estén visibles será mayor o menor
+    4. [ ] Contador de tiradas que debe ser limitado dependiendo de la dificultad
+    5. [ ] Las tarjetas que se emparejen quedarán al descubierto y se añadirá la puntuación
+    6. [ ] El juego finaliza bien cuando el usuario empareja todas las cartas o bien cuando se acaban las tiradas
 5. [ ] Se debe usar en el proyecto como mínimo:
-    1. DOM + Eventos
-    2. API Drag&Drop
-    3. API LocalStorage
+    1. [X] DOM + Eventos
+    2. [ ] API Drag&Drop
+    3. [ ] API LocalStorage
 6. [X] Publicación en Github - ya está en un repo.
 7. [ ] Publicar en GitHub Pages.
 

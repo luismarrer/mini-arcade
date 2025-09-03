@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Game</title>
+    <meta name="description" content="Juego de memoria">
+    <meta name="keywords" content="memory, game, juego, memoria">
+    <meta name="author" content="Luis">
+    <meta name="robots" content="index, follow">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <title>Memory Game | Game</title>
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/game.css">
     <link rel="stylesheet" href="css/card.css">
     <script type="module" src="js/userData.js" defer></script>
     <script type="module" src="js/gameInfo.js" defer></script>
@@ -16,17 +21,25 @@
         <img src="images/logo.png" alt="Logo" width="100">
     </header>
     <main>
-        <article id="player">
-            <img src="images/avatars/batman.png" alt="Avatar">
-            <p id="nick"></p>  
-        </article>
+        <div id="player-info">
+            <!-- Información del jugador -->
+            <article id="player">
+                <!-- TODO: Arreglar imagen de supergirl -->
+                <img src="" alt="Avatar">
+                <p id="nick"></p>  
+            </article>
+            <!-- Número de movimientos restantes -->
+            <section id="movimientos-restantes">
+            </section>
+        </div>
+        <!-- Juego -->
         <article id="memory-game">
             <h2>Memory Game</h2>
             <div id="memory-game-table">
-                hola
             </div>
-            <button id="iniciar">Iniciar</button>
+            <!-- Botón reiniciar regenera el tablero -->
             <button id="reiniciar">Reiniciar</button>
+            <!-- Botón salir regresa al index -->
             <button id="salir">Salir</button>
         </article>
     </main>
