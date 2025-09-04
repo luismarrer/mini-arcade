@@ -2,6 +2,12 @@
 
 Una colección de juegos web clásicos desarrollados con tecnologías web modernas (HTML5, CSS3, JavaScript ES6+).
 
+## 🌐 Demo en Vivo
+
+El proyecto está disponible en línea a través de GitHub Pages:
+
+**[🎮 Jugar ahora - Mini Arcade](https://luismarrer.github.io/mini-arcade/index.html)**
+
 ## 🎯 Juegos Disponibles
 
 ### ✅ Memory de Parejas (DC)
