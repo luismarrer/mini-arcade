@@ -11,6 +11,7 @@ import { waitForElement } from './promises.js'
 let tarjetasVolteadas = []
 let bloqueado = false
 let movimientosRestantes = 0
+let puntuacion = 0
 
 /**
  * Promesa de conseguir el número máximo de movimientos
@@ -47,6 +48,19 @@ const actualizarMovimientosRestantes = (movimientosRestantes) => {
 }
 
 /**
+ * Actualiza la puntuación
+ * @param {number} puntuacion - Puntuación
+ */
+const actualizarPuntuacion = (puntuacion) => {
+    const puntuacionSection = $("puntuacion")
+    if (!puntuacionSection) return
+    puntuacionSection.innerHTML = `
+        <h2>Puntuación</h2>
+        <p>${puntuacion}</p>
+    `
+}
+
+/**
  * Voltea una tarjeta
  * @param {HTMLElement} tarjeta - La tarjeta a voltear
  * @param {number} time - Tiempo en segundos que se espera antes de voltear las dos tarjetas volteadas
@@ -56,15 +70,17 @@ const voltearTarjeta = (tarjeta, time) => {
     // No permitir voltear si el juego está bloqueado, la tarjeta ya está volteada o emparejada
     if (bloqueado || tarjeta.classList.contains('volteada') || tarjeta.classList.contains('matched')) return
     
+    // Cada vez que se volte una tarjeta se resta un movimiento hasta llegar a 0
+    if (movimientosRestantes <= 0) return alert('¡Has perdido!')
+    movimientosRestantes--
+    actualizarMovimientosRestantes(movimientosRestantes)
+
     // No permitir más de 2 tarjetas volteadas
     if (tarjetasVolteadas.length >= 2) return
     
     tarjeta.classList.add('volteada')
     tarjetasVolteadas.push(tarjeta)
 
-    // Cada vez que se volte una tarjeta se resta un movimiento
-    movimientosRestantes--
-    actualizarMovimientosRestantes(movimientosRestantes)
     
     // Si hay 2 tarjetas volteadas, verificar si coinciden
     if (tarjetasVolteadas.length === 2) {
@@ -88,6 +104,8 @@ const verificarCoincidencia = (time) => {
             // Marcar como emparejadas
             tarjeta1.classList.add('matched')
             tarjeta2.classList.add('matched')
+            puntuacion++
+            actualizarPuntuacion(puntuacion)
         } else {
             // Voltear de vuelta
             tarjeta1.classList.remove('volteada')

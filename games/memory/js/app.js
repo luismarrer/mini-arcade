@@ -56,9 +56,9 @@ const getMovimientosMaximos = (dificultad, numTarjetas) => {
     const pares = numTarjetas / 2
 
     const multipliers = {
-        baja: 4,
-        media: 3,
-        alta: 2 
+        baja: 5,
+        media: 4,
+        alta: 3 
     }
 
     const movimientosMaximos = pares * multipliers[dificultad] || pares * multipliers.baja
@@ -80,6 +80,10 @@ const mostrarPersonaje = (avatar, nick) => {
     `
 }
 
+/**
+ * Muestra el número de movimientos restantes
+ * @param {number} movimientosRestantes - Número de movimientos restantes
+ */
 const mostrarMovimientosRestantes = (movimientosRestantes) => {
     const movimientosRestantesSection = $("movimientos-restantes")
     if (!movimientosRestantesSection) return
@@ -214,6 +218,7 @@ const inicializarJuego = () => {
     const btnReiniciar = $("reiniciar")
     const btnSalir = $("salir")
 
+    // TODO: Arreglar el reiniciar. El estado de la puntuación y movimientos restantes no se resetean, deben volver a su valor inicial.
     if (btnReiniciar) {
         btnReiniciar.addEventListener('click', () => {
             crearTablero(numTarjetas, dificultad)

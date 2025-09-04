@@ -114,9 +114,29 @@ main {
   box-shadow: var(--shadow);
   min-width: 15rem;
   min-height: 7rem;
+  justify-content: space-between;
 }
 
 #movimientos-restantes h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+#puntuacion {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background-color: var(--surface-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  min-width: 15rem;
+  min-height: 7rem;
+  justify-content: space-between;
+}
+
+#puntuacion h2 {
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--text-primary);

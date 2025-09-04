@@ -22,13 +22,14 @@ Utilizando los contenidos vistos en el curso te proponemos crear un proyecto de 
         2. [X] Dificultad del juego: baja, media o alta
         3. [X] Número de tarjetas: 9, 16 o 25 (3x3, 4x4, 5x5)
         4. [X] Avatar del jugador relacionada con la temática elegida
-4. [ ] Página de juego en el que se intentará emparejar tarjetas de personajes que correspondan a villanos y superhéroes:
+4. [X] Página de juego en el que se intentará emparejar tarjetas de personajes que correspondan a villanos y superhéroes:
     1. [X] En un primer momento todas las tarjetas están boca-abajo
     2. [X] El jugador hace clic sobre dos tarjetas y se dan la vuelta.
     3. [X] Dependiendo de la dificultad, el tiempo que las tarjetas estén visibles será mayor o menor
     4. [X] Contador de tiradas que debe ser limitado dependiendo de la dificultad
-    5. [ ] Las tarjetas que se emparejen quedarán al descubierto y se añadirá la puntuación
-    6. [ ] El juego finaliza bien cuando el usuario empareja todas las cartas o bien cuando se acaban las tiradas
+    5. [X] Las tarjetas que se emparejen quedarán al descubierto
+    6. [X] Añadir sistema de puntuación
+    7. [X] El juego finaliza bien cuando el usuario empareja todas las cartas o bien cuando se acaban las tiradas
 5. [ ] Se debe usar en el proyecto como mínimo:
     1. [X] DOM + Eventos
     2. [ ] API Drag&Drop
@@ -36,16 +37,8 @@ Utilizando los contenidos vistos en el curso te proponemos crear un proyecto de 
 6. [X] Publicación en Github - ya está en un repo.
 7. [ ] Publicar en GitHub Pages.
 
-Por supuesto no te olvides de las buenas prácticas:
-
-- Uso de los comentarios
-- Uso de las tabulaciones
-- Uso del buen nombrado de las clases y ids
-
 ### Conviértete en un superhéroe. Modificación del proyecto
 
 Añade a tu proyecto artefactos y bombas:
 
 - En la página de entrada incluye la posibilidad de que el jugador pueda elegir 1 o 2 artefactos que le pueda ayudar en el juego. Como posibles artefactos entiende destapar todas las cartas un instante, destapar una pareja, añadir más turnos, ...
-
-- En el juego se pueden añadir bombas o dificultades como: calaveras que te hagan perder el juego directamente si se emparejan, elementos que barajen todo el panel, ...
