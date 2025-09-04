@@ -1,0 +1,200 @@
+/* CSS Custom Properties */
+:root {
+  --primary-color: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary-color: #f59e0b;
+  --background-color: #0f172a;
+  --surface-color: #1e293b;
+  --text-color: #f8fafc;
+  --text-muted: #cbd5e1;
+  --border-color: #334155;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --border-radius: 0.75rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+}
+
+/* Base styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--background-color) 0%, #1e1b4b 100%);
+  color: var(--text-color);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-md);
+}
+
+/* Header styles */
+header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  max-width: 600px;
+  width: 100%;
+}
+
+header h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px var(--shadow-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+header img {
+  border-radius: 50%;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+
+header img:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Main section styles */
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Game link styles */
+main a {
+  display: block;
+  padding: var(--spacing-lg);
+  background: var(--surface-color);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+main a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+main a:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 25px var(--shadow-color);
+  background: linear-gradient(135deg, var(--surface-color) 0%, #2d3748 100%);
+}
+
+main a:hover::before {
+  left: 100%;
+}
+
+main a:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+main a:active {
+  transform: translateY(-2px);
+}
+
+/* Game-specific colors */
+main a:nth-child(1) {
+  border-left: 4px solid #ef4444;
+}
+
+main a:nth-child(2) {
+  border-left: 4px solid #10b981;
+}
+
+main a:nth-child(3) {
+  border-left: 4px solid #f59e0b;
+}
+
+main a:nth-child(4) {
+  border-left: 4px solid #8b5cf6;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  body {
+    padding: var(--spacing-sm);
+  }
+  
+  header {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  main {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  main a {
+    padding: var(--spacing-md);
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header img {
+    width: 80px;
+  }
+  
+  main a {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}
+
+/* Animation for page load */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+header {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+main a {
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+main a:nth-child(1) { animation-delay: 0.1s; }
+main a:nth-child(2) { animation-delay: 0.2s; }
+main a:nth-child(3) { animation-delay: 0.3s; }
+main a:nth-child(4) { animation-delay: 0.4s; }

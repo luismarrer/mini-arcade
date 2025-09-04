@@ -37,7 +37,7 @@ Utilizando los contenidos vistos en el curso te proponemos crear un proyecto de 
     2. [ ] API Drag&Drop
     3. [ ] API LocalStorage
 8. [X] Publicación en Github - ya está en un repo.
-9. [ ] Publicar en GitHub Pages.
+9. [X] Publicar en GitHub Pages.
 
 ### Conviértete en un superhéroe. Modificación del proyecto
 
