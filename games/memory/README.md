@@ -30,12 +30,14 @@ Utilizando los contenidos vistos en el curso te proponemos crear un proyecto de 
     5. [X] Las tarjetas que se emparejen quedarán al descubierto
     6. [X] Añadir sistema de puntuación
     7. [X] El juego finaliza bien cuando el usuario empareja todas las cartas o bien cuando se acaban las tiradas
-5. [ ] Se debe usar en el proyecto como mínimo:
+5. [ ] Arreglar imagen de supergirl
+6. [ ] Arreglar reiniciar
+7. [ ] Se debe usar en el proyecto como mínimo:
     1. [X] DOM + Eventos
     2. [ ] API Drag&Drop
     3. [ ] API LocalStorage
-6. [X] Publicación en Github - ya está en un repo.
-7. [ ] Publicar en GitHub Pages.
+8. [X] Publicación en Github - ya está en un repo.
+9. [ ] Publicar en GitHub Pages.
 
 ### Conviértete en un superhéroe. Modificación del proyecto
 
