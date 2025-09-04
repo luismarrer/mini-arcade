@@ -26,7 +26,7 @@ Utilizando los contenidos vistos en el curso te proponemos crear un proyecto de 
     1. [X] En un primer momento todas las tarjetas están boca-abajo
     2. [X] El jugador hace clic sobre dos tarjetas y se dan la vuelta.
     3. [X] Dependiendo de la dificultad, el tiempo que las tarjetas estén visibles será mayor o menor
-    4. [ ] Contador de tiradas que debe ser limitado dependiendo de la dificultad
+    4. [X] Contador de tiradas que debe ser limitado dependiendo de la dificultad
     5. [ ] Las tarjetas que se emparejen quedarán al descubierto y se añadirá la puntuación
     6. [ ] El juego finaliza bien cuando el usuario empareja todas las cartas o bien cuando se acaban las tiradas
 5. [ ] Se debe usar en el proyecto como mínimo:

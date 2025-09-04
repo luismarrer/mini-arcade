@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * Inicializa el juego
+ * Este archivo inicializa el juego
  */
 
 import { $ } from './myjquery.js'
@@ -52,12 +52,17 @@ const getTiempoLimite = (dificultad) => {
  * @returns {number} Número máximo de movimientos
  */
 const getMovimientosMaximos = (dificultad, numTarjetas) => {
-    const movimientos = {
-        baja: numTarjetas / 2 + 2,
-        media: numTarjetas / 2 + 1,
-        alta: numTarjetas / 2
+
+    const pares = numTarjetas / 2
+
+    const multipliers = {
+        baja: 4,
+        media: 3,
+        alta: 2 
     }
-    return movimientos[dificultad] || movimientos.baja
+
+    const movimientosMaximos = pares * multipliers[dificultad] || pares * multipliers.baja
+    return Math.floor(movimientosMaximos)
 }
 
 /**
@@ -194,6 +199,7 @@ const inicializarJuego = () => {
     const numTarjetas = parseInt(gameConfig.tarjetas)
     const { avatar, nick } = playerData
     const { dificultad } = gameConfig
+
     // Calcular número máximo de movimientos
     const movimientosMaximos = getMovimientosMaximos(dificultad, numTarjetas)
 
@@ -205,16 +211,8 @@ const inicializarJuego = () => {
     crearTablero(numTarjetas, dificultad)
     
     // Configurar botones
-    const btnIniciar = $("iniciar")
     const btnReiniciar = $("reiniciar")
     const btnSalir = $("salir")
-
-    if (btnIniciar) {
-        btnIniciar.addEventListener('click', () => {
-            crearTablero(numTarjetas, dificultad)
-            btnIniciar.style.display = 'none'
-        })
-    }
 
     if (btnReiniciar) {
         btnReiniciar.addEventListener('click', () => {

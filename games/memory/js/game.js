@@ -1,6 +1,50 @@
+// @ts-check
+
+/**
+ * Este archivo contiene la lógica del juego
+ */
+
+import { $ } from './myjquery.js'
+import { waitForElement } from './promises.js'
+
 // Estado del juego
 let tarjetasVolteadas = []
 let bloqueado = false
+let movimientosRestantes = 0
+
+/**
+ * Promesa de conseguir el número máximo de movimientos
+ * @returns {Promise<number>} Número máximo de movimientos
+ */
+const getMovimientosMaximos = async () => {
+    // La sección de movimientos restantes
+    const movimientosRestantesSection = $("movimientos-restantes")
+    
+    // Esperar a que el elemento <p> sea creado con el número máximo de movimientos
+    const movimientosMaximosEncontrados = await waitForElement(movimientosRestantesSection, "p")
+
+    // Convertir el número máximo de movimientos a entero
+    const movimientosMaximos = parseInt(movimientosMaximosEncontrados)
+    return movimientosMaximos
+}
+
+// Inicializar el contador de movimientos restantes con el máximo de movimientos pósibles. El máximo de movimientos posible sale de la promesa resuelta. 
+getMovimientosMaximos().then(maxMovimientos => {
+    movimientosRestantes = maxMovimientos
+})
+
+/**
+ * Actualiza el número de movimientos restantes
+ * @param {number} movimientosRestantes - Número de movimientos restantes
+ */
+const actualizarMovimientosRestantes = (movimientosRestantes) => {
+    const movimientosRestantesSection = $("movimientos-restantes")
+    if (!movimientosRestantesSection) return
+    movimientosRestantesSection.innerHTML = `
+        <h2>Movimientos restantes</h2>
+        <p>${movimientosRestantes}</p>
+    `
+}
 
 /**
  * Voltea una tarjeta
@@ -17,6 +61,10 @@ const voltearTarjeta = (tarjeta, time) => {
     
     tarjeta.classList.add('volteada')
     tarjetasVolteadas.push(tarjeta)
+
+    // Cada vez que se volte una tarjeta se resta un movimiento
+    movimientosRestantes--
+    actualizarMovimientosRestantes(movimientosRestantes)
     
     // Si hay 2 tarjetas volteadas, verificar si coinciden
     if (tarjetasVolteadas.length === 2) {
