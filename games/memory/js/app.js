@@ -5,7 +5,8 @@
  */
 
 import { $ } from './myjquery.js'
-import { voltearTarjeta } from './game.js'
+import { voltearTarjeta, reiniciarJuego, usarArtefacto } from './game.js'
+import { gameInfo } from './gameInfo.js'
 
 /**
  * Obtiene los datos del jugador desde sessionStorage
@@ -26,7 +27,7 @@ const getPlayerData = () => {
 const getGameConfig = () => {
     const data = sessionStorage.getItem('memoryGameConfig')
     return data ? JSON.parse(data) : {
-        tarjetas: '10',
+        tarjetas: '12',
         dificultad: 'baja'
     }
 }
@@ -63,6 +64,24 @@ const getMovimientosMaximos = (dificultad, numTarjetas) => {
 
     const movimientosMaximos = pares * multipliers[dificultad] || pares * multipliers.baja
     return Math.floor(movimientosMaximos)
+}
+
+/**
+ * Obtiene artefacto
+ */
+const getArtefactoSeleccionado = () => {
+
+    const config = gameInfo.loadConfig()
+    const artefactos = config.artefactos
+
+    if (!artefactos) return
+
+    const artefactosDisponibles = {
+        'destapar-todas': 'Destapar todas las cartas (1)',
+        'destapar-una': 'Destapar una carta (3)',
+        'mas-turnos': 'Más turnos (2)'
+    }
+    return artefactosDisponibles[artefactos]
 }
 
 /**
@@ -161,6 +180,37 @@ const crearTarjetas = (numTarjetas, tablero, time) => {
 }
 
 /**
+ * Inicializa el sistema de artefactos si se selecciono alguno
+ */
+const inicializarArtefacto = () => {
+
+    const artefactoSelecionado = getArtefactoSeleccionado()
+    if (!artefactoSelecionado) return
+    
+    // Crear el botón de usar artefacto
+    const artefactoButton = document.createElement('button')
+    artefactoButton.id = 'artefacto'
+    artefactoButton.textContent = artefactoSelecionado
+
+    // Cada artefacto tiene un uso limitado
+    // Al lado de cada artefacto se muestra el número de usos restantes
+        
+
+    artefactoButton.addEventListener('click', (event) => {
+        const target = event.target
+        if (target && 'textContent' in target) {
+            usarArtefacto(target.textContent)
+        }
+    })
+
+    // Agregar el botón de artefactos despues del botón de salir
+    const buttonSalir = $("salir")
+    if (buttonSalir) {
+        buttonSalir.parentNode?.insertBefore(artefactoButton, buttonSalir.nextSibling)
+    }
+}
+
+/**
  * Crea el tablero de juego basado en el número de tarjetas
  * @param {number} numTarjetas - Número de tarjetas para el juego
  * @param {string} dificultad - Dificultad del juego (baja, media, alta). Se usa para calcular el tiempo de visibilidad de las tarjetas.
@@ -218,9 +268,9 @@ const inicializarJuego = () => {
     const btnReiniciar = $("reiniciar")
     const btnSalir = $("salir")
 
-    // TODO: Arreglar el reiniciar. El estado de la puntuación y movimientos restantes no se resetean, deben volver a su valor inicial.
     if (btnReiniciar) {
-        btnReiniciar.addEventListener('click', () => {
+        btnReiniciar.addEventListener('click', async () => {
+            await reiniciarJuego()
             crearTablero(numTarjetas, dificultad)
         })
     }
@@ -230,6 +280,10 @@ const inicializarJuego = () => {
             window.location.href = 'index.html'
         })
     }
+
+    // Inicializar sistema de artefactos
+    inicializarArtefacto()
+    // 
 }
 
 // Inicializar cuando el DOM esté listo

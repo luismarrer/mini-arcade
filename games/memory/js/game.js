@@ -12,6 +12,7 @@ let tarjetasVolteadas = []
 let bloqueado = false
 let movimientosRestantes = 0
 let puntuacion = 0
+let movimientosMaximos = 0
 
 /**
  * Promesa de conseguir el número máximo de movimientos
@@ -31,7 +32,8 @@ const getMovimientosMaximos = async () => {
 
 // Inicializar el contador de movimientos restantes con el máximo de movimientos pósibles. El máximo de movimientos posible sale de la promesa resuelta. 
 getMovimientosMaximos().then(maxMovimientos => {
-    movimientosRestantes = maxMovimientos
+    movimientosMaximos = maxMovimientos
+    movimientosRestantes = movimientosMaximos
 })
 
 /**
@@ -58,6 +60,124 @@ const actualizarPuntuacion = (puntuacion) => {
         <h2>Puntuación</h2>
         <p>${puntuacion}</p>
     `
+}
+
+/**
+ * Actualiza la interfaz de artefactos disponibles
+ */
+// const actualizarArtefactos = () => {
+//     const artefactosSelect = $("artefactos")
+//     if (!artefactosSelect) return
+    
+//     // Agregar opciones disponibles
+//     Object.entries(artefactosDisponibles).forEach(([tipo, cantidad]) => {
+//         if (cantidad > 0) {
+//             const option = document.createElement('option')
+//             option.value = tipo
+//             // option.textContent = `${getNombreArtefacto(tipo)} (${cantidad})`
+//             artefactosSelect.appendChild(option)
+//         }
+//     })
+// }
+
+/**
+ * Usar artefacto seleccionado
+ */
+const usarArtefacto = (tipo) => {
+
+    // Ejecutar la funcionalidad del artefacto
+    switch (tipo) {
+        case 'Destapar todas las cartas':
+            destaparTodasLasTarjetas()
+            break
+        case 'Destapar una carta':
+            activarModoDestaparUna()
+            break
+        case 'Más turnos':
+            agregarMasTurnos()
+            break
+        default:
+            console.warn(`Artefacto desconocido: ${tipo}`)
+    }
+}
+
+/**
+ * Destapa todas las tarjetas temporalmente
+ */
+const destaparTodasLasTarjetas = () => {
+    const tarjetas = document.querySelectorAll('.tarjeta:not(.matched)')
+    
+    // Mostrar todas las tarjetas por 3 segundos
+    tarjetas.forEach(tarjeta => {
+        tarjeta.classList.add('volteada', 'artefacto-preview')
+    })
+
+    setTimeout(() => {
+        tarjetas.forEach(tarjeta => {
+            if (!tarjeta.classList.contains('matched')) {
+                tarjeta.classList.remove('volteada', 'artefacto-preview')
+            }
+        })
+    }, 3000)
+}
+
+/**
+ * Activa el modo para destapar una tarjeta específica
+ */
+const activarModoDestaparUna = () => {
+    const tarjetas = document.querySelectorAll('.tarjeta:not(.matched):not(.volteada)')
+    
+    if (tarjetas.length === 0) {
+        alert('No hay tarjetas disponibles para destapar')
+        return
+    }
+
+    // Agregar clase especial para indicar que se puede seleccionar
+    tarjetas.forEach(tarjeta => {
+        const htmlTarjeta = /** @type {HTMLElement} */ (tarjeta)
+        htmlTarjeta.classList.add('seleccionable')
+        htmlTarjeta.style.cursor = 'pointer'
+        htmlTarjeta.style.border = '2px solid #ffeb3b'
+    })
+
+    // Crear función de manejo de clic temporal
+    const manejarClicArtefacto = (event) => {
+        const tarjeta = event.currentTarget
+        
+        // Remover listeners y estilos de todas las tarjetas
+        tarjetas.forEach(t => {
+            const htmlT = /** @type {HTMLElement} */ (t)
+            htmlT.classList.remove('seleccionable')
+            htmlT.style.cursor = ''
+            htmlT.style.border = ''
+            htmlT.removeEventListener('click', manejarClicArtefacto)
+        })
+
+        // Mostrar la tarjeta seleccionada por 2 segundos
+        tarjeta.classList.add('volteada', 'artefacto-preview')
+        setTimeout(() => {
+            if (!tarjeta.classList.contains('matched')) {
+                tarjeta.classList.remove('volteada', 'artefacto-preview')
+            }
+        }, 2000)
+    }
+
+    // Agregar listeners a todas las tarjetas seleccionables
+    tarjetas.forEach(tarjeta => {
+        tarjeta.addEventListener('click', manejarClicArtefacto)
+    })
+
+    alert('Haz clic en una tarjeta para destaparla temporalmente')
+}
+
+/**
+ * Agrega más turnos al juego
+ */
+const agregarMasTurnos = () => {
+    const turnosExtra = 5
+    movimientosRestantes += turnosExtra
+    actualizarMovimientosRestantes(movimientosRestantes)
+    alert(`¡Has ganado ${turnosExtra} movimientos adicionales!`)
 }
 
 /**
@@ -135,4 +255,22 @@ const verificarFinDelJuego = () => {
     }
 }
 
-export { voltearTarjeta }
+/**
+ * Reinicia el estado del juego
+ */
+const reiniciarJuego = async () => {
+    // Resetear variables de estado
+    tarjetasVolteadas = []
+    bloqueado = false
+    puntuacion = 0
+    
+    // Resetear contador de movimientos restantes a movimientos máximos
+    movimientosRestantes = movimientosMaximos
+    
+    // Actualizar la interfaz
+    actualizarMovimientosRestantes(movimientosRestantes)
+    actualizarPuntuacion(puntuacion)
+}
+
+
+export { voltearTarjeta, reiniciarJuego, usarArtefacto}

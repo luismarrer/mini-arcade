@@ -22,57 +22,9 @@ const gameInfo = {
         const data = sessionStorage.getItem('memoryGameConfig')
         return data ? JSON.parse(data) : {
             tarjetas: '9',
-            dificultad: 'baja'
+            dificultad: 'baja',
+            artefactos: '0'
         }
-    },
-
-    /**
-     * Obtiene el tiempo límite basado en la dificultad
-     * @param {string} dificultad - Nivel de dificultad
-     * @returns {number} Tiempo en segundos
-     */
-    getTiempoLimite: (dificultad) => {
-        const tiempos = {
-            baja: 120,    // 2 minutos
-            media: 90,    // 1.5 minutos
-            alta: 60      // 1 minuto
-        }
-        return tiempos[dificultad] || tiempos.baja
-    },
-
-    /**
-     * Obtiene la puntuación base según la dificultad
-     * @param {string} dificultad - Nivel de dificultad
-     * @returns {number} Puntuación base
-     */
-    getPuntuacionBase: (dificultad) => {
-        const puntuaciones = {
-            baja: 100,
-            media: 200,
-            alta: 300
-        }
-        return puntuaciones[dificultad] || puntuaciones.baja
-    },
-
-    /**
-     * Calcula la puntuación final basada en tiempo y movimientos
-     * @param {string} dificultad - Nivel de dificultad
-     * @param {number} tiempoUsado - Tiempo usado en segundos
-     * @param {number} movimientos - Número de movimientos realizados
-     * @returns {number} Puntuación final
-     */
-    calcularPuntuacion: (dificultad, tiempoUsado, movimientos) => {
-        const base = gameInfo.getPuntuacionBase(dificultad)
-        const tiempoLimite = gameInfo.getTiempoLimite(dificultad)
-        
-        // Bonus por tiempo restante
-        const bonusTiempo = Math.max(0, (tiempoLimite - tiempoUsado) * 10)
-        
-        // Penalización por movimientos extra
-        const movimientosOptimos = parseInt(gameInfo.loadConfig().tarjetas) / 2
-        const penalizacionMovimientos = Math.max(0, (movimientos - movimientosOptimos) * 5)
-        
-        return Math.max(0, base + bonusTiempo - penalizacionMovimientos)
     },
 
     /**
@@ -96,7 +48,8 @@ const initGameConfigCapture = () => {
         const formData = new FormData(form)
         const gameConfig = {
             tarjetas: String(formData.get('tarjetas') || '9'),
-            dificultad: String(formData.get('dificultad') || 'baja')
+            dificultad: String(formData.get('dificultad') || 'baja'),
+            artefactos: String(formData.get('artefactos') || '0')
         }
 
         // Guardar configuración del juego
@@ -112,3 +65,5 @@ if (window.location.pathname.includes('index.html') || window.location.pathname.
         initGameConfigCapture()
     }
 }
+
+export { gameInfo }
