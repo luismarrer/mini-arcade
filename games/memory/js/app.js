@@ -7,6 +7,7 @@
 import { $ } from './myjquery.js'
 import { voltearTarjeta, reiniciarJuego, usarArtefacto } from './game.js'
 import { gameInfo } from './gameInfo.js'
+import { inicializarEstadoArtefactos, getArtefactoActivo, getTextoArtefacto, puedeUsarArtefacto } from './artefactos.js'
 
 /**
  * Obtiene los datos del jugador desde sessionStorage
@@ -67,21 +68,15 @@ const getMovimientosMaximos = (dificultad, numTarjetas) => {
 }
 
 /**
- * Obtiene artefacto
+ * Obtiene el ID del artefacto seleccionado desde la configuración
+ * @returns {string|null} ID del artefacto seleccionado o null
  */
 const getArtefactoSeleccionado = () => {
-
     const config = gameInfo.loadConfig()
     const artefactos = config.artefactos
-
-    if (!artefactos) return
-
-    const artefactosDisponibles = {
-        'destapar-todas': 'Destapar todas las cartas (1)',
-        'destapar-una': 'Destapar una carta (3)',
-        'mas-turnos': 'Más turnos (2)'
-    }
-    return artefactosDisponibles[artefactos]
+    
+    if (!artefactos || artefactos === '0') return null
+    return artefactos
 }
 
 /**
@@ -180,30 +175,31 @@ const crearTarjetas = (numTarjetas, tablero, time) => {
 }
 
 /**
- * Inicializa el sistema de artefactos si se selecciono alguno
+ * Inicializa el sistema de artefactos si se seleccionó alguno
  */
 const inicializarArtefacto = () => {
-
-    const artefactoSelecionado = getArtefactoSeleccionado()
-    if (!artefactoSelecionado) return
+    const artefactoSeleccionadoId = getArtefactoSeleccionado()
+    if (!artefactoSeleccionadoId) return
+    
+    // Inicializar el estado de los artefactos
+    inicializarEstadoArtefactos(artefactoSeleccionadoId)
+    
+    // Obtener el artefacto activo
+    const artefactoActivo = getArtefactoActivo()
+    if (!artefactoActivo) return
     
     // Crear el botón de usar artefacto
     const artefactoButton = document.createElement('button')
     artefactoButton.id = 'artefacto'
-    artefactoButton.textContent = artefactoSelecionado
-
-    // Cada artefacto tiene un uso limitado
-    // Al lado de cada artefacto se muestra el número de usos restantes
-        
-
-    artefactoButton.addEventListener('click', (event) => {
-        const target = event.target
-        if (target && 'textContent' in target) {
-            usarArtefacto(target.textContent)
+    artefactoButton.textContent = getTextoArtefacto(artefactoActivo.id)
+    
+    artefactoButton.addEventListener('click', () => {
+        if (puedeUsarArtefacto(artefactoActivo.id)) {
+            usarArtefacto(artefactoActivo.id)
         }
     })
 
-    // Agregar el botón de artefactos despues del botón de salir
+    // Agregar el botón de artefactos después del botón de salir
     const buttonSalir = $("salir")
     if (buttonSalir) {
         buttonSalir.parentNode?.insertBefore(artefactoButton, buttonSalir.nextSibling)

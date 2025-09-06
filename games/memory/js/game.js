@@ -6,6 +6,7 @@
 
 import { $ } from './myjquery.js'
 import { waitForElement } from './promises.js'
+import { usarArtefacto as consumirArtefacto, getTextoArtefacto, reiniciarArtefactos, getArtefactoActivo, puedeUsarArtefacto } from './artefactos.js'
 
 // Estado del juego
 let tarjetasVolteadas = []
@@ -63,42 +64,37 @@ const actualizarPuntuacion = (puntuacion) => {
 }
 
 /**
- * Actualiza la interfaz de artefactos disponibles
- */
-// const actualizarArtefactos = () => {
-//     const artefactosSelect = $("artefactos")
-//     if (!artefactosSelect) return
-    
-//     // Agregar opciones disponibles
-//     Object.entries(artefactosDisponibles).forEach(([tipo, cantidad]) => {
-//         if (cantidad > 0) {
-//             const option = document.createElement('option')
-//             option.value = tipo
-//             // option.textContent = `${getNombreArtefacto(tipo)} (${cantidad})`
-//             artefactosSelect.appendChild(option)
-//         }
-//     })
-// }
-
-/**
  * Usar artefacto seleccionado
+ * @param {string} artefactoId - ID del artefacto a usar
  */
-const usarArtefacto = (tipo) => {
-
+const usarArtefacto = (artefactoId) => {
+    // Verificar si se puede usar el artefacto
+    if (!puedeUsarArtefacto(artefactoId)) {
+        alert('Este artefacto ya no tiene usos disponibles')
+        return
+    }
+    
+    // Consumir el uso del artefacto
+    const exito = consumirArtefacto(artefactoId)
+    if (!exito) {
+        console.warn(`No se pudo usar el artefacto: ${artefactoId}`)
+        return
+    }
+    
     // Ejecutar la funcionalidad del artefacto
-    switch (tipo) {
-        case 'Destapar todas las cartas':
+    switch (artefactoId) {
+        case 'destapar-todas':
             destaparTodasLasTarjetas()
             break
-        case 'Destapar una carta':
-            activarModoDestaparUna()
-            break
-        case 'Más turnos':
+        case 'mas-turnos':
             agregarMasTurnos()
             break
         default:
-            console.warn(`Artefacto desconocido: ${tipo}`)
+            console.warn(`Artefacto desconocido: ${artefactoId}`)
     }
+    
+    // Actualizar la UI del botón de artefacto
+    actualizarBotonArtefacto()
 }
 
 /**
@@ -119,55 +115,6 @@ const destaparTodasLasTarjetas = () => {
             }
         })
     }, 3000)
-}
-
-/**
- * Activa el modo para destapar una tarjeta específica
- */
-const activarModoDestaparUna = () => {
-    const tarjetas = document.querySelectorAll('.tarjeta:not(.matched):not(.volteada)')
-    
-    if (tarjetas.length === 0) {
-        alert('No hay tarjetas disponibles para destapar')
-        return
-    }
-
-    // Agregar clase especial para indicar que se puede seleccionar
-    tarjetas.forEach(tarjeta => {
-        const htmlTarjeta = /** @type {HTMLElement} */ (tarjeta)
-        htmlTarjeta.classList.add('seleccionable')
-        htmlTarjeta.style.cursor = 'pointer'
-        htmlTarjeta.style.border = '2px solid #ffeb3b'
-    })
-
-    // Crear función de manejo de clic temporal
-    const manejarClicArtefacto = (event) => {
-        const tarjeta = event.currentTarget
-        
-        // Remover listeners y estilos de todas las tarjetas
-        tarjetas.forEach(t => {
-            const htmlT = /** @type {HTMLElement} */ (t)
-            htmlT.classList.remove('seleccionable')
-            htmlT.style.cursor = ''
-            htmlT.style.border = ''
-            htmlT.removeEventListener('click', manejarClicArtefacto)
-        })
-
-        // Mostrar la tarjeta seleccionada por 2 segundos
-        tarjeta.classList.add('volteada', 'artefacto-preview')
-        setTimeout(() => {
-            if (!tarjeta.classList.contains('matched')) {
-                tarjeta.classList.remove('volteada', 'artefacto-preview')
-            }
-        }, 2000)
-    }
-
-    // Agregar listeners a todas las tarjetas seleccionables
-    tarjetas.forEach(tarjeta => {
-        tarjeta.addEventListener('click', manejarClicArtefacto)
-    })
-
-    alert('Haz clic en una tarjeta para destaparla temporalmente')
 }
 
 /**
@@ -256,6 +203,26 @@ const verificarFinDelJuego = () => {
 }
 
 /**
+ * Actualiza el botón de artefacto con el estado actual
+ */
+const actualizarBotonArtefacto = () => {
+    const botonArtefacto = /** @type {HTMLButtonElement} */ (document.getElementById('artefacto'))
+    if (!botonArtefacto) return
+    
+    const artefactoActivo = getArtefactoActivo()
+    if (!artefactoActivo) {
+        // No hay artefactos disponibles, ocultar o deshabilitar el botón
+        botonArtefacto.disabled = true
+        botonArtefacto.textContent = 'Sin artefactos disponibles'
+        return
+    }
+    
+    // Actualizar el texto del botón
+    botonArtefacto.textContent = getTextoArtefacto(artefactoActivo.id)
+    botonArtefacto.disabled = !puedeUsarArtefacto(artefactoActivo.id)
+}
+
+/**
  * Reinicia el estado del juego
  */
 const reiniciarJuego = async () => {
@@ -267,9 +234,13 @@ const reiniciarJuego = async () => {
     // Resetear contador de movimientos restantes a movimientos máximos
     movimientosRestantes = movimientosMaximos
     
+    // Reiniciar artefactos
+    reiniciarArtefactos()
+    
     // Actualizar la interfaz
     actualizarMovimientosRestantes(movimientosRestantes)
     actualizarPuntuacion(puntuacion)
+    actualizarBotonArtefacto()
 }
 
 

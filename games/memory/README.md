@@ -1,8 +1,4 @@
-# Reto Final
-
-## Descripción
-
-### Mínimos a desarrollar
+#
 
 1. [ ] Documentar el código.
    1. [ ] Documentar el código HTML.
@@ -12,8 +8,6 @@
 2. [ ] Validar con W3C Validator de VSCode.
     1. [ ] Validar HTML.
     2. [ ] Validar CSS.
-3. [X] Arreglar reiniciar
-4. [ ] Se debe usar en el proyecto como mínimo:
+3. [ ] Se debe usar en el proyecto como mínimo:
     1. [ ] API Drag&Drop
     2. [ ] API LocalStorage
-5. [ ] Trabajar la lógica de los artefactos
