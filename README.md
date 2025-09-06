@@ -154,7 +154,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 ## 👨‍💻 Autor
 
-**Luis** - Desarrollador Full Stack
+**Luis Marrero** - Desarrollador Full Stack
 
 ---
 

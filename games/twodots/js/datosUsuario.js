@@ -44,21 +44,7 @@ function comprobacionDatosUsuario(){
     }
     return true;
 }
-/**
- * Calcula la geolocalizacion del usuario y la almacena en geolocalizacionTxt
- */
-function datoGeolocalizacion(){
-    if(!navigator.geolocation){
-        geolocalizacionTxt="El navegador no es compatible con API Geolocation";
-    }else{
-        navigator.geolocation.getCurrentPosition(
-            //Exito
-            (position)=>{geolocalizacionTxt='Latitud:'+position.coords.latitude+',longitud:'+position.coords.longitude},
-            //Error
-            ()=>{geolocalizacionTxt="La geolocalizacion no se ha podido realizar";}
-        )
-    }
-}
+
 //localStorage
 /**
  * Crea y almacena en el localStorage el histórico de entrada
