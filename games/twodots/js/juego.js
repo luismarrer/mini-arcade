@@ -1,199 +1,250 @@
-/*
-* JS Para el juego Masterdots
-*
-*/
+// @ts-check
 
-//VARIABLES GLOBALES
+/**
+ * JS Para el juego Masterdots
+ */
 
-let iniciadoMarcado=false;
-let adyacentes=[];
-let idMarcados=[];
-let classMarcada;
-let tamanoPanel;
-let idInterval;
+let iniciadoMarcado=false
+let adyacentes=[]
+let idMarcados=[]
+let classMarcada
+let idInterval = 0
+let tamano = 0
+let puntuacion = 0
 
-/* INICIALIZACIÓN DEL PANEL */
 /**
  * Devuelve un numero random entre 0 y max
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
  * @param  {} max
  */
-function getRandomInt(max) {
+const getRandomInt = (max) => {
     return Math.floor(Math.random() * max);
-}
-  
-/**
- * Funcion que rellena nick y src de avatar
- */
-function rellenarFormularioUsuario(){
-    document.getElementById("nick").value=nick;
-    document.getElementById("avatarImg").src=avatarImg;
-    tamanoPanel=parseInt(tamano);
 }
 
 /**
- * Funcion que:
- *  1.- Rellena el nick
- *  2.- Rellena el avatar
- *  3.- Pinta de forma automática el panel de juego
+ * Pinta el panel del juego
  */
-function pintarPanelJuego(){
-    document.getElementById("juego").style.gridTemplateColumns="repeat("+tamano+", 1fr)"
-    document.getElementById("juego").style.gridTemplateRows="repeat("+tamano+", 1fr)"
-    //Elementos de forma automatica
-    let items="";
-    let color=["rojo","verde"];
-    let colorRnd=0;
-    for (let index = 0; index < (parseInt(tamano)*parseInt(tamano)); index++) {
-        if(index%2>0) colorRnd=getRandomInt(2);
-        items+=`<div class="containerItem"><div id="${index}" class="item ${color[colorRnd]}"></div></div>`;
+const pintarPanelJuego = () => {
+    const tamanoPanel=sessionStorage.getItem('tamano')
+    if (!tamanoPanel) {
+        // Redirigir a la página de inicio
+        location.href="index.html" 
+        return
     }
-    document.getElementById("juego").innerHTML=items;
+    tamano = parseInt(tamanoPanel)
+    const juegoElement = document.getElementById("juego")
+    if (!juegoElement) {
+        console.error("Element with ID 'juego' not found")
+        return
+    }
+    juegoElement.style.gridTemplateColumns="repeat("+tamano+", 1fr)"
+    juegoElement.style.gridTemplateRows="repeat("+tamano+", 1fr)"
+
+    // Elementos de forma automatica
+    let items = ""
+    let color = ["rojo","verde"]
+    let colorRnd = 0
+    for (let index = 0; index < (parseInt(tamanoPanel)*parseInt(tamanoPanel)); index++) {
+        if (index%2>0) colorRnd=getRandomInt(2)
+        items+=`<div class="containerItem"><div id="${index}" class="item ${color[colorRnd]}"></div></div>`
+    }
+    juegoElement.innerHTML=items
+}
+
+/**
+ * Muestra los datos del usuario
+ */
+const mostrarDatosUsuario = () => {
+    const avatar=sessionStorage.getItem('avatarImg')
+    const nick=sessionStorage.getItem('nick')
+    const tamano=sessionStorage.getItem('tamano')
+    
+    const avatarElement = /** @type {HTMLImageElement} */ (document.getElementById("avatarImg"))
+    const nickElement = /** @type {HTMLInputElement} */ (document.getElementById("nick"))
+    const tamanoElement = /** @type {HTMLInputElement} */ (document.getElementById("tamano"))
+    
+    if (avatarElement && avatar) avatarElement.src = avatar
+    if (nickElement && nick) nickElement.innerText = `Nick: ${nick}`
+    if (tamanoElement && tamano) tamanoElement.innerText = `Tamaño: ${tamano}x${tamano}`
 }
 
 /**
  * Calcula el array de los adyacentes
- * @param  {} idMarcado número marcado
+ * @param  {Number} idMarcado número marcado
  */
-function calcularAdyacentes(idMarcado){
-    adyacentes=[];
+const calcularAdyacentes = (idMarcado) => {
+    adyacentes=[]
     //Adyacente superior
-    if((idMarcado-tamanoPanel)>=0) adyacentes.push(idMarcado-tamanoPanel);
+    if((idMarcado-tamano)>=0) adyacentes.push(idMarcado-tamano)
     //Adyacente inferior
-    if((idMarcado+tamanoPanel)<(tamanoPanel*tamanoPanel)) adyacentes.push(idMarcado+tamanoPanel);
+    if((idMarcado+tamano)<(tamano*tamano)) adyacentes.push(idMarcado+tamano)
     //Adyacente izquierda
-    if((idMarcado%tamanoPanel)>0) adyacentes.push(idMarcado-1);
+    if((idMarcado%tamano)>0) adyacentes.push(idMarcado-1)
     //Adyacente derecha
-    if(((idMarcado+1)%tamanoPanel)>0) adyacentes.push(idMarcado+1);
+    if(((idMarcado+1)%tamano)>0) adyacentes.push(idMarcado+1)
 
-    for (let index = 0; index < adyacentes.length; index++) {
-        console.log(adyacentes[index]);
-    }
 }
 
 /**
  * Funcion que realiza el conteo hacia atrás del juego
+ * En segundos
  */
-function cuentaAtras(){
-    let tmpoRestante=parseInt(document.getElementById("tmpo").value)-1;
-    document.getElementById("tmpo").value=tmpoRestante;
-    if(tmpoRestante==0){
-        clearInterval(idInterval);
-        //Finalizar todos los eventos
-        const items=document.getElementsByClassName('item');
-        for (let item of items) {
-            item.removeEventListener('mousedown',comenzarMarcar);
-            item.removeEventListener('mouseover',continuarMarcando);
+const cuentaAtras = () => {
+
+    // Inicializar el temporizador
+    let tmpoRestante = 60
+    // Elemento del temporizador
+    const tmpoElement = /** @type {HTMLInputElement} */ (document.getElementById("tmpo"))
+    if (!tmpoElement) return console.error("Element with ID 'tmpo' not found")
+
+    // bucle del temporizador
+    idInterval = setInterval(() => {
+        tmpoRestante--
+        if (tmpoRestante < 0) {
+            clearInterval(idInterval)
+            tmpoRestante = 0
+            finJuego()
         }
-        document.removeEventListener('mouseup',finalizarMarcado);
-        //Cambiar z-index paneles
-        document.getElementById("juegoAcabado").classList.add('juegoAcabadoColor');
-        document.getElementById("juegoAcabado").style.zIndex="2";
-        document.getElementById("juego").style.zIndex="1";
-        document.getElementById("nuevaPartida").addEventListener("click",(e)=>location.reload());
+        tmpoElement.innerText = `Tiempo restante: ${tmpoRestante}`
+    }, 1000)
+}
+
+/**
+ * Fin del juego
+ */
+const finJuego = () => {
+    const items=document.getElementsByClassName('item')
+    for (let item of items) {
+        item.removeEventListener('mousedown',comenzarMarcar)
+        item.removeEventListener('mouseover',continuarMarcando)
+    }
+    document.removeEventListener('mouseup',finalizarMarcado)
+
+    // Cambiar la visibilidad de los paneles
+    const juegoAcabadoElement = document.getElementById("juegoAcabado")
+    const juegoElement = document.getElementById("juego")
+    if (juegoAcabadoElement) {
+        juegoAcabadoElement.style.display="block"
+    }
+    const nuevaPartidaElement = document.getElementById("nuevaPartida")
+    if (nuevaPartidaElement) {
+        nuevaPartidaElement.addEventListener("click",(e)=>location.reload())
     }
 }
 
 /**
  * Añadir los eventos al juego
  */
-function programarEventosJuego(){
-    const items=document.getElementsByClassName('item');
+const programarEventosJuego = () => {
+    const items=document.getElementsByClassName('item')
     for (let item of items) {
-        item.addEventListener('mousedown',comenzarMarcar);
-        item.addEventListener('mouseover',continuarMarcando);
+        item.addEventListener('mousedown',comenzarMarcar)
+        item.addEventListener('mouseover',continuarMarcando)
     }
-    document.addEventListener('mouseup',finalizarMarcado);
-    //Cuenta atrás
-    idInterval=setInterval(cuentaAtras,1000)
+    document.addEventListener('mouseup',finalizarMarcado)
+
+    // Cuenta atrás
+    cuentaAtras()
 }
 
-/* FUNCIONES DEL JUEGO */
 /**
  * Iniciar el marcado de los dots
- * @param  {} event
+ * @param {Event} event
  */
-function comenzarMarcar(event){
-    let item=event.target;
-    let containerItem=event.target.parentElement;
-    if(item.classList.contains('rojo')){
-        classMarcada='rojo';
-        containerItem.classList.add('rojo');
+const comenzarMarcar = (event) => {
+    const item = /** @type {HTMLElement} */ (event.target)
+    const containerItem = item?.parentElement
+    if (!item || !containerItem) return
+    
+    if (item.classList.contains('rojo')) {
+        classMarcada='rojo'
+        containerItem.classList.add('rojo')
+    } else {
+        classMarcada='verde'
+        containerItem.classList.add('verde')
     }
-    else{
-        classMarcada='verde';
-        containerItem.classList.add('verde');
-    }
-    if(!iniciadoMarcado) iniciadoMarcado=true;
+
+    if (!iniciadoMarcado) iniciadoMarcado=true
 
     //Guardo los marcados
-    idMarcados.push(parseInt(item.id));
+    idMarcados.push(parseInt(item.id))
     //Comienzo a calcular adyacentes
-    calcularAdyacentes(parseInt(item.id));
-    console.log("Pinchado sobre un circulo");
+    calcularAdyacentes(parseInt(item.id))
 }
 
-/* FUNCIONES DEL JUEGO */
 /**
  * Continuar el marcado de los dots
- * @param  {} event
+ * @param {Event} event
  */
- function continuarMarcando(event){
-    if(iniciadoMarcado){
-        let item=event.target;
-        let idNuevo=parseInt(item.id);
+const continuarMarcando = (event) => {
+    if (iniciadoMarcado) {
+        const item = /** @type {HTMLElement} */ (event.target)
+        const containerItem = item?.parentElement
+        if (!item || !containerItem) return
+        
+        let idNuevo=parseInt(item.id)
         //Es adyacente?
         if(adyacentes.includes(idNuevo)&&item.classList.contains(classMarcada))
         {
-            let containerItem=event.target.parentElement;
-            if(item.classList.contains('rojo')) containerItem.classList.add('rojo');
-            else containerItem.classList.add('verde');
+            if(item.classList.contains('rojo')) containerItem.classList.add('rojo')
+            else containerItem.classList.add('verde')
             //Guardo los marcados
-            idMarcados.push(parseInt(item.id));
-            calcularAdyacentes(parseInt(item.id));
+            idMarcados.push(parseInt(item.id))
+            calcularAdyacentes(parseInt(item.id))
         }
 
     }
-    console.log("Pasando sobre un circulo");
  }
 
- /* FUNCIONES DEL JUEGO */
 /**
  * Finalizaría el marcado de los dots
- * @param  {} event
+ * @param {Event} event
  */
- function finalizarMarcado(event){
-    iniciadoMarcado=false;
-    adyacentes=[];
-    //Añadiriamos puntuacion
-    const puntuacionInput=document.getElementById("puntuacion");
-    if(idMarcados.length>1){
-        puntuacionInput.value=parseInt(puntuacionInput.value)+idMarcados.length;
+const finalizarMarcado = (event) => {
+    iniciadoMarcado=false
+    adyacentes=[]
+
+    // recuperar puntuacion
+    const puntuacionElement = /** @type {HTMLInputElement} */ (document.getElementById("puntuacion"))
+    if (!puntuacionElement) return console.error("Element with ID 'puntuacion' not found")
+    
+    
+
+    if(idMarcados.length > 1 && puntuacionElement){
+        puntuacion += idMarcados.length
+        puntuacionElement.innerText = `Puntuación: ${puntuacion}`
     }
-    //Trabajar con los marcados
+
+    // Trabajar con los marcados
     for (let index = 0; index < idMarcados.length; index++) {
         //Capturar el objeto
-        let itemMarcado=document.getElementById(idMarcados[index]);
-        itemMarcado.parentElement.classList.remove(classMarcada);
+        let itemMarcado=document.getElementById(idMarcados[index].toString())
+        if (itemMarcado && itemMarcado.parentElement) {
+            itemMarcado.parentElement.classList.remove(classMarcada)
+        }
         //Cambiar el color de los objetos de forma rnd
-        let color=["rojo","verde"];
-        let colorRnd=getRandomInt(2);
-        itemMarcado.classList.remove(classMarcada);
-        itemMarcado.classList.add(color[colorRnd]);
+        let color=["rojo","verde"]
+        let colorRnd=getRandomInt(2)
+        if (itemMarcado) {
+            itemMarcado.classList.remove(classMarcada)
+            itemMarcado.classList.add(color[colorRnd])
+        }
     }
-    idMarcados=[];
-    console.log("Finalizar el marcado");
+    idMarcados=[]
  }
 
-/*
-* MAIN
-*/
+ /**
+ * Inicializa el juego
+ */
+const initGame = () => {
+    pintarPanelJuego()
+    mostrarDatosUsuario()
+    programarEventosJuego()
+}
 
-//Capturamos Datos Usuaio
-getDatosUsuario();
-//Comprobamos los datos
-if(!comprobacionDatosUsuario()) location="index.html";
-//Rellenamos el formulario, panel y eventos
-rellenarFormularioUsuario();
-pintarPanelJuego();
-programarEventosJuego();
+// Inicializar cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGame)
+} else {
+    initGame()
+}

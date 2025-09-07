@@ -3,66 +3,60 @@
 *
 */
 
-var nick;
-var tamano;
-var email;
-var geolocalizacionTxt;
-var avatarImg;
-
 //sessionStorage
 
 /**
  * Almacenar los datos en el sessionStorage
- * @param  {HTMLElement} nick nick del usuario
- * @param  {HTMLElement} tamano tamaño del panel
- * @param  {HTMLElement} email email del usuario
+ * @param {String} nick nick del usuario
+ * @param {Number} tamano tamaño del panel
+ * @param {String} avatarCont avatar del usuario
  */
-function datosUsuario(nick, tamano, email,avatarCont) {
-    sessionStorage.setItem('nick',nick.value);
-    sessionStorage.setItem('tamano',tamano.value);
-    sessionStorage.setItem('email',email.value);
-    sessionStorage.setItem('geolocalizacionTxt',geolocalizacionTxt);
-    sessionStorage.setItem('avatarImg',avatarCont.src);
+const datosUsuario = (nick, tamano, avatarCont) => {
+    sessionStorage.setItem('nick', nick)
+    sessionStorage.setItem('tamano', tamano)
+    sessionStorage.setItem('avatarImg', avatarCont)
 }
+
 /**
- * Recoge los daots de la sesion del sessionStage
+ * Recoge los datos de la sesion del sessionStage
  */
-function getDatosUsuario(){
-    nick = sessionStorage.getItem('nick');
-    tamano = sessionStorage.getItem('tamano');
-    email = sessionStorage.getItem('email');
-    avatarImg = sessionStorage.getItem('avatarImg');
+const getDatosUsuario = () => {
+    nick = sessionStorage.getItem('nick')
+    tamano = parseInt(sessionStorage.getItem('tamano'))
+    avatarImg = sessionStorage.getItem('avatarImg')
 }
 
 /**
  * Comprueba si existe nick en el sessionStorage
  */
-function comprobacionDatosUsuario(){
-    if(nick==null){
-        sessionStorage.setItem('error','No se ha rellenado correctamente el formulario');
-        return false;
+const comprobacionDatosUsuario = () => {
+    if (nick == null) {
+        sessionStorage.setItem('error','No se ha rellenado correctamente el formulario')
+        return false
     }
-    return true;
+    return true
 }
 
 //localStorage
 /**
  * Crea y almacena en el localStorage el histórico de entrada
  * 
- * @param  {HTMLElement} nick nick del usuario
+ * @param  {String} nick nick del usuario
  */
-function historicoUsuarios(nick){
-    let historicoStorage=localStorage.getItem('historico');
-    let historico;
-    if(historicoStorage==null){
-        historico=[];
-    }else{
-        historico=JSON.parse(historicoStorage);
+const historicoUsuarios = (nick) => {
+    let historicoStorage=localStorage.getItem('historico')
+    let historico=[]
+    if (historicoStorage == null) {
+        historico=[]
+    } else {
+        historico=JSON.parse(historicoStorage)
     }
     let registroUsuario={
-        usuario:nick.value,
+        usuario:nick,
         fecha:Date.now()
     }
-    historico.push(registroUsuario);
-    localStorage.setItem('historico',JSON.stringify(historico));
+    historico.push(registroUsuario)
+    localStorage.setItem('historico',JSON.stringify(historico))
 }
+
+export { datosUsuario }
