@@ -73,7 +73,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    direction: row;
     gap: var(--spacing-md);
 }
 
@@ -97,7 +96,7 @@ main {
   background-color: var(--border-color);
 }
 
-#player p {
+#player h2 {
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--text-primary);

@@ -90,7 +90,7 @@ const mostrarPersonaje = (avatar, nick) => {
 
     personajeArticle.innerHTML = `
         <img src="images/avatars/${avatar}.avif" alt="Avatar ${avatar} de ${nick}" width="100">
-        <p id="nick">${nick}</p>
+        <h2 id="nick">${nick}</h2>
     `
 }
 

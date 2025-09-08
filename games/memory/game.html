@@ -1,52 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Juego de memoria">
-    <meta name="keywords" content="memory, game, juego, memoria">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Juega al Memory Game con superhéroes de DC Comics. Encuentra las parejas de cartas antes de que se acaben los movimientos.">
+    <meta name="keywords" content="memory, game, juego, memoria, superhéroes, batman, superman, dc comics">
     <meta name="author" content="Luis">
     <meta name="robots" content="index, follow">
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-    <title>Memory Game | Game</title>
+    <title>Memory Game | Jugando</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/game.css">
     <link rel="stylesheet" href="css/card.css">
-    <script type="module" src="js/userData.js" defer></script>
-    <script type="module" src="js/gameInfo.js" defer></script>
-    <script type="module" src="js/app.js" defer></script>
+    <script type="module" src="js/userData.js"></script>
+    <script type="module" src="js/gameInfo.js"></script>
+    <script type="module" src="js/app.js"></script>
 </head>
 <body>
+    <!-- Encabezado con logo del juego -->
     <header>
-        <img src="images/logo.png" alt="Logo" width="100">
+        <img src="images/logo.png" alt="Logo del arcade" width="100">
     </header>
+
+    <!-- Contenido principal del juego -->
     <main>
-        <div id="player-info">
-            <!-- Información del jugador -->
+        <!-- Panel de información del jugador y estadísticas -->
+        <section id="player-info">
+            <h2>Información del Jugador</h2>
+
+            <!-- Datos del jugador actual -->
             <article id="player">
-                <img src="" alt="Avatar">
-                <p id="nick"></p>  
+                <img src="images/avatars/batman.avif" alt="Avatar del jugador" width="100">
+                <h3 id="nick">Hero123</h3>
             </article>
-            <!-- Número de movimientos restantes -->
+
+            <!-- Contador de movimientos restantes -->
             <section id="movimientos-restantes">
+                <h3>Movimientos restantes</h3>
+                <!-- El número inicial depende de la dificultad seleccionada -->
+                <p aria-live="polite"></p>
             </section>
-            <!-- Puntuación -->
+
+            <!-- Sistema de puntuación -->
             <section id="puntuacion">
-                <h2>Puntuación</h2>
-                <!-- Siempre comienza en 0 -->
-                <p>0</p> 
+                <h3>Puntuación</h3>
+                <!-- La puntuación se calcula según aciertos y movimientos -->
+                <p aria-live="polite">0</p>
             </section>
-        </div>
-        <!-- Juego -->
-        <article id="memory-game">
-            <h2>Memory Game</h2>
-            <div id="memory-game-table">
+        </section>
+        <!-- Área principal del juego -->
+        <section id="memory-game">
+            <h2>Tablero de Juego</h2>
+
+            <!-- Contenedor dinámico para las cartas del juego -->
+            <div id="memory-game-table" role="grid" aria-label="Tablero de cartas de memoria">
+                <!-- Las cartas se generan dinámicamente por JavaScript -->
             </div>
-            <!-- Botón reiniciar regenera el tablero -->
-            <button id="reiniciar">Reiniciar</button>
-            <!-- Botón salir regresa al index -->
-            <button id="salir">Salir</button>
-        </article>
+
+            <!-- Controles del juego -->
+            <nav>
+                <!-- Reinicia la partida actual manteniendo la configuración -->
+                <button id="reiniciar" type="button">Reiniciar Partida</button>
+                <!-- Regresa al menú principal para cambiar configuración -->
+                <button id="salir" type="button">Volver al Menú</button>
+            </nav>
+        </section>
     </main>
 </body>
 </html>
