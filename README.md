@@ -82,10 +82,11 @@ mini-arcade/
 │   ├── reset.css          # Reset de estilos CSS
 │   └── styles.css         # Estilos principales
 ├── games/
+│   ├── hexapawn/          # Juego de ajedrez 3x3
 │   ├── memory/            # Juego de memoria completo
 │   ├── monkeytype/        # En desarrollo
 │   ├── stack/             # En desarrollo
-│   └── twodots/           # En desarrollo
+│   └── twodots/           # Completado
 ├── images/
 │   ├── favicon.png        # Icono del sitio
 │   └── logo.png          # Logo del Mini Arcade
@@ -142,7 +143,7 @@ mini-arcade/
 
 - [ ] Completar MonkeyType
 - [ ] Completar Stack
-- [ ] Completar Two Dots
+- [x] Completar Two Dots
 - [ ] Añadir sistema de puntuaciones global
 - [ ] Implementar modo multijugador
 - [ ] Añadir más juegos clásicos
