@@ -2,6 +2,12 @@
 
 Un juego de mini-ajedrez en un tablero de 3x3 con peones únicamente. Hexapawn es un juego de estrategia clásico que combina simplicidad con profundidad táctica.
 
+## TODO
+
+- [ ] Mover los peones
+  - [ ] Usar click para seleccionar el peón
+  - [ ] Usar click para mover el peón
+
 ## 🎮 Descripción del Juego
 
 Hexapawn es una variante simplificada del ajedrez jugada en un tablero de 3x3 con tres peones por jugador. A pesar de su simplicidad aparente, ofrece decisiones estratégicas interesantes y partidas rápidas.
