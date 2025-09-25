@@ -27,24 +27,24 @@ Este es un sencillo juego de habilidad "Two Dots" desarrollado con HTML, CSS y J
 ## Estructura del proyecto
 
 ```bash
-/
+/twodots
 |-- css/
 |   |-- estilosjuego.css
 |   |-- reset.css
-|   |-- style.css
+|   └── style.css
 |-- images/
 |   |-- avatars/
 |   |   |-- avatar1.png
 |   |   |-- ...
 |   |-- favicon.png
-|   |-- logo.png
+|   └── logo.png
 |-- js/
 |   |-- app.js
 |   |-- datosUsuario.js
-|   |-- juego.js
+|   └── juego.js
 |-- index.html
 |-- juego.html
-|-- Readme.md
+└── README.md
 ```
 
 ## Jugar
