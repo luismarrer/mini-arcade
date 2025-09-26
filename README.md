@@ -93,23 +93,8 @@ mini-arcade/
 ├── js/
 │   └── app.js            # JavaScript principal
 ├── index.html            # Página principal
-└── README.md             # Este archivo
+└── README.md             
 ```
-
-## 🚀 Instalación y Uso
-
-1. **Clona el repositorio:**
-
-   ```bash
-   git clone <url-del-repositorio>
-   cd mini-arcade
-   ```
-
-2. **Abre el proyecto:**
-   - Simplemente abre `index.html` en tu navegador
-   - O usa un servidor local como Live Server en VS Code
-
-3. **¡Disfruta jugando!**
 
 ## 🎨 Características Técnicas
 
@@ -143,7 +128,7 @@ mini-arcade/
 
 - [ ] Completar MonkeyType
 - [ ] Completar Stack
-- [x] Completar Two Dots
+- [X] Completar Two Dots
 - [ ] Añadir sistema de puntuaciones global
 - [ ] Implementar modo multijugador
 - [ ] Añadir más juegos clásicos

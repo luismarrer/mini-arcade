@@ -5,8 +5,12 @@ Un juego de mini-ajedrez en un tablero de 3x3 con peones únicamente. Hexapawn e
 ## TODO
 
 - [ ] Mover los peones
-  - [ ] Usar click para seleccionar el peón
-  - [ ] Usar click para mover el peón
+  - [X] Usar click para seleccionar el peón
+  - [X] Arrastrar y soltar para mover el peón
+  - [ ] Usar `Esc` para cancelar la selección
+- [ ] Hacer que el turno cambie
+  - [ ] Que el movimiento de la computadora se haga con un delay de 500ms
+- [ ] Hacer que el nombre del jugador se muestre en la interfaz
 
 ## 🎮 Descripción del Juego
 
@@ -32,12 +36,13 @@ Hexapawn es una variante simplificada del ajedrez jugada en un tablero de 3x3 co
 ### Controles
 
 - **Drag & Drop**: Arrastra los peones para moverlos
-- **Validación visual**: Las casillas válidas se iluminan durante el arrastre
+- **Validación visual**: Las casillas válidas se iluminan cuando le das click a uno de tus peones
 - **Teclado**: Presiona `Escape` para cancelar la selección
 
 ### Interfaz
 
 - **Estado del juego**: Muestra el turno actual y estadísticas
+- **Nombre del jugador**: Muestra el nombre del jugador
 - **Tablero interactivo**: Grid 3x3 con retroalimentación visual
 - **Controles**: Botones para nueva partida y reiniciar estadísticas
 - **Reglas**: Recordatorio de las reglas del juego
@@ -47,6 +52,7 @@ Hexapawn es una variante simplificada del ajedrez jugada en un tablero de 3x3 co
 ### Persistencia de Datos
 
 - **Estado del juego**: Se guarda automáticamente en LocalStorage
+- **Nombre del jugador**: Se guarda en LocalStorage
 - **Estadísticas**: Contador de victorias y derrotas persistente
 - **Reanudación**: Continúa la partida al recargar la página
 
@@ -73,50 +79,44 @@ hexapawn/
 │   └── logo.png       # Logo del Mini Arcade (placeholder)
 ├── js/
 │   └── app.js         # Lógica principal del juego
-├── index.html         # Página principal
+│   └── click.js       # Lógica de clics
+│   └── dragAndDrop.js # Lógica de arrastrar y soltar
+│   └── gameLogic.js   # Lógica del juego
+│   └── myjquery.js    # jQuery personalizado
+│   └── state.js       # Estado del juego
+│   └── storage.js     # Persistencia de datos
+│   └── ui.js          # Interfaz de usuario
+├── game.html          # Página del juego
+├── index.html         # Formulario de nombre del jugador
 └── README.md          # Este archivo
 ```
 
-## 🚀 Instalación y Uso
+### Organización
 
-### Requisitos
+- `game.html`: Página del juego
+- `index.html`: Formulario de nombre del jugador
+- `css/`: Contiene los archivos de estilos CSS
+- `images/`: Contiene los archivos de imágenes
+- `js/`: Contiene los archivos de JavaScript
 
-- Navegador web moderno con soporte para:
-  - ES6+ (módulos, arrow functions, const/let)
-  - Drag & Drop API
-  - LocalStorage
-  - CSS Grid y Flexbox
+#### JavaScript
 
-### Ejecución
-
-1. Clona o descarga el proyecto
-2. Abre `index.html` en tu navegador
-3. ¡Comienza a jugar!
-
-No se requiere servidor web ni instalación adicional.
-
-## 🎯 Estrategias y Consejos
-
-### Para el Jugador
-
-1. **Controla el centro**: Los peones centrales tienen más opciones de captura
-2. **Avanza con cuidado**: Cada movimiento hacia adelante es irreversible
-3. **Busca capturas**: Eliminar peones enemigos reduce sus opciones
-4. **Planifica la promoción**: Intenta crear un peón pasado
-
-### Patrones Comunes
-
-- **Apertura central**: Mover el peón del medio primero
-- **Defensa lateral**: Usar los peones laterales para bloquear
-- **Sacrificio táctico**: A veces vale la pena perder un peón para ganar posición
+- `app.js`: Lógica principal del juego
+- `click.js`: Lógica de clics
+- `dragAndDrop.js`: Lógica de arrastrar y soltar
+- `gameLogic.js`: Lógica del juego
+- `myjquery.js`: jQuery personalizado
+- `state.js`: Estado del juego
+- `storage.js`: Persistencia de datos
+- `ui.js`: Interfaz de usuario
 
 ## 🔧 Tecnologías Utilizadas
 
 ### Frontend
 
 - **HTML5**: Estructura semántica con elementos apropiados
-- **CSS3**: Grid, Flexbox, Custom Properties, animaciones
-- **JavaScript ES6+**: Módulos, clases, arrow functions
+- **CSS3**: Grid, Flexbox, Custom Properties
+- **JavaScript**: Módulos, arrow functions
 
 ### APIs del Navegador
 
@@ -124,55 +124,10 @@ No se requiere servidor web ni instalación adicional.
 - **LocalStorage**: Para persistencia de datos
 - **DOM API**: Manipulación dinámica del tablero
 
-### Características Técnicas
-
-- **Programación orientada a objetos**: Clase principal `HexapawnGame`
-- **Gestión de estado**: Estado centralizado del juego
-- **Validación de movimientos**: Lógica robusta de reglas
-- **Detección de victoria**: Algoritmos para condiciones de fin de juego
-
-## 🎨 Personalización
-
-### Colores del Tema
-
-```css
-:root {
-  --primary-color: #00ff41;    /* Verde neón */
-  --secondary-color: #ff6b35;  /* Naranja */
-  --background-dark: #0a0a0a;  /* Negro profundo */
-}
-```
-
-### Modificar la IA
-
-La lógica de la computadora está en el método `makeComputerMove()`. Puedes:
-
-- Cambiar la priorización de movimientos
-- Implementar algoritmos más sofisticados (minimax, etc.)
-- Ajustar el delay de respuesta
-
-## 🐛 Solución de Problemas
-
-### Problemas Comunes
-
-1. **Los peones no se mueven**: Verifica que sea tu turno y el juego no haya terminado
-2. **Estadísticas no se guardan**: Comprueba que LocalStorage esté habilitado
-3. **Estilos no se cargan**: Verifica las rutas de los archivos CSS
-
-### Compatibilidad
-
-- **Chrome/Edge**: Totalmente compatible
-- **Firefox**: Totalmente compatible  
-- **Safari**: Compatible (iOS 10+)
-- **Internet Explorer**: No compatible (requiere ES6+)
-
 ## 📈 Futuras Mejoras
-
-### Posibles Características
 
 - [ ] IA más inteligente con algoritmo minimax
 - [ ] Modo multijugador local
-- [ ] Diferentes niveles de dificultad
 - [ ] Animaciones de movimiento más fluidas
 - [ ] Sonidos y efectos de audio
 - [ ] Temas visuales alternativos

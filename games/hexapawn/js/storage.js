@@ -42,6 +42,7 @@ export const getInitialState = () => ({
     winner: null, // ganador
 })
 
+
 /**
  * Get statistics from localStorage
  * @returns {{wins: number, losses: number}}
