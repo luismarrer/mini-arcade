@@ -134,10 +134,6 @@ hexapawn/
 - [ ] Historial de partidas
 - [ ] Análisis de movimientos
 
-## 📄 Licencia
-
-Este proyecto es de código abierto y está disponible bajo la licencia MIT.
-
 ## 🤝 Contribuciones
 
 Las contribuciones son bienvenidas. Para cambios importantes:
