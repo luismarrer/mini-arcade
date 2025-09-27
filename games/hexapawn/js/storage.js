@@ -74,7 +74,6 @@ export const saveGameState = () => {
     if (gameState) {
         localStorage.setItem('hexapawn-game-state', JSON.stringify(gameState))
     }
-    console.log('Game state saved', gameState)
 }
 
 /**

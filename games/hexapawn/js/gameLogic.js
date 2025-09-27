@@ -47,7 +47,7 @@ export const getValidMoves = (from) => {
 }
 
 /**
- * Make a move on the board
+ * Make a move on the board and change the current player to the other one. Changes the game state and returns it.
  * @param {import('./state.js').Move} move
  */
 export const makeMove = (move) => {
@@ -72,7 +72,6 @@ export const makeMove = (move) => {
         newGameState.currentPlayer = gameState.currentPlayer === 'player' ? 'computer' : 'player'
     }
 
-    setGameState(newGameState)
     return newGameState
 }
 
