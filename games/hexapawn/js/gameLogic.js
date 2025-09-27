@@ -65,9 +65,11 @@ export const makeMove = (move) => {
         board: newBoard,
     }
 
+    // Actualizar el estado global
+    setGameState(newGameState)
+
     if (checkWinCondition(newGameState)) {
         newGameState.gameOver = true
-        // The winner is set within checkWinCondition
     } else {
         newGameState.currentPlayer = gameState.currentPlayer === 'player' ? 'computer' : 'player'
     }
@@ -80,7 +82,7 @@ export const makeMove = (move) => {
  * @param {string} player
  * @returns {import('./state.js').Move[]}
  */
-const getAllValidMovesForPlayer = (player) => {
+export const getAllValidMovesForPlayer = (player) => {
     const moves = []
     if (!gameState) return moves
 
@@ -92,6 +94,8 @@ const getAllValidMovesForPlayer = (player) => {
             }
         }
     }
+
+    console.log(`posibles movimientos para ${player}:`, moves)
 
     return moves
 }
@@ -116,9 +120,10 @@ export const checkWinCondition = (currentState) => {
     }
 
     // Check if current player has no valid moves
-    const currentPlayerMoves = getAllValidMovesForPlayer(currentState.currentPlayer)
-    if (currentPlayerMoves.length === 0) {
-        currentState.winner = currentState.currentPlayer === 'player' ? 'computer' : 'player'
+    const opponentMoves = getAllValidMovesForPlayer(currentState.currentPlayer)
+    console.log(opponentMoves)
+    if (opponentMoves.length === 0) {
+        currentState.winner = currentState.currentPlayer === 'player' ? 'player' : 'computer'
         return true
     }
 

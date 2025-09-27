@@ -1,7 +1,7 @@
 // @ts-check
 
 import { gameState, setGameState } from './state.js'
-import { getPlayerName } from './storage.js'
+import { getPlayerName, getStats, saveStats } from './storage.js'
 
 /**
  * Update the board display
@@ -55,7 +55,7 @@ export const updateDisplay = () => {
     const currentPlayerElement = document.getElementById('current-player')
     if (currentPlayerElement) {
         currentPlayerElement.textContent = gameState.gameOver
-            ? `Ganador: ${gameState.winner === 'player' ? 'Jugador' : 'Computadora'}`
+            ? `Ganador: ${gameState.winner === 'player' ? getPlayerName() || 'Jugador' : 'Computadora'}`
             : gameState.currentPlayer === 'player' ? getPlayerName() || 'Jugador' : 'Computadora'
     }
 
@@ -64,14 +64,30 @@ export const updateDisplay = () => {
 /**
  * @param {{ wins: number; losses: number; }} stats
  */
-export const updateStats = (stats) => {
+export const updateStats = (stats, winner) => {
     const winsElement = document.getElementById('wins')
     const lossesElement = document.getElementById('losses')
 
+    if (winsElement && winner === 'player') {
+        stats.wins++
+        winsElement.textContent = stats.wins.toString()
+        saveStats(stats)
+    }
+
+    if (lossesElement && winner === 'computer') {
+        stats.losses++
+        lossesElement.textContent = stats.losses.toString()
+        saveStats(stats)
+    }
+}
+
+export const showStats = () => {
+    const stats = getStats()
+    const winsElement = document.getElementById('wins')
+    const lossesElement = document.getElementById('losses')
     if (winsElement) {
         winsElement.textContent = stats.wins.toString()
     }
-
     if (lossesElement) {
         lossesElement.textContent = stats.losses.toString()
     }

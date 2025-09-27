@@ -8,8 +8,8 @@
 
 import { $ } from './myjquery.js'
 import { gameState, setGameState } from './state.js'
-import { getComputerMove, makeMove } from './gameLogic.js'
-import { updateBoardDisplay, updateDisplay, updateStats, endGame } from './ui.js'
+import { getComputerMove, makeMove, getAllValidMovesForPlayer } from './gameLogic.js'
+import { updateBoardDisplay, updateDisplay, updateStats, endGame, showStats } from './ui.js'
 import { getStats, saveStats, saveGameState, loadGameState, savePlayerName, getPlayerName, getInitialState } from './storage.js'
 import { setupDragAndDrop } from './dragAndDrop.js'
 import { handleClick } from './click.js'
@@ -58,6 +58,7 @@ export const handleMove = (move) => {
     // Actualizar el tablero visualmente
     updateBoardDisplay(newState)
     
+    
     if (newState.gameOver && newState.winner) {
         endGame(newState.winner)
     } else if (newState.currentPlayer === 'computer') {
@@ -70,7 +71,7 @@ export const handleMove = (move) => {
 const updateAndSave = () => {
     updateDisplay()
     const stats = getStats()
-    updateStats(stats)
+    updateStats(stats, gameState?.winner)
     saveGameState()
 }
 
@@ -119,6 +120,7 @@ const initGame = () => {
     } else {
         // Actualizar el tablero con el estado cargado
         updateBoardDisplay(state)
+        showStats()
         updateAndSave()
     }
 }

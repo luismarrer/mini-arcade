@@ -13,7 +13,7 @@ export const savePlayerName = (form) => {
     form.addEventListener('submit', (event) => {
         const name = /** @type {HTMLInputElement} */ ($('player-name'))?.value
         if (name) {
-            sessionStorage.setItem('player-name', name)
+            localStorage.setItem('player-name', name)
         }
     })
 }
@@ -22,7 +22,7 @@ export const savePlayerName = (form) => {
  * Recuperar nombre del jugador
  */
 export const getPlayerName = () => {
-    const playerName = sessionStorage.getItem('player-name')
+    const playerName = localStorage.getItem('player-name')
     if (playerName) {
        return playerName
     }

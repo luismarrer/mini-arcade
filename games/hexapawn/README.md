@@ -4,13 +4,9 @@ Un juego de mini-ajedrez en un tablero de 3x3 con peones únicamente. Hexapawn e
 
 ## TODO
 
-- [X] Mover los peones
-  - [X] Usar click para seleccionar el peón
-  - [X] Arrastrar y soltar para mover el peón
-  - [ ] Usar `Esc` para cancelar la selección
-- [X] Hacer que el turno cambie
-  - [X] Que el movimiento de la computadora se haga con un delay de 1500ms
-- [X] Hacer que el nombre del jugador se muestre en la interfaz
+- [ ] Usar `Esc` para cancelar la selección
+- [X] Hacer que el juego termine.
+- [ ] Modularizar el código y mejorar los comentarios.
 
 ## 🎮 Descripción del Juego
 
