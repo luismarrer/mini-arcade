@@ -1,11 +1,17 @@
 // @ts-check
 
+/**
+ * El archivo app.js es el archivo principal del juego.
+ * Aquí se inicializa el juego y se definen las funciones principales.
+ * Es por donde comienza toda la lógica.
+ */
+
 import { $ } from './myjquery.js'
 import { gameState, setGameState } from './state.js'
-import { getComputerMove, makeMove } from './gameLogic.js'
-import { updateBoardDisplay, updateDisplay, updateStats, endGame } from './ui.js'
+import { getComputerMove, makeMove, getAllValidMovesForPlayer } from './gameLogic.js'
+import { updateBoardDisplay, updateDisplay, updateStats, endGame, showStats } from './ui.js'
 import { getStats, saveStats, saveGameState, loadGameState, savePlayerName, getPlayerName, getInitialState } from './storage.js'
-import { handleDragStart, handleDragOver, handleDrop } from './dragAndDrop.js'
+import { setupDragAndDrop } from './dragAndDrop.js'
 import { handleClick } from './click.js'
 
 
@@ -42,24 +48,30 @@ const handleComputerTurn = () => {
 /**
  * @param {import('./state.js').Move} move
  */
-const handleMove = (move) => {
+export const handleMove = (move) => {
     const newState = makeMove(move)
-    if (!newState) return
+    if (!newState) return console.log('Invalid move')
 
+    // Actualizar el estado global antes de cualquier otra operación
+    setGameState(newState)
+    
+    // Actualizar el tablero visualmente
+    updateBoardDisplay(newState)
+    
+    
     if (newState.gameOver && newState.winner) {
         endGame(newState.winner)
     } else if (newState.currentPlayer === 'computer') {
-        setTimeout(handleComputerTurn, 500)
+        setTimeout(handleComputerTurn, 1500)
     }
 
     updateAndSave()
 }
 
 const updateAndSave = () => {
-    updateBoardDisplay()
     updateDisplay()
     const stats = getStats()
-    updateStats(stats)
+    updateStats(stats, gameState?.winner)
     saveGameState()
 }
 
@@ -73,9 +85,18 @@ const startNewGame = () => {
 const resetStats = () => {
     if (confirm('¿Estás seguro de que quieres reiniciar las estadísticas?')) {
         saveStats({ wins: 0, losses: 0 })
+        showStats()
         updateAndSave()
     }
 }
+
+const startOldGame = () => {
+    loadGameState()
+}
+
+/**
+ * Inicializar el juego
+ */
 
 const initGame = () => {
     showPlayerName()
@@ -83,31 +104,8 @@ const initGame = () => {
     // manejar movimientos del jugador
     const board = document.getElementById('game-board')
     if (board) {
-        board.addEventListener('dragstart', handleDragStart)
-        board.addEventListener('dragover', handleDragOver)
+        setupDragAndDrop(board, handleMove)
         board.addEventListener('click', handleClick)
-        // Custom event to handle move after drop
-        board.addEventListener('drop', (e) => {
-            handleDrop(e)
-
-            if (!e.dataTransfer || !e.target) return
-
-            const fromRow = parseInt(e.dataTransfer.getData('text/plain').split(',')[0])
-            const fromCol = parseInt(e.dataTransfer.getData('text/plain').split(',')[1])
-            const cell = /** @type {HTMLElement} */ (e.target).closest('.cell')
-
-            if (!cell) return
-
-            const toRow = parseInt(cell.dataset.row || '0')
-            const toCol = parseInt(cell.dataset.col || '0')
-
-            const move = {
-                from: { row: fromRow, col: fromCol },
-                to: { row: toRow, col: toCol },
-                isCapture: !!(gameState && gameState.board[toRow][toCol]),
-            }
-            handleMove(move)
-        })
     }
 
     const newGameBtn = document.getElementById('new-game')
@@ -125,7 +123,10 @@ const initGame = () => {
     if (!state || !state.board) {
         startNewGame()
     } else {
-        updateAndSave()
+        // Actualizar el tablero con el estado cargado
+        updateBoardDisplay(state)
+        showStats()
+        startOldGame()
     }
 }
 

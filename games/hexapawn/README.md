@@ -4,13 +4,9 @@ Un juego de mini-ajedrez en un tablero de 3x3 con peones únicamente. Hexapawn e
 
 ## TODO
 
-- [ ] Mover los peones
-  - [X] Usar click para seleccionar el peón
-  - [X] Arrastrar y soltar para mover el peón
-  - [ ] Usar `Esc` para cancelar la selección
-- [ ] Hacer que el turno cambie
-  - [ ] Que el movimiento de la computadora se haga con un delay de 500ms
-- [ ] Hacer que el nombre del jugador se muestre en la interfaz
+- [ ] Usar `Esc` para cancelar la selección
+- [X] Hacer que el juego termine.
+- [ ] Modularizar el código y mejorar los comentarios.
 
 ## 🎮 Descripción del Juego
 
@@ -59,7 +55,7 @@ Hexapawn es una variante simplificada del ajedrez jugada en un tablero de 3x3 co
 ### Inteligencia Artificial
 
 - **IA Simple**: La computadora prioriza capturas y luego movimientos aleatorios
-- **Respuesta rápida**: Movimientos con delay de 500ms para mejor UX
+- **Respuesta rápida**: Movimientos con delay de 1500ms para mejor UX
 
 ### Diseño Responsive
 
@@ -78,13 +74,13 @@ hexapawn/
 │   ├── favicon.png    # Icono del sitio (placeholder)
 │   └── logo.png       # Logo del Mini Arcade (placeholder)
 ├── js/
-│   └── app.js         # Lógica principal del juego
-│   └── click.js       # Lógica de clics
-│   └── dragAndDrop.js # Lógica de arrastrar y soltar
-│   └── gameLogic.js   # Lógica del juego
-│   └── myjquery.js    # jQuery personalizado
-│   └── state.js       # Estado del juego
-│   └── storage.js     # Persistencia de datos
+│   ├── app.js         # Lógica principal del juego
+│   ├── click.js       # Lógica de clics
+│   ├── dragAndDrop.js # Lógica de arrastrar y soltar
+│   ├── gameLogic.js   # Lógica del juego
+│   ├── myjquery.js    # jQuery personalizado
+│   ├── state.js       # Estado del juego
+│   ├── storage.js     # Persistencia de datos
 │   └── ui.js          # Interfaz de usuario
 ├── game.html          # Página del juego
 ├── index.html         # Formulario de nombre del jugador

@@ -47,7 +47,7 @@ export const getValidMoves = (from) => {
 }
 
 /**
- * Make a move on the board
+ * Make a move on the board and change the current player to the other one. Changes the game state and returns it.
  * @param {import('./state.js').Move} move
  */
 export const makeMove = (move) => {
@@ -65,14 +65,15 @@ export const makeMove = (move) => {
         board: newBoard,
     }
 
+    // Actualizar el estado global
+    setGameState(newGameState)
+
     if (checkWinCondition(newGameState)) {
         newGameState.gameOver = true
-        // The winner is set within checkWinCondition
     } else {
         newGameState.currentPlayer = gameState.currentPlayer === 'player' ? 'computer' : 'player'
     }
 
-    setGameState(newGameState)
     return newGameState
 }
 
@@ -81,7 +82,7 @@ export const makeMove = (move) => {
  * @param {string} player
  * @returns {import('./state.js').Move[]}
  */
-const getAllValidMovesForPlayer = (player) => {
+export const getAllValidMovesForPlayer = (player) => {
     const moves = []
     if (!gameState) return moves
 
@@ -93,6 +94,7 @@ const getAllValidMovesForPlayer = (player) => {
             }
         }
     }
+
 
     return moves
 }
@@ -117,9 +119,9 @@ export const checkWinCondition = (currentState) => {
     }
 
     // Check if current player has no valid moves
-    const currentPlayerMoves = getAllValidMovesForPlayer(currentState.currentPlayer)
-    if (currentPlayerMoves.length === 0) {
-        currentState.winner = currentState.currentPlayer === 'player' ? 'computer' : 'player'
+    const opponentMoves = getAllValidMovesForPlayer(currentState.currentPlayer)
+    if (opponentMoves.length === 0) {
+        currentState.winner = currentState.currentPlayer === 'player' ? 'player' : 'computer'
         return true
     }
 

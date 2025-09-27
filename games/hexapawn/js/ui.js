@@ -1,14 +1,14 @@
 // @ts-check
 
 import { gameState, setGameState } from './state.js'
-import { getPlayerName } from './storage.js'
+import { getPlayerName, getStats, saveStats } from './storage.js'
 
 /**
  * Update the board display
  */
 export const updateBoardDisplay = (newState) => {
     const board = document.getElementById('game-board')
-    if (!board || !newState || !gameState) return
+    if (!board || !newState) return
 
     board.innerHTML = ''
 
@@ -19,7 +19,7 @@ export const updateBoardDisplay = (newState) => {
             cell.dataset.row = row.toString()
             cell.dataset.col = col.toString()
 
-            const piece = gameState.board[row][col]
+            const piece = newState.board[row][col]
             if (piece) {
                 const pawn = document.createElement('div')
                 pawn.className = `pawn ${piece}-pawn`
@@ -28,11 +28,11 @@ export const updateBoardDisplay = (newState) => {
                 pawn.dataset.col = col.toString()
                 pawn.textContent = piece === 'player' ? '♙' : '♟'
 
-                if (!gameState.gameOver && piece === gameState.currentPlayer) {
+                if (!newState.gameOver && piece === newState.currentPlayer) {
                     pawn.draggable = true
                 } else {
                     pawn.draggable = false
-                    if (gameState.gameOver) {
+                    if (newState.gameOver) {
                         pawn.classList.add('disabled')
                     }
                 }
@@ -55,7 +55,7 @@ export const updateDisplay = () => {
     const currentPlayerElement = document.getElementById('current-player')
     if (currentPlayerElement) {
         currentPlayerElement.textContent = gameState.gameOver
-            ? `Ganador: ${gameState.winner === 'player' ? 'Jugador' : 'Computadora'}`
+            ? `Ganador: ${gameState.winner === 'player' ? getPlayerName() || 'Jugador' : 'Computadora'}`
             : gameState.currentPlayer === 'player' ? getPlayerName() || 'Jugador' : 'Computadora'
     }
 
@@ -64,14 +64,30 @@ export const updateDisplay = () => {
 /**
  * @param {{ wins: number; losses: number; }} stats
  */
-export const updateStats = (stats) => {
+export const updateStats = (stats, winner) => {
     const winsElement = document.getElementById('wins')
     const lossesElement = document.getElementById('losses')
 
+    if (winsElement && winner === 'player') {
+        stats.wins++
+        winsElement.textContent = stats.wins.toString()
+        saveStats(stats)
+    }
+
+    if (lossesElement && winner === 'computer') {
+        stats.losses++
+        lossesElement.textContent = stats.losses.toString()
+        saveStats(stats)
+    }
+}
+
+export const showStats = () => {
+    const stats = getStats()
+    const winsElement = document.getElementById('wins')
+    const lossesElement = document.getElementById('losses')
     if (winsElement) {
         winsElement.textContent = stats.wins.toString()
     }
-
     if (lossesElement) {
         lossesElement.textContent = stats.losses.toString()
     }
@@ -86,7 +102,9 @@ export const endGame = (winner) => {
 
     const newGameState = { ...gameState, gameOver: true, winner }
     setGameState(newGameState)
-
+    
+    // Actualizar el tablero con el nuevo estado
+    updateBoardDisplay(newGameState)
 
     // Disable all pawns
     document.querySelectorAll('.pawn').forEach(pawn => {

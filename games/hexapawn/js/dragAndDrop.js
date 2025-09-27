@@ -1,11 +1,11 @@
 // @ts-check
 
 import { gameState, validMoves, setValidMoves } from './state.js'
-import { getValidMoves, makeMove } from './gameLogic.js'
-import { clearHighlights, highlightValidMoves, updateBoardDisplay, updateDisplay } from './ui.js'
-import { saveGameState } from './storage.js'
+import { getValidMoves } from './gameLogic.js'
+import { clearHighlights, highlightValidMoves } from './ui.js'
 
 let draggedPawn = null
+let handleMoveCallback = null
 
 
 /**
@@ -102,16 +102,39 @@ const handleDrop = (event) => {
         isCapture: !!gameState?.board[toRow][toCol],
     }
 
-    if (isValidMove(move)) {
-        const newState = makeMove(move)
-        if (newState) {
-            updateBoardDisplay(newState)
-            saveGameState()
-        }
+    if (isValidMove(move) && handleMoveCallback) {
+        handleMoveCallback(move)
     }
     
     // Clean up drag over styling
     document.querySelectorAll('.cell').forEach(c => c.classList.remove('drag-over'))
+    clearHighlights()
+    
+    // Clean up dragging class
+    if (draggedPawn) {
+        draggedPawn.classList.remove('dragging')
+        draggedPawn = null
+    }
 }
 
-export { handleDragStart, handleDragOver, handleDrop }
+/**
+ * Setup drag and drop handlers
+ * @param {HTMLElement} board - The game board element
+ * @param {(move: import('./state.js').Move) => void} moveHandler - Callback to handle moves
+ */
+export const setupDragAndDrop = (board, moveHandler) => {
+    handleMoveCallback = moveHandler
+    board.addEventListener('dragstart', handleDragStart)
+    board.addEventListener('dragover', handleDragOver)
+    board.addEventListener('drop', handleDrop)
+    
+    // Add dragend event to clean up
+    board.addEventListener('dragend', (event) => {
+        const target = /** @type {HTMLElement} */ (event.target)
+        if (target && target.classList.contains('pawn')) {
+            target.classList.remove('dragging')
+        }
+        clearHighlights()
+        document.querySelectorAll('.cell').forEach(c => c.classList.remove('drag-over'))
+    })
+}
