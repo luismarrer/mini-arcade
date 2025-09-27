@@ -85,8 +85,13 @@ const startNewGame = () => {
 const resetStats = () => {
     if (confirm('¿Estás seguro de que quieres reiniciar las estadísticas?')) {
         saveStats({ wins: 0, losses: 0 })
+        showStats()
         updateAndSave()
     }
+}
+
+const startOldGame = () => {
+    loadGameState()
 }
 
 /**
@@ -121,7 +126,7 @@ const initGame = () => {
         // Actualizar el tablero con el estado cargado
         updateBoardDisplay(state)
         showStats()
-        updateAndSave()
+        startOldGame()
     }
 }
 
