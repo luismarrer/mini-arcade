@@ -103,9 +103,6 @@ const handleDrop = (event) => {
     }
 
     if (isValidMove(move) && handleMoveCallback) {
-        // Hacer el movimiento (makeMove)
-        // Actualizar el estado global antes de cualquier otra operación    
-        // Actualizar el tablero visualmente
         handleMoveCallback(move)
     }
     
