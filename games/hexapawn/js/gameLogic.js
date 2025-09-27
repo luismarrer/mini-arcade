@@ -120,7 +120,6 @@ export const checkWinCondition = (currentState) => {
 
     // Check if current player has no valid moves
     const opponentMoves = getAllValidMovesForPlayer(currentState.currentPlayer)
-    console.log(opponentMoves)
     if (opponentMoves.length === 0) {
         currentState.winner = currentState.currentPlayer === 'player' ? 'player' : 'computer'
         return true
