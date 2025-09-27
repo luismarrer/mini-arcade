@@ -95,7 +95,6 @@ export const getAllValidMovesForPlayer = (player) => {
         }
     }
 
-    console.log(`posibles movimientos para ${player}:`, moves)
 
     return moves
 }
