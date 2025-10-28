@@ -1,0 +1,53 @@
+---
+import Image from "astro/components/Image.astro"
+import logo from "@/images/logo.png"
+---
+
+<header>
+    <h1>Mini Arcade</h1>
+    <Image src={logo} alt="Logo" width={100} />
+</header>
+
+<style>
+    /* Header styles */
+    header {
+        text-align: center;
+        margin-bottom: var(--spacing-xl);
+        padding: var(--spacing-lg);
+        background: var(--surface-color);
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 6px var(--shadow-color);
+        border: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+        max-width: 600px;
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 700;
+        background: linear-gradient(
+            45deg,
+            var(--primary-color),
+            var(--secondary-color)
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 4px var(--shadow-color);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    header img {
+        border-radius: 50%;
+        box-shadow: 0 4px 8px var(--shadow-color);
+        transition: transform 0.3s ease;
+    }
+
+    header img:hover {
+        transform: scale(1.1) rotate(5deg);
+    }
+</style>

@@ -1,34 +1,13 @@
 ---
-import Image from "astro/components/Image.astro"
+import Layout from "@/layouts/Layout.astro"
+import Hero from "@/components/Hero.astro"
+import Games from "@/components/Games.astro"
 
 import "@/styles/reset.css"
 import "@/styles/styles.css"
-import logo from "@/images/logo.png"
 ---
 
-<!doctype html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="shortcut icon"
-            href="images/favicon.png"
-            type="image/x-icon"
-        />
-        <title>Mini Arcade</title>
-    </head>
-    <body>
-        <header>
-            <h1>Mini Arcade</h1>
-            <Image src={logo} alt="Logo" width={100} />
-        </header>
-        <main>
-            <a href="/games/memory">Memory de parejas (DC)</a>
-            <a href="/games/twodots">Two Dots</a>
-            <a href="/games/hexapawn">Hexapawn</a>
-            <a href="/games/monkeytype">Monkey Type</a>
-            <a href="/games/stack">Stack</a>
-        </main>
-    </body>
-</html>
+<Layout>
+    <Hero />
+    <Games />
+</Layout>
