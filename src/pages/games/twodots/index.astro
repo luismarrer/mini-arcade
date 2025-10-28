@@ -1,0 +1,146 @@
+---
+import "@/styles/reset.css"
+import "@/styles/styles.css"
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="shortcut icon"
+            href="images/favicon.png"
+            type="image/x-icon"
+        />
+        <title>Two Dots Game</title>
+        <meta
+            name="description"
+            content="Juego de memoria y habilidad Two Dots"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap"
+            rel="stylesheet"
+        />
+        <script type="module" src="./js/app.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <a href="/" aria-label="Volver a la selección de juegos"
+                ><img src="./images/logo.png" alt="Logo" width="100" /></a
+            >
+        </header>
+        <main>
+            <section>
+                <p id="error" style="display: none;"></p>
+                <form action="juego" id="formEntrada">
+                    <!-- Nick -->
+                    <fieldset class="itemform">
+                        <label for="nick">Introduce tu nick</label>
+                        <input
+                            type="text"
+                            name="nick"
+                            id="nick"
+                            required
+                            minlength="2"
+                        />
+                    </fieldset>
+                    <!-- Tamaño del juego -->
+                    <fieldset class="itemform">
+                        <label for="tamano">Tamaño del juego</label>
+                        <select name="tamano" id="tamano" required>
+                            <option value="0"
+                                >--Por favor elige un tamaño--</option
+                            >
+                            <option value="4">4x4</option>
+                            <option value="5">5x5</option>
+                            <option value="6">6x6</option>
+                        </select>
+                    </fieldset>
+                    <!-- Avatar -->
+                    <fieldset class="itemform avatar-section">
+                        <legend>Selecciona tu avatar</legend>
+                        <section id="avatarContainer">
+                            <img
+                                src="./images/avatars/avatar1.png"
+                                alt="Avatar seleccionado"
+                                id="avatarImg"
+                            />
+                        </section>
+                        <section id="avatargrid">
+                            <button
+                                type="button"
+                                class="avatarItem"
+                                data-avatar="1"
+                            >
+                                <img
+                                    src="./images/avatars/avatar1.png"
+                                    alt="Avatar 1"
+                                    width="35"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                class="avatarItem"
+                                data-avatar="2"
+                            >
+                                <img
+                                    src="./images/avatars/avatar2.png"
+                                    alt="Avatar 2"
+                                    width="35"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                class="avatarItem"
+                                data-avatar="3"
+                            >
+                                <img
+                                    src="./images/avatars/avatar3.png"
+                                    alt="Avatar 3"
+                                    width="35"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                class="avatarItem"
+                                data-avatar="4"
+                            >
+                                <img
+                                    src="./images/avatars/avatar4.png"
+                                    alt="Avatar 4"
+                                    width="35"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                class="avatarItem"
+                                data-avatar="5"
+                            >
+                                <img
+                                    src="./images/avatars/avatar5.png"
+                                    alt="Avatar 5"
+                                    width="35"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                class="avatarItem"
+                                data-avatar="6"
+                            >
+                                <img
+                                    src="./images/avatars/avatar6.png"
+                                    alt="Avatar 6"
+                                    width="35"
+                                />
+                            </button>
+                        </section>
+                    </fieldset>
+                    <button type="submit" id="jugar">JUGAR</button>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>

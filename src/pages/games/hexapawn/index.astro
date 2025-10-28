@@ -1,20 +1,23 @@
-<!DOCTYPE html>
+---
+import "./css/reset.css"
+import "./css/styles.css"
+---
+
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
     <title>Hexapawn</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
-        <a href="../../index.html"><img src="images/logo.png" alt="Logo del arcade" width="100"></a>
+        <a href="/"><img src="images/logo.png" alt="Logo del arcade" width="100"></a>
     </header>
     <main>
         <h1>Hexapawn</h1>
-        <form action="game.html" id="player-name-form">
+        <form action="game" id="player-name-form">
             <label for="player-name">Nombre del jugador:
                 <input type="text" id="player-name" name="player-name" required>
             </label>
