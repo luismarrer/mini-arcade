@@ -16,7 +16,7 @@ import "@/styles/global.css"
         />
         <title>Mini Arcade</title>
     </head>
-    <body>
+    <body class="flex flex-col min-h-screen bg-primary">
         <Header />
         <main>
             <slot />
@@ -24,3 +24,13 @@ import "@/styles/global.css"
         <Footer />
     </body>
 </html>
+
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+        align-items: center;
+        padding: var(--spacing-md);
+    }
+</style>
