@@ -1,36 +1,74 @@
 # 🎮 Mini Arcade ✨
 
-A collection of games in only one page web developed with web technologies.
+A collection of web games — all in one site, built with modern web technologies.
+
+![Mini Arcade Preview](preview.png)
 
 ## Description
 
-This project is a collection of games that I have been creating for fun and learning purposes. Some are born as a result of courses, others in more self-taught ways, such as experimenting with a web API, for example.
+This project is a collection of small web games built for fun and learning.  
+Some were born from online courses, while others came from curiosity — experimenting with web APIs, design ideas, or simply exploring how far plain web technologies can go.
 
-## 🌐 Live Demo
+## Live Demo 🌐
 
 The project is available online via GitHub Pages:
 
 **[🎮 Play Now - Mini Arcade](https://luismarrer.github.io/mini-arcade/index.html)**
 
-## Design
+## Design 🎨
 
 See the UI design in [Figma](https://www.figma.com/design/FEBHZo4guKObNeA8UTbSfK/Mini-Arcade?node-id=0-1&t=gLYkOVYzIx4Otxnm-1)
 
-## 🤝 Contributing
+## Stack 🛠️
 
-I welcome any contributions to the project. If you have any suggestions or find any bugs, please open an issue or submit a pull request.
+### Web
 
-## 📝 TODO
+- [Astro](https://astro.build/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+
+### Games
+
+#### Vanilla technologies (HTML, CSS, JS)
+
+- Hexapawn
+- Memory
+- Two Dots
+
+#### React
+
+- Hangman
+
+## Contributing 🤝
+
+Contributions are welcome!  
+If you have suggestions or find bugs, please open an issue or submit a pull request.
+
+## TODO 📝
+
+### Web Development
 
 - [ ] Complete migration to Astro
+- [ ] Convert all games to Astro components
+
+### Games to be completed
+
+- [X] Complete Two Dots
 - [ ] Complete MonkeyType
 - [ ] Complete Stack
-- [X] Complete Two Dots
+- [ ] Hangman
+
+### Features
+
 - [ ] Add global scoring system
 - [ ] Implement multiplayer mode
-- [ ] Add more classic games
+- [ ] Add more classic titles
 - [ ] PWA (Progressive Web App)
 
-## 📄 License
+## License 📄
 
-This project is under the MIT License - see the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
+
+---
+
+👨‍💻 Developed with ❤️ by [Luis Marrero](https://luismarrer.github.io/en)

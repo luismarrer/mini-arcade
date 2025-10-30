@@ -1,71 +1,90 @@
 ---
-import "./css/reset.css"
 import "./css/game.css"
 import "./css/card.css"
 ---
 
 <!doctype html>
 <html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Juega al Memory Game con superhéroes de DC Comics. Encuentra las parejas de cartas antes de que se acaben los movimientos.">
-    <meta name="keywords" content="memory, game, juego, memoria, superhéroes, batman, superman, dc comics">
-    <meta name="author" content="Luis">
-    <meta name="robots" content="index, follow">
-    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-    <title>Memory Game | Jugando</title>
-    <script type="module" src="./js/userData.js"></script>
-    <script type="module" src="./js/gameInfo.js"></script>
-    <script type="module" src="./js/app.js"></script>
-</head>
-<body>
-    <!-- Encabezado con logo del juego -->
-    <header>
-        <img src="images/logo.png" alt="Logo del arcade" width="100">
-    </header>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="Juega al Memory Game con superhéroes de DC Comics. Encuentra las parejas de cartas antes de que se acaben los movimientos."
+        />
+        <meta
+            name="keywords"
+            content="memory, game, juego, memoria, superhéroes, batman, superman, dc comics"
+        />
+        <meta name="author" content="Luis" />
+        <meta name="robots" content="index, follow" />
+        <link
+            rel="shortcut icon"
+            href="images/favicon.png"
+            type="image/x-icon"
+        />
+        <title>Memory Game | Jugando</title>
+        <script type="module" src="./js/userData.js"></script>
+        <script type="module" src="./js/gameInfo.js"></script>
+        <script type="module" src="./js/app.js"></script>
+    </head>
+    <body>
+        <!-- Encabezado con logo del juego -->
+        <header>
+            <img src="images/logo.png" alt="Logo del arcade" width="100" />
+        </header>
 
-    <!-- Contenido principal del juego -->
-    <main>
-        <!-- Panel de información del jugador y estadísticas -->
-        <section id="player-info">
-            <!-- Datos del jugador actual -->
-            <article id="player">
-                <img src="images/avatars/batman.avif" alt="Avatar del jugador" width="100">
-                <h3 id="nick">Hero123</h3>
-            </article>
+        <!-- Contenido principal del juego -->
+        <main>
+            <!-- Panel de información del jugador y estadísticas -->
+            <section id="player-info">
+                <!-- Datos del jugador actual -->
+                <article id="player">
+                    <img
+                        src="images/avatars/batman.avif"
+                        alt="Avatar del jugador"
+                        width="100"
+                    />
+                    <h3 id="nick">Hero123</h3>
+                </article>
 
-            <!-- Contador de movimientos restantes -->
-            <section id="movimientos-restantes">
-                <h3>Movimientos restantes</h3>
-                <!-- El número inicial depende de la dificultad seleccionada -->
-                <p aria-live="polite"></p>
+                <!-- Contador de movimientos restantes -->
+                <section id="movimientos-restantes">
+                    <h3>Movimientos restantes</h3>
+                    <!-- El número inicial depende de la dificultad seleccionada -->
+                    <p aria-live="polite"></p>
+                </section>
+
+                <!-- Sistema de puntuación -->
+                <section id="puntuacion">
+                    <h3>Puntuación</h3>
+                    <!-- La puntuación se calcula según aciertos y movimientos -->
+                    <p aria-live="polite">0</p>
+                </section>
             </section>
+            <!-- Área principal del juego -->
+            <section id="memory-game">
+                <h2>Tablero de Juego</h2>
 
-            <!-- Sistema de puntuación -->
-            <section id="puntuacion">
-                <h3>Puntuación</h3>
-                <!-- La puntuación se calcula según aciertos y movimientos -->
-                <p aria-live="polite">0</p>
+                <!-- Contenedor dinámico para las cartas del juego -->
+                <div
+                    id="memory-game-table"
+                    role="grid"
+                    aria-label="Tablero de cartas de memoria"
+                >
+                    <!-- Las cartas se generan dinámicamente por JavaScript -->
+                </div>
+
+                <!-- Controles del juego -->
+                <nav>
+                    <!-- Reinicia la partida actual manteniendo la configuración -->
+                    <button id="reiniciar" type="button"
+                        >Reiniciar Partida</button
+                    >
+                    <!-- Regresa al menú principal para cambiar configuración -->
+                    <button id="salir" type="button">Volver al Menú</button>
+                </nav>
             </section>
-        </section>
-        <!-- Área principal del juego -->
-        <section id="memory-game">
-            <h2>Tablero de Juego</h2>
-
-            <!-- Contenedor dinámico para las cartas del juego -->
-            <div id="memory-game-table" role="grid" aria-label="Tablero de cartas de memoria">
-                <!-- Las cartas se generan dinámicamente por JavaScript -->
-            </div>
-
-            <!-- Controles del juego -->
-            <nav>
-                <!-- Reinicia la partida actual manteniendo la configuración -->
-                <button id="reiniciar" type="button">Reiniciar Partida</button>
-                <!-- Regresa al menú principal para cambiar configuración -->
-                <button id="salir" type="button">Volver al Menú</button>
-            </nav>
-        </section>
-    </main>
-</body>
+        </main>
+    </body>
 </html>
