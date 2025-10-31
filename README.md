@@ -2,6 +2,8 @@
 
 Una colección de juegos web clásicos desarrollados con tecnologías web modernas (HTML5, CSS3, JavaScript ES6+).
 
+![Mini Arcade Preview](preview.png)
+
 ## 🌐 Demo en Vivo
 
 El proyecto está disponible en línea a través de GitHub Pages:
