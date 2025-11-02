@@ -13,16 +13,6 @@
   --font-family: 'Courier New', monospace;
 }
 
-/* Base Styles */
-body {
-  background: linear-gradient(135deg, var(--background-dark) 0%, var(--background-medium) 100%);
-  color: var(--text-primary);
-  font-family: var(--font-family);
-  line-height: 1.6;
-  display: flex;
-  flex-direction: column;
-}
-
 /* Utility Classes */
 .visually-hidden {
   position: absolute;
@@ -34,53 +24,6 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-/* Header */
-header {
-  background: var(--background-medium);
-  border-bottom: 0.125rem solid var(--primary-color);
-  padding: 1rem;
-  text-align: center;
-  box-shadow: var(--shadow-glow);
-}
-
-.logo {
-  max-width: 3rem;
-  height: auto;
-  margin-bottom: 0.5rem;
-  filter: drop-shadow(var(--shadow-glow));
-}
-
-h1 {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  text-shadow: 0 0 0.5rem var(--primary-color);
-  letter-spacing: 0.125rem;
-  text-transform: uppercase;
-}
-
-/* Main Content */
-main {
-  flex: 1;
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: center;
-  max-width: 50rem;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* Section Headings */
-h2 {
-  color: var(--secondary-color);
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.0625rem;
 }
 
 /* Game Info Section */
@@ -298,16 +241,6 @@ h2 {
   top: 0;
 }
 
-/* Footer */
-footer {
-  background: var(--background-medium);
-  border-top: 0.125rem solid var(--primary-color);
-  padding: 1rem;
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 0.875rem;
-}
-
 /* Responsive Design */
 @media (max-width: 30rem) {
   h1 {
@@ -365,82 +298,6 @@ footer {
 /* Focus styles for keyboard navigation */
 .btn:focus-visible,
 .pawn:focus-visible {
-  outline: 0.125rem solid var(--primary-color);
-  outline-offset: 0.125rem;
-}
-
-/* Forms */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: center;
-  background: var(--background-light);
-  border: 0.125rem solid var(--border-color);
-  border-radius: 0.5rem;
-  padding: 2rem;
-  width: 100%;
-  max-width: 25rem;
-}
-
-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  font-size: 1rem;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 0.0625rem;
-  font-weight: bold;
-  text-shadow: 0 0 0.25rem var(--primary-color);
-  width: 100%;
-}
-
-form input[type="text"] {
-  background: var(--background-medium);
-  border: 0.125rem solid var(--border-color);
-  border-radius: 40px;
-  padding: 0.75rem;
-  font-family: var(--font-family);
-  color: var(--text-primary);
-  font-size: 1rem;
-  width: 100%;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-form input[type="text"]:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-glow);
-}
-
-form button {
-  background: var(--background-medium);
-  color: var(--primary-color);
-  border: 0.125rem solid var(--primary-color);
-  padding: 0.75rem 1.5rem;
-  font-family: var(--font-family);
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.0625rem;
-  cursor: pointer;
-  border-radius: 0.25rem;
-  transition: all 0.2s ease;
-  min-width: 8rem;
-}
-
-form button:hover {
-  background: var(--primary-color);
-  color: var(--background-dark);
-  box-shadow: var(--shadow-glow);
-  transform: translateY(-0.125rem);
-}
-
-form button:active {
-  transform: translateY(0);
-}
-
-form button:focus-visible {
   outline: 0.125rem solid var(--primary-color);
   outline-offset: 0.125rem;
 }
