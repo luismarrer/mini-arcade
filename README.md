@@ -49,6 +49,8 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 ### Web Development
 
 - [ ] Complete migration to Astro
+  - [ ] Complete migration to Vercel
+  - [ ] Complete migration to Tailwind CSS
 - [ ] Convert all games to Astro components
 
 ### Games to be completed
