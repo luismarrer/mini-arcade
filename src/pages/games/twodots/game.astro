@@ -1,6 +1,5 @@
 ---
 import Layout from "@/layouts/Layout.astro"
-import "./css/estilosjuego.css"
 ---
 
 <Layout>
@@ -13,8 +12,7 @@ import "./css/estilosjuego.css"
                     <button id="nuevaPartida">Play again</button>
                 </div>
             </div>
-            <div id="juego" role="grid" aria-label="Two Dots game board">
-            </div>
+            <div id="juego" role="grid" aria-label="Two Dots game board"></div>
         </section>
         <header id="tituloJuego">
             <h1>Two Dots</h1>
@@ -22,11 +20,7 @@ import "./css/estilosjuego.css"
     </section>
     <aside id="contenedorUsuario">
         <h2>Player information</h2>
-        <section
-            id="usuarioInfo"
-            role="region"
-            aria-label="Player information"
-        >
+        <section id="usuarioInfo" role="region" aria-label="Player information">
             <img
                 src="./images/avatars/avatar1.png"
                 id="avatarImg"
@@ -35,12 +29,8 @@ import "./css/estilosjuego.css"
             <p id="nick" aria-label="Player name"></p>
             <div class="user-stats">
                 <p id="tamano" aria-label="Board size"></p>
-                <p id="puntuacion" aria-label="Current score">
-                    Score: 0
-                </p>
-                <p id="tmpo" aria-label="Remaining time">
-                    Remaining time: 60
-                </p>
+                <p id="puntuacion" aria-label="Current score">Score: 0</p>
+                <p id="tmpo" aria-label="Remaining time">Remaining time: 60</p>
             </div>
         </section>
     </aside>
