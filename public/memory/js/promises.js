@@ -2,7 +2,7 @@
 import { $ } from './myjquery.js'
 
 /**
- * Verifica si un elemento existe y tiene contenido
+ * Checks if an element exists and has content
  * 
  * @param {HTMLElement | null} section 
  * @param {string} element 
@@ -17,12 +17,12 @@ const checkElement = (section = $("movimientos-restantes"), element = "p", resol
             if (Element && Element.textContent) {
                 return resolve(Element.textContent)
             } else {
-                setTimeout(() => checkElement(section, element, resolve), 100) // Revisar cada 100ms
+                setTimeout(() => checkElement(section, element, resolve), 100) // Check every 100ms
             }
         }
 
 /**
- * Espera a que un elemento sea creado
+ * Waits for an element to be created
  * @param {HTMLElement | null} section 
  * @param {string} element 
  * @returns {Promise<string>} 

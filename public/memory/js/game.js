@@ -1,14 +1,14 @@
 // @ts-check
 
 /**
- * Este archivo contiene la lógica del juego
+ * This file contains the game logic
  */
 
 import { $ } from './myjquery.js'
 import { waitForElement } from './promises.js'
 import { usarArtefacto as consumirArtefacto, getTextoArtefacto, reiniciarArtefactos, getArtefactoActivo, puedeUsarArtefacto } from './artefactos.js'
 
-// Estado del juego
+// Game state
 let tarjetasVolteadas = []
 let bloqueado = false
 let movimientosRestantes = 0
@@ -16,72 +16,72 @@ let puntuacion = 0
 let movimientosMaximos = 0
 
 /**
- * Promesa de conseguir el número máximo de movimientos
- * @returns {Promise<number>} Número máximo de movimientos
+ * Promise to get the maximum number of moves
+ * @returns {Promise<number>} Maximum number of moves
  */
 const getMovimientosMaximos = async () => {
-    // La sección de movimientos restantes
+    // The remaining moves section
     const movimientosRestantesSection = $("movimientos-restantes")
     
-    // Esperar a que el elemento <p> sea creado con el número máximo de movimientos
+    // Wait for the <p> element to be created with the maximum number of moves
     const movimientosMaximosEncontrados = await waitForElement(movimientosRestantesSection, "p")
 
-    // Convertir el número máximo de movimientos a entero
+    // Convert the maximum number of moves to integer
     const movimientosMaximos = parseInt(movimientosMaximosEncontrados)
     return movimientosMaximos
 }
 
-// Inicializar el contador de movimientos restantes con el máximo de movimientos pósibles. El máximo de movimientos posible sale de la promesa resuelta. 
+// Initialize the remaining moves counter with the maximum possible moves. The maximum possible moves come from the resolved promise. 
 getMovimientosMaximos().then(maxMovimientos => {
     movimientosMaximos = maxMovimientos
     movimientosRestantes = movimientosMaximos
 })
 
 /**
- * Actualiza el número de movimientos restantes
- * @param {number} movimientosRestantes - Número de movimientos restantes
+ * Updates the number of remaining moves
+ * @param {number} movimientosRestantes - Number of remaining moves
  */
 const actualizarMovimientosRestantes = (movimientosRestantes) => {
     const movimientosRestantesSection = $("movimientos-restantes")
     if (!movimientosRestantesSection) return
     movimientosRestantesSection.innerHTML = `
-        <h2>Movimientos restantes</h2>
+        <h2>Remaining moves</h2>
         <p>${movimientosRestantes}</p>
     `
 }
 
 /**
- * Actualiza la puntuación
- * @param {number} puntuacion - Puntuación
+ * Updates the score
+ * @param {number} puntuacion - Score
  */
 const actualizarPuntuacion = (puntuacion) => {
     const puntuacionSection = $("puntuacion")
     if (!puntuacionSection) return
     puntuacionSection.innerHTML = `
-        <h2>Puntuación</h2>
+        <h2>Score</h2>
         <p>${puntuacion}</p>
     `
 }
 
 /**
- * Usar artefacto seleccionado
- * @param {string} artefactoId - ID del artefacto a usar
+ * Use selected artifact
+ * @param {string} artefactoId - ID of the artifact to use
  */
 const usarArtefacto = (artefactoId) => {
-    // Verificar si se puede usar el artefacto
+    // Check if the artifact can be used
     if (!puedeUsarArtefacto(artefactoId)) {
-        alert('Este artefacto ya no tiene usos disponibles')
+        alert('This artifact has no available uses left')
         return
     }
     
-    // Consumir el uso del artefacto
+    // Consume the artifact use
     const exito = consumirArtefacto(artefactoId)
     if (!exito) {
-        console.warn(`No se pudo usar el artefacto: ${artefactoId}`)
+        console.warn(`Could not use artifact: ${artefactoId}`)
         return
     }
     
-    // Ejecutar la funcionalidad del artefacto
+    // Execute artifact functionality
     switch (artefactoId) {
         case 'destapar-todas':
             destaparTodasLasTarjetas()
@@ -90,20 +90,20 @@ const usarArtefacto = (artefactoId) => {
             agregarMasTurnos()
             break
         default:
-            console.warn(`Artefacto desconocido: ${artefactoId}`)
+            console.warn(`Unknown artifact: ${artefactoId}`)
     }
     
-    // Actualizar la UI del botón de artefacto
+    // Update artifact button UI
     actualizarBotonArtefacto()
 }
 
 /**
- * Destapa todas las tarjetas temporalmente
+ * Reveals all cards temporarily
  */
 const destaparTodasLasTarjetas = () => {
     const tarjetas = document.querySelectorAll('.tarjeta:not(.matched)')
     
-    // Mostrar todas las tarjetas por 3 segundos
+    // Show all cards for 3 seconds
     tarjetas.forEach(tarjeta => {
         tarjeta.classList.add('volteada', 'artefacto-preview')
     })
@@ -118,78 +118,78 @@ const destaparTodasLasTarjetas = () => {
 }
 
 /**
- * Agrega más turnos al juego
+ * Adds more turns to the game
  */
 const agregarMasTurnos = () => {
     const turnosExtra = 5
     movimientosRestantes += turnosExtra
     actualizarMovimientosRestantes(movimientosRestantes)
-    alert(`¡Has ganado ${turnosExtra} movimientos adicionales!`)
+    alert(`You've gained ${turnosExtra} additional moves!`)
 }
 
 /**
- * Voltea una tarjeta
- * @param {HTMLElement} tarjeta - La tarjeta a voltear
- * @param {number} time - Tiempo en segundos que se espera antes de voltear las dos tarjetas volteadas
+ * Flips a card
+ * @param {HTMLElement} tarjeta - The card to flip
+ * @param {number} time - Time in seconds to wait before flipping the two flipped cards
  */
 const voltearTarjeta = (tarjeta, time) => {
 
-    // No permitir voltear si el juego está bloqueado, la tarjeta ya está volteada o emparejada
+    // Don't allow flipping if the game is locked, the card is already flipped or matched
     if (bloqueado || tarjeta.classList.contains('volteada') || tarjeta.classList.contains('matched')) return
     
-    // Cada vez que se volte una tarjeta se resta un movimiento hasta llegar a 0
-    if (movimientosRestantes <= 0) return alert('¡Has perdido!')
+    // Each time a card is flipped, a move is subtracted until reaching 0
+    if (movimientosRestantes <= 0) return alert('You lost!')
     movimientosRestantes--
     actualizarMovimientosRestantes(movimientosRestantes)
 
-    // No permitir más de 2 tarjetas volteadas
+    // Don't allow more than 2 cards flipped
     if (tarjetasVolteadas.length >= 2) return
     
     tarjeta.classList.add('volteada')
     tarjetasVolteadas.push(tarjeta)
 
     
-    // Si hay 2 tarjetas volteadas, verificar si coinciden
+    // If there are 2 cards flipped, check if they match
     if (tarjetasVolteadas.length === 2) {
         verificarCoincidencia(time)
     }
 }
 
 /**
- * Verifica si las dos tarjetas volteadas coinciden
- * @param {number} time - Tiempo en segundos que se espera antes de voltear las dos tarjetas volteadas
+ * Checks if the two flipped cards match
+ * @param {number} time - Time in seconds to wait before flipping the two flipped cards
  */
 const verificarCoincidencia = (time) => {
     bloqueado = true
     const [tarjeta1, tarjeta2] = tarjetasVolteadas
     
-    // Verificar si las tarjetas tienen el mismo contenido
+    // Check if cards have the same content
     const coinciden = tarjeta1.dataset.content === tarjeta2.dataset.content
     
     setTimeout(() => {
         if (coinciden) {
-            // Marcar como emparejadas
+            // Mark as matched
             tarjeta1.classList.add('matched')
             tarjeta2.classList.add('matched')
             puntuacion++
             actualizarPuntuacion(puntuacion)
         } else {
-            // Voltear de vuelta
+            // Flip back
             tarjeta1.classList.remove('volteada')
             tarjeta2.classList.remove('volteada')
         }
         
-        // Resetear estado
+        // Reset state
         tarjetasVolteadas = []
         bloqueado = false
         
-        // Verificar si el juego ha terminado
+        // Check if the game is over
         verificarFinDelJuego()
-    }, time) // Esperar time segundos antes de resetear
+    }, time) // Wait time seconds before resetting
 }
 
 /**
- * Verifica si todas las tarjetas han sido emparejadas
+ * Checks if all cards have been matched
  */
 const verificarFinDelJuego = () => {
     const todasLasTarjetas = document.querySelectorAll('.tarjeta')
@@ -197,13 +197,13 @@ const verificarFinDelJuego = () => {
     
     if (todasLasTarjetas.length === tarjetasEmparejadas.length) {
         setTimeout(() => {
-            alert('¡Felicidades! Has completado el juego.')
+            alert('Congratulations! You completed the game.')
         }, 500)
     }
 }
 
 /**
- * Actualiza el botón de artefacto con el estado actual
+ * Updates the artifact button with the current state
  */
 const actualizarBotonArtefacto = () => {
     const botonArtefacto = /** @type {HTMLButtonElement} */ (document.getElementById('artefacto'))
@@ -211,33 +211,33 @@ const actualizarBotonArtefacto = () => {
     
     const artefactoActivo = getArtefactoActivo()
     if (!artefactoActivo) {
-        // No hay artefactos disponibles, ocultar o deshabilitar el botón
+        // No artifacts available, hide or disable button
         botonArtefacto.disabled = true
-        botonArtefacto.textContent = 'Sin artefactos disponibles'
+        botonArtefacto.textContent = 'No artifacts available'
         return
     }
     
-    // Actualizar el texto del botón
+    // Update button text
     botonArtefacto.textContent = getTextoArtefacto(artefactoActivo.id)
     botonArtefacto.disabled = !puedeUsarArtefacto(artefactoActivo.id)
 }
 
 /**
- * Reinicia el estado del juego
+ * Resets the game state
  */
 const reiniciarJuego = async () => {
-    // Resetear variables de estado
+    // Reset state variables
     tarjetasVolteadas = []
     bloqueado = false
     puntuacion = 0
     
-    // Resetear contador de movimientos restantes a movimientos máximos
+    // Reset remaining moves counter to maximum moves
     movimientosRestantes = movimientosMaximos
     
-    // Reiniciar artefactos
+    // Reset artifacts
     reiniciarArtefactos()
     
-    // Actualizar la interfaz
+    // Update interface
     actualizarMovimientosRestantes(movimientosRestantes)
     actualizarPuntuacion(puntuacion)
     actualizarBotonArtefacto()

@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * Este archivo inicializa el juego
+ * This file initializes the game
  */
 
 import { $ } from './myjquery.js'
@@ -10,20 +10,20 @@ import { gameInfo } from './gameInfo.js'
 import { inicializarEstadoArtefactos, getArtefactoActivo, getTextoArtefacto, puedeUsarArtefacto } from './artefactos.js'
 
 /**
- * Obtiene los datos del jugador desde sessionStorage
- * @returns {Object} Los datos del jugador
+ * Gets player data from sessionStorage
+ * @returns {Object} The player data
  */
 const getPlayerData = () => {
     const data = sessionStorage.getItem('memoryGamePlayer')
     return data ? JSON.parse(data) : {
-        nick: 'Jugador',
+        nick: 'Player',
         avatar: 'batman'
     }
 }
 
 /**
- * Obtiene la configuración del juego desde sessionStorage
- * @returns {Object} La configuración del juego
+ * Gets game configuration from sessionStorage
+ * @returns {Object} The game configuration
  */
 const getGameConfig = () => {
     const data = sessionStorage.getItem('memoryGameConfig')
@@ -34,24 +34,24 @@ const getGameConfig = () => {
 }
 
 /**
- * Obtiene el tiempo límite basado en la dificultad
- * @param {string} dificultad - Nivel de dificultad
- * @returns {number} Tiempo en milisegundos
+ * Gets the time limit based on difficulty
+ * @param {string} dificultad - Difficulty level
+ * @returns {number} Time in milliseconds
  */
 const getTiempoLimite = (dificultad) => {
     const tiempos = {
-        baja: 2000,    // 2 segundos
-        media: 1000,    // 1 segundo
-        alta: 500      // 0.5 segundos
+        baja: 2000,    // 2 seconds
+        media: 1000,    // 1 second
+        alta: 500      // 0.5 seconds
     }
     return tiempos[dificultad] || tiempos.baja
 }
 
 /**
- * Obtiene el número máximo de movimientos basado en la dificultad y el número de tarjetas
- * @param {string} dificultad - Nivel de dificultad
- * @param {number} numTarjetas - Número de tarjetas para el juego
- * @returns {number} Número máximo de movimientos
+ * Gets the maximum number of moves based on difficulty and number of cards
+ * @param {string} dificultad - Difficulty level
+ * @param {number} numTarjetas - Number of cards for the game
+ * @returns {number} Maximum number of moves
  */
 const getMovimientosMaximos = (dificultad, numTarjetas) => {
 
@@ -68,8 +68,8 @@ const getMovimientosMaximos = (dificultad, numTarjetas) => {
 }
 
 /**
- * Obtiene el ID del artefacto seleccionado desde la configuración
- * @returns {string|null} ID del artefacto seleccionado o null
+ * Gets the selected artifact ID from configuration
+ * @returns {string|null} Selected artifact ID or null
  */
 const getArtefactoSeleccionado = () => {
     const config = gameInfo.loadConfig()
@@ -80,62 +80,62 @@ const getArtefactoSeleccionado = () => {
 }
 
 /**
- * Muestra la información del personaje seleccionado
- * @param {string} avatar - El avatar seleccionado
- * @param {string} nick - El nick del jugador
+ * Displays the selected character information
+ * @param {string} avatar - The selected avatar
+ * @param {string} nick - The player's nickname
  */
 const mostrarPersonaje = (avatar, nick) => {
     const personajeArticle = $("player")
     if (!personajeArticle) return
 
     personajeArticle.innerHTML = `
-        <img src="images/avatars/${avatar}.avif" alt="Avatar ${avatar} de ${nick}" width="100">
+        <img src="images/avatars/${avatar}.avif" alt="Avatar ${avatar} for ${nick}" width="100">
         <h2 id="nick">${nick}</h2>
     `
 }
 
 /**
- * Muestra el número de movimientos restantes
- * @param {number} movimientosRestantes - Número de movimientos restantes
+ * Displays the number of remaining moves
+ * @param {number} movimientosRestantes - Number of remaining moves
  */
 const mostrarMovimientosRestantes = (movimientosRestantes) => {
     const movimientosRestantesSection = $("movimientos-restantes")
     if (!movimientosRestantesSection) return
     movimientosRestantesSection.innerHTML = `
-        <h2>Movimientos restantes</h2>
+        <h2>Remaining moves</h2>
         <p>${movimientosRestantes}</p>
     `
 }
 
 /**
- * Crea las tarjetas del tablero
- * @param {number} numTarjetas - Número de tarjetas para el juego
- * @param {HTMLElement} tablero - El tablero donde se crearán las tarjetas
- * @param {number} time - Tiempo en segundos que se espera antes de voltear las dos tarjetas volteadas
+ * Creates the board cards
+ * @param {number} numTarjetas - Number of cards for the game
+ * @param {HTMLElement} tablero - The board where cards will be created
+ * @param {number} time - Time in seconds to wait before flipping the two flipped cards
  */
 const crearTarjetas = (numTarjetas, tablero, time) => {
-    if (!tablero) return console.error("No se encontró el tablero")
+    if (!tablero) return console.error("Board not found")
     
-    // Array de imágenes disponibles para las tarjetas
+    // Array of available images for cards
     const imagenes_tarjetas = [
         'alfred-pennyworth', 'bane', 'batwoman', 'bizarro', 'brainiac',
         'doomsday', 'krypto', 'lex-luthor', 'lois-lane', 'nightwing',
         'riddler', 'robin', 'scarecrow', 'the-joker', 'two-face'
     ]
     
-    // Crear pares de tarjetas
+    // Create pairs of cards
     const pares = []
     const numPares = numTarjetas / 2
     
-    // Seleccionar imágenes aleatorias para los pares
+    // Select random images for pairs
     const imagenesSeleccionadas = [...imagenes_tarjetas].sort(() => Math.random() - 0.5).slice(0, numPares)
     
-    // Crear array con pares duplicados
+    // Create array with duplicate pairs
     imagenesSeleccionadas.forEach(imagen => {
         pares.push(imagen, imagen)
     })
     
-    // Mezclar las tarjetas
+    // Shuffle the cards
     const tarjetasMezcladas = pares.sort(() => Math.random() - 0.5)
     
     for (let i = 0; i < numTarjetas; i++) {
@@ -144,7 +144,7 @@ const crearTarjetas = (numTarjetas, tablero, time) => {
         tarjeta.dataset.id = i.toString()
         tarjeta.dataset.content = tarjetasMezcladas[i]
         
-        // Crear estructura interna para animación de volteo
+        // Create internal structure for flip animation
         const tarjetaInner = document.createElement('div')
         tarjetaInner.className = 'tarjeta-inner'
         
@@ -154,7 +154,7 @@ const crearTarjetas = (numTarjetas, tablero, time) => {
         const tarjetaBack = document.createElement('div')
         tarjetaBack.className = 'tarjeta-back'
         
-        // Agregar imagen a la parte trasera de la tarjeta
+        // Add image to the back of the card
         const imagen = document.createElement('img')
         imagen.src = `images/cards/${tarjetasMezcladas[i]}.avif`
         imagen.alt = tarjetasMezcladas[i]
@@ -167,7 +167,7 @@ const crearTarjetas = (numTarjetas, tablero, time) => {
         tarjetaInner.appendChild(tarjetaBack)
         tarjeta.appendChild(tarjetaInner)
         
-        // Agregar evento de click
+        // Add click event
         tarjeta.addEventListener('click', () => voltearTarjeta(tarjeta, time))
         
         tablero.appendChild(tarjeta)
@@ -175,20 +175,20 @@ const crearTarjetas = (numTarjetas, tablero, time) => {
 }
 
 /**
- * Inicializa el sistema de artefactos si se seleccionó alguno
+ * Initializes the artifact system if one was selected
  */
 const inicializarArtefacto = () => {
     const artefactoSeleccionadoId = getArtefactoSeleccionado()
     if (!artefactoSeleccionadoId) return
     
-    // Inicializar el estado de los artefactos
+    // Initialize artifact state
     inicializarEstadoArtefactos(artefactoSeleccionadoId)
     
-    // Obtener el artefacto activo
+    // Get active artifact
     const artefactoActivo = getArtefactoActivo()
     if (!artefactoActivo) return
     
-    // Crear el botón de usar artefacto
+    // Create use artifact button
     const artefactoButton = document.createElement('button')
     artefactoButton.id = 'artefacto'
     artefactoButton.textContent = getTextoArtefacto(artefactoActivo.id)
@@ -199,7 +199,7 @@ const inicializarArtefacto = () => {
         }
     })
 
-    // Agregar el botón de artefactos después del botón de salir
+    // Add artifact button after exit button
     const buttonSalir = $("salir")
     if (buttonSalir) {
         buttonSalir.parentNode?.insertBefore(artefactoButton, buttonSalir.nextSibling)
@@ -207,21 +207,21 @@ const inicializarArtefacto = () => {
 }
 
 /**
- * Crea el tablero de juego basado en el número de tarjetas
- * @param {number} numTarjetas - Número de tarjetas para el juego
- * @param {string} dificultad - Dificultad del juego (baja, media, alta). Se usa para calcular el tiempo de visibilidad de las tarjetas.
+ * Creates the game board based on the number of cards
+ * @param {number} numTarjetas - Number of cards for the game
+ * @param {string} dificultad - Game difficulty (baja, media, alta). Used to calculate card visibility time.
  */
 const crearTablero = (numTarjetas, dificultad) => {
     const container = $("memory-game-table")
-    if (!container) return console.error("No se encontró el contenedor")
+    if (!container) return console.error("Container not found")
 
-    // Limpiar contenedor
+    // Clear container
     container.innerHTML = ''
 
-    // Calcular dimensiones del grid
+    // Calculate grid dimensions
     const dimension = Math.round(Math.sqrt(numTarjetas))
     
-    // Crear el tablero
+    // Create board
     const tablero = document.createElement('div')
     tablero.id = 'tablero'
     tablero.style.display = 'grid'
@@ -230,10 +230,10 @@ const crearTablero = (numTarjetas, dificultad) => {
     tablero.style.maxWidth = '400px'
     tablero.style.margin = '0 auto'
 
-    // Calcular tiempo de visibilidad de las tarjetas
+    // Calculate card visibility time
     const time = getTiempoLimite(dificultad)
 
-    // Crear las tarjetas
+    // Create cards
     crearTarjetas(numTarjetas, tablero, time)
 
 
@@ -241,7 +241,7 @@ const crearTablero = (numTarjetas, dificultad) => {
 }
 
 /**
- * Inicializa el juego cuando se carga la página
+ * Initializes the game when the page loads
  */
 const inicializarJuego = () => {
     const playerData = getPlayerData()
@@ -250,17 +250,17 @@ const inicializarJuego = () => {
     const { avatar, nick } = playerData
     const { dificultad } = gameConfig
 
-    // Calcular número máximo de movimientos
+    // Calculate maximum number of moves
     const movimientosMaximos = getMovimientosMaximos(dificultad, numTarjetas)
 
-    // Mostrar información del jugador
+    // Display player information
     mostrarPersonaje(avatar, nick)
     mostrarMovimientosRestantes(movimientosMaximos)
 
-    // Crear tablero
+    // Create board
     crearTablero(numTarjetas, dificultad)
     
-    // Configurar botones
+    // Configure buttons
     const btnReiniciar = $("reiniciar")
     const btnSalir = $("salir")
 
@@ -277,12 +277,12 @@ const inicializarJuego = () => {
         })
     }
 
-    // Inicializar sistema de artefactos
+    // Initialize artifact system
     inicializarArtefacto()
     // 
 }
 
-// Inicializar cuando el DOM esté listo
+// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', inicializarJuego)
 } else {

@@ -1,22 +1,22 @@
 // @ts-check
 
 /**
- * Objeto para manejar la información del juego
+ * Object to handle game information
  */
 const gameInfo = {
     /**
-     * Guarda la configuración del juego en sessionStorage
-     * @param {Object} config - Configuración del juego
-     * @param {string} config.tarjetas - Número de tarjetas
-     * @param {string} config.dificultad - Nivel de dificultad
+     * Saves game configuration to sessionStorage
+     * @param {Object} config - Game configuration
+     * @param {string} config.tarjetas - Number of cards
+     * @param {string} config.dificultad - Difficulty level
      */
     saveConfig: (config) => {
         sessionStorage.setItem('memoryGameConfig', JSON.stringify(config))
     },
 
     /**
-     * Carga la configuración del juego desde sessionStorage
-     * @returns {Object} Configuración del juego
+     * Loads game configuration from sessionStorage
+     * @returns {Object} Game configuration
      */
     loadConfig: () => {
         const data = sessionStorage.getItem('memoryGameConfig')
@@ -28,7 +28,7 @@ const gameInfo = {
     },
 
     /**
-     * Limpia la configuración del juego del sessionStorage
+     * Clears game configuration from sessionStorage
      */
     clearConfig: () => {
         sessionStorage.removeItem('memoryGameConfig')
@@ -36,15 +36,15 @@ const gameInfo = {
 }
 
 /**
- * Inicializa la captura de configuración del juego desde el formulario
+ * Initializes game configuration capture from the form
  */
 const initGameConfigCapture = () => {
     const form = document.querySelector('form')
-    if (!form) return console.error("No se encontró el formulario")
+    if (!form) return console.error("Form not found")
 
     form.addEventListener('submit', (e) => {
         e.preventDefault()
-        // Capturar configuración del juego
+        // Capture game configuration
         const formData = new FormData(form)
         const gameConfig = {
             tarjetas: String(formData.get('tarjetas') || '9'),
@@ -52,12 +52,12 @@ const initGameConfigCapture = () => {
             artefactos: String(formData.get('artefactos') || '0')
         }
 
-        // Guardar configuración del juego
+        // Save game configuration
         gameInfo.saveConfig(gameConfig)
     })
 }
 
-// Inicializar captura de configuración si estamos en index.html
+// Initialize configuration capture if we are on index.html
 if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initGameConfigCapture)

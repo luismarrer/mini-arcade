@@ -1,22 +1,22 @@
 // @ts-check
 
 /**
- * Objeto para manejar los datos del usuario
+ * Object to handle user data
  */
 const userData = {
     /**
-     * Guarda los datos del jugador en sessionStorage
-     * @param {Object} data - Datos del jugador
-     * @param {string} data.nick - Nombre del jugador
-     * @param {string} data.avatar - Avatar seleccionado
+     * Saves player data to sessionStorage
+     * @param {Object} data - Player data
+     * @param {string} data.nick - Player name
+     * @param {string} data.avatar - Selected avatar
      */
     save: (data) => {
         sessionStorage.setItem('memoryGamePlayer', JSON.stringify(data))
     },
 
     /**
-     * Carga los datos del jugador desde sessionStorage
-     * @returns {Object|null} Datos del jugador o null si no existen
+     * Loads player data from sessionStorage
+     * @returns {Object|null} Player data or null if it doesn't exist
      */
     load: () => {
         const data = sessionStorage.getItem('memoryGamePlayer')
@@ -24,7 +24,7 @@ const userData = {
     },
 
     /**
-     * Limpia los datos del jugador del sessionStorage
+     * Clears player data from sessionStorage
      */
     clear: () => {
         sessionStorage.removeItem('memoryGamePlayer')
@@ -32,7 +32,7 @@ const userData = {
 }
 
 /**
- * Inicializa la captura de datos del formulario en index.html
+ * Initializes form data capture on index.html
  */
 const initFormCapture = () => {
     const form = document.querySelector('form')
@@ -41,22 +41,22 @@ const initFormCapture = () => {
     form.addEventListener('submit', (e) => {
         e.preventDefault()
         
-        // Capturar datos del formulario
+        // Capture form data
         const formData = new FormData(form)
         const playerData = {
-            nick: String(formData.get('nick') || 'Jugador'),
+            nick: String(formData.get('nick') || 'Player'),
             avatar: String(formData.get('avatar') || 'batman')
         }
 
-        // Guardar en sessionStorage
+        // Save to sessionStorage
         userData.save(playerData)
         
-        // Navegar a game.html
+        // Navigate to game.html
         window.location.href = 'game.html'
     })
 }
 
-// Inicializar captura de formulario si estamos en index.html
+// Initialize form capture if we are on index.html
 if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initFormCapture)

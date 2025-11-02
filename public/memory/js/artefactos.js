@@ -1,35 +1,35 @@
 // @ts-check
 
 /**
- * Sistema de gestión de artefacto para el juego de memoria
+ * Artifact management system for the memory game
  */
 
 /**
  * @typedef {Object} Artefacto
- * @property {string} id - Identificador único del artefacto
- * @property {string} nombre - Nombre descriptivo del artefacto
- * @property {string} descripcion - Descripción de lo que hace el artefacto
- * @property {number} usosMaximos - Número máximo de usos permitidos
- * @property {number} usosRestantes - Número de usos restantes
- * @property {boolean} activo - Si el artefacto está disponible para usar
+ * @property {string} id - Unique identifier of the artifact
+ * @property {string} nombre - Descriptive name of the artifact
+ * @property {string} descripcion - Description of what the artifact does
+ * @property {number} usosMaximos - Maximum number of uses allowed
+ * @property {number} usosRestantes - Number of remaining uses
+ * @property {boolean} activo - If the artifact is available to use
  */
 
 /**
- * Definición de todos los artefactos disponibles
+ * Definition of all available artifacts
  */
 const ARTEFACTOS_DISPONIBLES = {
     'destapar-todas': {
         id: 'destapar-todas',
-        nombre: 'Destapar todas las cartas',
-        descripcion: 'Muestra todas las cartas por 3 segundos',
+        nombre: 'Reveal all cards',
+        descripcion: 'Shows all cards for 3 seconds',
         usosMaximos: 1,
         usosRestantes: 1,
         activo: true
     },
     'mas-turnos': {
         id: 'mas-turnos',
-        nombre: 'Más turnos',
-        descripcion: 'Agrega 5 movimientos adicionales',
+        nombre: 'More turns',
+        descripcion: 'Adds 5 additional moves',
         usosMaximos: 2,
         usosRestantes: 2,
         activo: true
@@ -37,24 +37,24 @@ const ARTEFACTOS_DISPONIBLES = {
 }
 
 /**
- * Estado actual de los artefactos del jugador
+ * Current state of player artifacts
  */
 let estadoArtefactos = {}
 
 /**
- * Inicializa el estado de los artefactos basado en la configuración del juego
- * @param {string} artefactoSeleccionado - ID del artefacto seleccionado en la configuración
+ * Initializes artifact state based on game configuration
+ * @param {string} artefactoSeleccionado - ID of the selected artifact in configuration
  */
 const inicializarEstadoArtefactos = (artefactoSeleccionado) => {
-    // Limpiar estado anterior
+    // Clear previous state
     estadoArtefactos = {}
     
-    // Si no hay artefacto seleccionado, no hacer nada
+    // If no artifact selected, do nothing
     if (!artefactoSeleccionado || artefactoSeleccionado === '0') {
         return
     }
     
-    // Inicializar el artefacto seleccionado
+    // Initialize the selected artifact
     if (ARTEFACTOS_DISPONIBLES[artefactoSeleccionado]) {
         estadoArtefactos[artefactoSeleccionado] = {
             ...ARTEFACTOS_DISPONIBLES[artefactoSeleccionado]
@@ -63,8 +63,8 @@ const inicializarEstadoArtefactos = (artefactoSeleccionado) => {
 }
 
 /**
- * Obtiene el artefacto activo del jugador
- * @returns {Artefacto|null} El artefacto activo o null si no hay ninguno
+ * Gets the player's active artifact
+ * @returns {Artefacto|null} The active artifact or null if there is none
  */
 const getArtefactoActivo = () => {
     const artefactosActivos = Object.values(estadoArtefactos).filter(artefacto => 
@@ -75,17 +75,17 @@ const getArtefactoActivo = () => {
 }
 
 /**
- * Usa un artefacto, reduciendo sus usos restantes
- * @param {string} artefactoId - ID del artefacto a usar
- * @returns {boolean} true si se pudo usar el artefacto, false en caso contrario
+ * Uses an artifact, reducing its remaining uses
+ * @param {string} artefactoId - ID of the artifact to use
+ * @returns {boolean} true if the artifact could be used, false otherwise
  */
 const usarArtefacto = (artefactoId) => {
     const artefacto = estadoArtefactos[artefactoId]
     
-    // Reducir usos restantes
+    // Reduce remaining uses
     artefacto.usosRestantes--
     
-    // Si no quedan usos, desactivar el artefacto
+    // If no uses left, deactivate the artifact
     if (artefacto.usosRestantes <= 0) {
         artefacto.activo = false
     }
@@ -94,18 +94,18 @@ const usarArtefacto = (artefactoId) => {
 }
 
 /**
- * Obtiene información de un artefacto específico
- * @param {string} artefactoId - ID del artefacto
- * @returns {Artefacto|null} Información del artefacto o null si no existe
+ * Gets information about a specific artifact
+ * @param {string} artefactoId - ID of the artifact
+ * @returns {Artefacto|null} Artifact information or null if it doesn't exist
  */
 const getInfoArtefacto = (artefactoId) => {
     return estadoArtefactos[artefactoId] || null
 }
 
 /**
- * Verifica si un artefacto puede ser usado
- * @param {string} artefactoId - ID del artefacto
- * @returns {boolean} true si el artefacto puede ser usado
+ * Checks if an artifact can be used
+ * @param {string} artefactoId - ID of the artifact
+ * @returns {boolean} true if the artifact can be used
  */
 const puedeUsarArtefacto = (artefactoId) => {
     const artefacto = estadoArtefactos[artefactoId]
@@ -113,7 +113,7 @@ const puedeUsarArtefacto = (artefactoId) => {
 }
 
 /**
- * Reinicia el estado de todos los artefactos a su estado inicial
+ * Resets the state of all artifacts to their initial state
  */
 const reiniciarArtefactos = () => {
     Object.keys(estadoArtefactos).forEach(artefactoId => {
@@ -127,17 +127,17 @@ const reiniciarArtefactos = () => {
 }
 
 /**
- * Obtiene el estado completo de los artefactos
- * @returns {Object} Estado actual de todos los artefactos
+ * Gets the complete state of artifacts
+ * @returns {Object} Current state of all artifacts
  */
 const getEstadoArtefactos = () => {
     return { ...estadoArtefactos }
 }
 
 /**
- * Obtiene el texto de display para un artefacto (nombre + usos restantes)
- * @param {string} artefactoId - ID del artefacto
- * @returns {string} Texto para mostrar en la UI
+ * Gets the display text for an artifact (name + remaining uses)
+ * @param {string} artefactoId - ID of the artifact
+ * @returns {string} Text to display in the UI
  */
 const getTextoArtefacto = (artefactoId) => {
     const artefacto = estadoArtefactos[artefactoId]
