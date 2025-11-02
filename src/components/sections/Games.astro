@@ -1,34 +1,38 @@
 ---
 import Section from "@/components/Section.astro"
+import Image from "astro/components/Image.astro"
+import { games } from "@/constants/games"
+
+const images = import.meta.glob<{ default: ImageMetadata }>("@/images/*")
+
+const imageMap = Object.fromEntries(
+    Object.entries(images).map(([key, value]) => [
+        key.replace("@/images/", "").replace(".png", ""),
+        // value.default,
+    ]),
+)
 ---
 
 <Section>
     <ul>
-        <li>
-            <a href="/games/memory">
-                <article>Memory de parejas (DC)</article>
-            </a>
-        </li>
-        <li>
-            <a href="/games/twodots">
-                <article>Two Dots</article>
-            </a>
-        </li>
-        <li>
-            <a href="/games/hexapawn">
-                <article>Hexapawn</article>
-            </a>
-        </li>
-        <li>
-            <a href="/games/monkeytype">
-                <article>Monkey Type</article>
-            </a>
-        </li>
-        <li>
-            <a href="/games/stack">
-                <article>Stack</article>
-            </a>
-        </li>
+        {
+            games.map((game) => (
+                <li>
+                    <a href={game.path}>
+                        <article>
+                            {/* <Image
+                                src={imageMap[game.image]}
+                                alt={`${game.title} preview`}
+                                width={100}
+                            /> */}
+                            <h2>{game.title}</h2>
+                            <p>{game.description}</p>
+                            <button>Play</button>
+                        </article>
+                    </a>
+                </li>
+            ))
+        }
     </ul>
 </Section>
 
@@ -36,19 +40,19 @@ import Section from "@/components/Section.astro"
     ul {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: var(--spacing-md);
+        gap: 1.5rem;
         max-width: 800px;
         width: 100%;
     }
 
     ul li a {
         display: block;
-        padding: var(--spacing-lg);
-        background: var(--surface-color);
-        color: var(--text-color);
+        padding: 2rem;
+        background: #1e293b;
+        color: #f8fafc;
         text-decoration: none;
-        border-radius: var(--border-radius);
-        border: 2px solid var(--border-color);
+        border-radius: 0.75rem;
+        border: 2px solid #334155;
         font-size: 1.125rem;
         font-weight: 600;
         text-align: center;
@@ -60,13 +64,9 @@ import Section from "@/components/Section.astro"
 
         &:hover {
             transform: translateY(-4px);
-            border-color: var(--primary-color);
-            box-shadow: 0 8px 25px var(--shadow-color);
-            background: linear-gradient(
-                135deg,
-                var(--surface-color) 0%,
-                #2d3748 100%
-            );
+            border-color: #6366f1;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
         }
 
         &:active {
@@ -74,7 +74,7 @@ import Section from "@/components/Section.astro"
         }
     }
 
-    a:hover::before {
+    ul li a::before {
         content: "";
         position: absolute;
         top: 0;
@@ -84,10 +84,19 @@ import Section from "@/components/Section.astro"
         background: linear-gradient(
             90deg,
             transparent,
-            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.2),
             transparent
         );
         transition: left 0.5s ease;
+    }
+
+    ul li a:hover::before {
+        left: 100%;
+    }
+
+    ul li a article {
+        position: relative;
+        z-index: 2;
     }
 
     ul li:nth-child(1) a {
