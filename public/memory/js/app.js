@@ -89,7 +89,7 @@ const mostrarPersonaje = (avatar, nick) => {
     if (!personajeArticle) return
 
     personajeArticle.innerHTML = `
-        <img src="images/avatars/${avatar}.avif" alt="Avatar ${avatar} for ${nick}" width="100">
+        <img src="/images/memory/avatars/${avatar}.avif" alt="Avatar ${avatar} for ${nick}" width="100">
         <h2 id="nick">${nick}</h2>
     `
 }
@@ -156,7 +156,7 @@ const crearTarjetas = (numTarjetas, tablero, time) => {
         
         // Add image to the back of the card
         const imagen = document.createElement('img')
-        imagen.src = `images/cards/${tarjetasMezcladas[i]}.avif`
+        imagen.src = `/images/memory/cards/${tarjetasMezcladas[i]}.avif`
         imagen.alt = tarjetasMezcladas[i]
         imagen.style.width = '100%'
         imagen.style.height = '100%'
@@ -241,7 +241,7 @@ const crearTablero = (numTarjetas, dificultad) => {
 }
 
 /**
- * Initializes the game when the page loads
+ * Initializes the game
  */
 const inicializarJuego = () => {
     const playerData = getPlayerData()
@@ -271,20 +271,13 @@ const inicializarJuego = () => {
         })
     }
 
-    if (btnSalir) {
-        btnSalir.addEventListener('click', () => {
-            window.location.href = 'index.html'
-        })
-    }
-
     // Initialize artifact system
     inicializarArtefacto()
     // 
 }
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inicializarJuego)
-} else {
-    inicializarJuego()
+// Expose manual initializer for React island
+// eslint-disable-next-line no-undef
+window.MemoryGame = {
+    init: inicializarJuego,
 }

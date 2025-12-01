@@ -35,35 +35,4 @@ const gameInfo = {
     }
 }
 
-/**
- * Initializes game configuration capture from the form
- */
-const initGameConfigCapture = () => {
-    const form = document.querySelector('form')
-    if (!form) return console.error("Form not found")
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault()
-        // Capture game configuration
-        const formData = new FormData(form)
-        const gameConfig = {
-            tarjetas: String(formData.get('tarjetas') || '9'),
-            dificultad: String(formData.get('dificultad') || 'baja'),
-            artefactos: String(formData.get('artefactos') || '0')
-        }
-
-        // Save game configuration
-        gameInfo.saveConfig(gameConfig)
-    })
-}
-
-// Initialize configuration capture if we are on index.html
-if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initGameConfigCapture)
-    } else {
-        initGameConfigCapture()
-    }
-}
-
 export { gameInfo }

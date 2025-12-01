@@ -49,7 +49,10 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 ### Web Development
 
 - [ ] Complete migration to Astro
-  - [ ] Complete migration to Vercel
+  - [X] Complete migration to Vercel
+  - [ ] Memory Game
+    - [ ] Form
+      - [ ] Usar base de datos para guardar el nick
   - [ ] Complete migration to Tailwind CSS
 - [ ] Convert all games to Astro components
 

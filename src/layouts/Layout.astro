@@ -3,6 +3,8 @@ import Header from "@/components/sections/Header.astro"
 import Footer from "@/components/sections/Footer.astro"
 
 import "@/styles/global.css"
+
+const { title } = Astro.props
 ---
 
 <html lang="en">
@@ -10,7 +12,7 @@ import "@/styles/global.css"
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
-        <title>Mini Arcade</title>
+        <title>{title ?? "Mini Arcade"}</title>
     </head>
     <body
         class="flex flex-col min-h-screen bg-primary container mx-auto text-white"
