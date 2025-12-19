@@ -13,7 +13,7 @@ Some were born from online courses, while others came from curiosity — experim
 
 The project is available online via GitHub Pages:
 
-**[🎮 Play Now - Mini Arcade](https://luismarrer.github.io/mini-arcade/index.html)**
+**[🎮 Play Now - Mini Arcade](https://mini-arcade-seven.vercel.app/)**
 
 ## Design 🎨
 
@@ -61,7 +61,7 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 - [X] Complete Two Dots
 - [ ] Complete MonkeyType
 - [ ] Complete Stack
-- [ ] Hangman
+- [X] Hangman
 
 ### Features
 
