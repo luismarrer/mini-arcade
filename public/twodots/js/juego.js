@@ -242,9 +242,8 @@ const initGame = () => {
     programarEventosJuego()
 }
 
-// Inicializar cuando el DOM esté listo
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGame)
-} else {
-    initGame()
+if (typeof window !== 'undefined') {
+    window.TwodotsGame = {
+        init: initGame,
+    }
 }
