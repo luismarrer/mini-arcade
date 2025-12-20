@@ -10,7 +10,7 @@ export const games: Game[] = [
     {
         id: "memory",
         title: "Memory de parejas (DC)",
-        description: "Juego de memoria de parejas con tarjetas de DC.",
+        description: "Pair matching memory game with DC cards.",
         image: "/images/memory.png",
         path: "/memory",
     },
