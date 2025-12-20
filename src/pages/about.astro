@@ -2,4 +2,65 @@
 import Layout from "@/layouts/Layout.astro"
 ---
 
-<Layout title="About" />
+<Layout title="About">
+    <div class="max-w-3xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold mb-8 text-center">About Mini Arcade</h1>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">What is this?</h2>
+            <p class="text-lg mb-4">
+                Mini Arcade is my personal playground where I bring together web
+                games I've built while learning and experimenting with different
+                technologies and concepts.
+            </p>
+            <p class="text-lg mb-4">
+                Some games were born from online courses, while others came from
+                pure curiosity — exploring web APIs, testing design ideas, or
+                simply seeing how far I can push web technologies.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Tech Stack</h2>
+            <p class="text-lg mb-4">
+                This site is built with <strong>Astro</strong>, <strong
+                    >Tailwind CSS</strong
+                >, and <strong>TypeScript</strong>. The games themselves use a
+                mix of vanilla JavaScript, React, and other web technologies.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Open Source</h2>
+            <p class="text-lg mb-4">
+                The entire project is open source and available on GitHub. Feel
+                free to check out the code, suggest improvements, or report
+                bugs.
+            </p>
+            <a
+                href="https://github.com/luismarrer/mini-arcade"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            >
+                View on GitHub →
+            </a>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">About Me</h2>
+            <p class="text-lg mb-4">
+                I'm <strong>Luis Marrero</strong>, a developer passionate about
+                learning and building things 😁 🌱.
+            </p>
+            <a
+                href="https://luismarrer.github.io/en"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-blue-600 hover:text-blue-800 underline"
+            >
+                Visit my portfolio →
+            </a>
+        </section>
+    </div>
+</Layout>
