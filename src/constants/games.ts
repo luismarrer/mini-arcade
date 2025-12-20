@@ -9,7 +9,7 @@ export interface Game {
 export const games: Game[] = [
     {
         id: "memory",
-        title: "Memory de parejas (DC)",
+        title: "Pair Memory (DC)",
         description: "Pair matching memory game with DC cards.",
         image: "/images/memory.png",
         path: "/memory",
