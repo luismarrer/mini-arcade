@@ -1,0 +1,46 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import { games } from "@/constants/games"
+const gameModules = import.meta.glob("../components/games/*.astro", {
+    eager: true,
+})
+
+const gameComponents = Object.fromEntries(
+    Object.entries(gameModules).map(([path, module]) => {
+        const fileName = path.split("/").pop() || ""
+        const key = fileName.replace("Game.astro", "").toLowerCase()
+        return [key, (module as any).default]
+    }),
+) as Record<string, any>
+
+export function getStaticPaths() {
+    return games.map((game) => ({
+        params: { game: game.id },
+        props: { game },
+    }))
+}
+
+const { game } = Astro.props
+
+const SelectedGame = gameComponents[game.id] ?? null
+---
+
+<Layout title={game.title}>
+    {
+        SelectedGame ? (
+            <SelectedGame />
+        ) : (
+            <main class="w-screen h-dvh flex items-center justify-center">
+                <section class="max-w-xl mx-auto flex flex-col gap-4 text-center">
+                    <h1 class="text-3xl font-bold text-slate-50">
+                        {game.title}
+                    </h1>
+                    <p class="text-slate-300">
+                        Este juego todavía está en construcción. Vuelve pronto
+                        para jugar.
+                    </p>
+                </section>
+            </main>
+        )
+    }
+</Layout>

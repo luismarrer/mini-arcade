@@ -1,0 +1,16 @@
+---
+import HexapawnGameClient from "./hexapawn/HexapawnGameClient"
+import "@/styles/hexapawn/styles.css"
+---
+
+<HexapawnGameClient client:load />
+
+<section class="game-rules">
+    <h2>Reglas del Juego</h2>
+    <ul>
+        <li>Los peones avanzan 1 casilla hacia adelante</li>
+        <li>Los peones capturan en diagonal</li>
+        <li>Gana quien llegue con un peón a la última fila enemiga</li>
+        <li>También gana quien deje al rival sin movimientos válidos</li>
+    </ul>
+</section>

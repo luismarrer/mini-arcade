@@ -1,149 +1,82 @@
-# 🎮 Mini Arcade
+# 🎮 Mini Arcade ✨
 
-Una colección de juegos web clásicos desarrollados con tecnologías web modernas (HTML5, CSS3, JavaScript ES6+).
+A collection of web games — all in one site, built with modern web technologies.
 
 ![Mini Arcade Preview](preview.png)
 
 ## 🌐 Demo en Vivo
 
-El proyecto está disponible en línea a través de GitHub Pages:
+## Description
 
-**[🎮 Jugar ahora - Mini Arcade](https://luismarrer.github.io/mini-arcade/index.html)**
+This project is a collection of small web games built for fun and learning.  
+Some were born from online courses, while others came from curiosity — experimenting with web APIs, design ideas, or simply exploring how far plain web technologies can go.
 
-## 🎯 Juegos Disponibles
+## Live Demo 🌐
 
-### ✅ Memory de Parejas (DC)
+The project is available online via GitHub Pages:
 
-#### Estado: Completo
+**[🎮 Play Now - Mini Arcade](https://mini-arcade-seven.vercel.app/)**
 
-Juego de memoria con temática de DC Comics donde debes encontrar las parejas de cartas.
+## Design 🎨
 
-#### Características
+See the UI design in [Figma](https://www.figma.com/design/FEBHZo4guKObNeA8UTbSfK/Mini-Arcade?node-id=0-1&t=gLYkOVYzIx4Otxnm-1)
 
-- 8 avatares de DC Comics (Batman, Superman, Wonder Woman, The Flash, etc.)
-- 3 niveles de dificultad (Baja, Media, Alta)
-- Opciones de 12, 16 o 20 tarjetas
-- Sistema de puntuación y tiempo
-- Interfaz responsive
+## Stack 🛠️
 
-#### Cómo jugar
+### Web
 
-1. Selecciona tu nick (3-15 caracteres, letras y números)
-2. Elige la dificultad y número de tarjetas
-3. Selecciona tu avatar favorito de DC
-4. ¡Encuentra todas las parejas en el menor tiempo posible!
+- [Astro](https://astro.build/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-### 🚧 MonkeyType
+### Games
 
-#### Estado: En desarrollo (25%)
+#### Vanilla technologies (HTML, CSS, JS)
 
-Juego de mecanografía para mejorar tu velocidad de escritura.
+- Hexapawn
+- Memory
+- Two Dots
 
-#### Características planeadas
+#### React
 
-- ✨ Pruebas de velocidad de escritura
-- 📊 Estadísticas detalladas
-- 🎯 Diferentes niveles de dificultad
-- 🏆 Sistema de puntuaciones
-- ⌨️ Soporte para múltiples idiomas
+- Hangman
 
-### 🚧 Stack
+## Contributing 🤝
 
-#### Estado: En desarrollo (15%)
+Contributions are welcome!  
+If you have suggestions or find bugs, please open an issue or submit a pull request.
 
-Juego de apilamiento donde debes construir la torre más alta posible.
+## TODO 📝
 
-#### Características planeadas para Stack
+### Web Development
 
-- 🎯 Precisión y timing perfecto
-- 🏗️ Construcción de torres infinitas
-- 🌈 Bloques coloridos y animados
-- ⚡ Velocidad progresiva
-- 🏆 Puntuaciones y récords
-- 🎵 Efectos de sonido inmersivos
+- [ ] Complete migration to Astro
+  - [X] Complete migration to Vercel
+  - [ ] Memory Game
+    - [ ] Form
+      - [ ] Usar base de datos para guardar el nick
+  - [ ] Complete migration to Tailwind CSS
+- [X] Convert all games to Astro components
+- [ ] Create footer
 
-### 🚧 Two Dots
+### Games to be completed
 
-#### Estado: En desarrollo (0%)
+- [X] Complete Two Dots
+- [ ] Complete MonkeyType
+- [ ] Complete Stack
+- [X] Hangman
 
-Juego de conexión de puntos inspirado en el popular juego móvil.
+### Features
 
-## 🛠️ Tecnologías Utilizadas
-
-- **HTML5**: Estructura semántica y accesible
-- **CSS3**: Diseño responsive con Flexbox y CSS Grid
-- **JavaScript ES6+**: Módulos, arrow functions, y APIs modernas
-- **CSS Reset**: Normalización de estilos entre navegadores
-- **Metodología BEM**: Organización de CSS
-
-## 📁 Estructura del Proyecto
-
-```text
-mini-arcade/
-├── css/
-│   ├── reset.css          # Reset de estilos CSS
-│   └── styles.css         # Estilos principales
-├── games/
-│   ├── hexapawn/          # Juego de ajedrez 3x3
-│   ├── memory/            # Juego de memoria completo
-│   ├── monkeytype/        # En desarrollo
-│   ├── stack/             # En desarrollo
-│   └── twodots/           # Completado
-├── images/
-│   ├── favicon.png        # Icono del sitio
-│   └── logo.png          # Logo del Mini Arcade
-├── js/
-│   └── app.js            # JavaScript principal
-├── index.html            # Página principal
-└── README.md             
-```
-
-## 🎨 Características Técnicas
-
-### Estándares Web
-
-- ✅ HTML5 semántico
-- ✅ CSS3 moderno con variables personalizadas
-- ✅ JavaScript ES6+ con módulos
-- ✅ Diseño responsive
-- ✅ Accesibilidad web (WCAG)
-
-### Buenas Prácticas
-
-- 📱 Mobile-first design
-- ⚡ Carga optimizada de recursos
-- 🎯 SEO-friendly
-- 🔧 Código modular y mantenible
-- 📝 Documentación JSDoc
-
-## 🤝 Contribuir
-
-¡Las contribuciones son bienvenidas! Si quieres ayudar:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📝 Roadmap
-
-- [ ] Completar MonkeyType
-- [ ] Completar Stack
-- [X] Completar Two Dots
-- [ ] Añadir sistema de puntuaciones global
-- [ ] Implementar modo multijugador
-- [ ] Añadir más juegos clásicos
+- [ ] Add global scoring system
+- [ ] Implement multiplayer mode
+- [ ] Add more classic titles
 - [ ] PWA (Progressive Web App)
 
-## 📄 Licencia
+## License 📄
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## 👨‍💻 Autor
-
-**Luis Marrero** - Desarrollador Full Stack
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
 
 ---
 
-¡Gracias por visitar Mini Arcade! 🎮✨
+👨‍💻 Developed with ❤️ by [Luis Marrero](https://luismarrer.github.io/en)
