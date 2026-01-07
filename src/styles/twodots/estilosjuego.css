@@ -1,43 +1,10 @@
-/* CSS Variables */
-:root {
-    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --secondary-color: #fd0c49;
-    --success-color: #7ac943;
-    --text-color: #333;
-    --white: #fff;
-    --border-color: #e2e8f0;
-    --border-light: #ced4da;
-    --shadow-light: rgba(0, 0, 0, 0.1);
-    --shadow-primary: rgba(102, 126, 234, 0.3);
-    --backdrop-blur: rgba(255, 255, 255, 0.95);
-    --game-size: 31.25rem;
-    --border-radius: 0.5rem;
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-}
-
-/* Elementos generales */
-body {
-    background: var(--primary-gradient);
-    font-family: 'Poppins', sans-serif;
-    color: var(--text-color);
-}
-footer {
-    margin: 2rem auto 0 auto;
-    text-align: center;
-    max-width: 50rem;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 300;
-}
 main {
     display: flex;
     flex-wrap: wrap;
-    margin: var(--spacing-lg) auto 0 auto;
+    margin: 2rem auto 0 auto;
     max-width: 75rem;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-lg);
+    gap: 2rem;
+    padding: 2rem;
     align-items: flex-start;
 }
 form{
@@ -84,10 +51,10 @@ footer{
     font-weight: 100;
 }
 #avatarImg {
-    border: 1px solid var(--border-light);
-    padding: var(--spacing-xs);
-    border-radius: var(--spacing-xs);
-    margin-bottom: var(--spacing-sm);
+    border: 1px solid #ced4da;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
     float: left;
     margin-right: 1.875rem;
 }
@@ -111,23 +78,23 @@ footer{
     height: 35px;
 }
 .rojo {
-    background-color: var(--secondary-color);
+    background-color: #fd0c49;
     transition: background-color 0.4s ease;
 }
 
 .verde {
-    background-color: var(--success-color);
+    background-color: #7ac943;
     transition: background-color 0.4s ease;
 }
 #contenedorJuego {
     flex: 1;
-    min-width: var(--game-size);
-    max-width: var(--game-size);
+    min-width: 31.25rem;
+    max-width: 31.25rem;
 }
 #gameArea {
     position: relative;
     width: 100%;
-    max-width: var(--game-size);
+    max-width: 31.25rem;
 }
 
 /* Panel de juego */
@@ -141,10 +108,10 @@ footer{
     align-items: center;
     width: 100%;
     aspect-ratio: 5/4;
-    background: var(--backdrop-blur);
-    border: 2px solid var(--border-color);
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
-    box-shadow: 0 4px 20px var(--shadow-light);
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 .juegoAcabadoColor {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
@@ -163,11 +130,11 @@ footer{
     align-items: center;
     width: 100%;
     height: 100%;
-    border: 2px solid var(--border-color);
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem 0.5rem 0 0;
     backdrop-filter: blur(10px);
     background: rgba(102, 126, 234, 0.1);
-    padding: var(--spacing-lg);
+    padding: 2rem;
     text-align: center;
     gap: 2rem;
 }
@@ -177,7 +144,7 @@ footer{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: var(--spacing-lg);
+    gap: 2rem;
     padding-top: 130px;
 }
 
@@ -189,7 +156,7 @@ footer{
 #juegoAcabado h3 {
     font-size: 1.5rem;
     font-weight: 500;
-    color: var(--text-color);
+    color: #333;
     margin: 0;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -216,13 +183,13 @@ footer{
 }
 #tituloJuego {
     width: 100%;
-    background: var(--primary-gradient);
-    border: 1px solid var(--border-color);
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    padding: var(--spacing-sm);
-    color: var(--white);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 1rem;
+    color: #fff;
     text-align: center;
-    box-shadow: 0 4px 12px var(--shadow-primary);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 #tituloJuego h1 {
     font-size: 1.5rem;
@@ -231,25 +198,25 @@ footer{
 }
 #contenedorUsuario {
     width: 21.875rem;
-    background: var(--backdrop-blur);
-    border-radius: var(--spacing-sm);
-    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1rem;
+    padding: 1.5rem;
     backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px var(--shadow-light);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     height: fit-content;
 }
 
 #contenedorUsuario h2 {
     font-size: 1.125rem;
     font-weight: 500;
-    margin-bottom: var(--spacing-sm);
-    color: var(--text-color);
+    margin-bottom: 1rem;
+    color: #333;
 }
 
 .user-stats {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: 0.5rem;
 }
 
 .visually-hidden {
@@ -268,8 +235,8 @@ footer{
 @media (max-width: 768px) {
     main {
         flex-direction: column;
-        padding: var(--spacing-sm);
-        gap: var(--spacing-sm);
+        padding: 1rem;
+        gap: 1rem;
     }
     
     #contenedorJuego {
@@ -288,7 +255,7 @@ footer{
 
 @media (max-width: 480px) {
     main {
-        padding: var(--spacing-xs);
+        padding: 0.5rem;
     }
     
     #tituloJuego h1 {
