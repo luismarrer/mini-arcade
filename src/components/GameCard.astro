@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets"
+import type { Game } from "@/constants/games"
+
+interface Props {
+    game: Game
+    imageMap: Record<string, any>
+}
+
+const { game, imageMap } = Astro.props
+---
+
+<a href={game.path}>
+    <article>
+        <Image
+            src={imageMap[game.image]}
+            alt={`${game.title} preview`}
+            width={100}
+        />
+        <h2>{game.title}</h2>
+        <p>{game.description}</p>
+    </article>
+</a>
