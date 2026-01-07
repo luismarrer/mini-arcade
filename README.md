@@ -54,7 +54,8 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
     - [ ] Form
       - [ ] Usar base de datos para guardar el nick
   - [ ] Complete migration to Tailwind CSS
-- [ ] Convert all games to Astro components
+- [X] Convert all games to Astro components
+- [ ] Create footer
 
 ### Games to be completed
 
