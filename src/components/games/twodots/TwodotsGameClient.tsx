@@ -1,4 +1,4 @@
-import type { FC, FormEvent, ChangeEvent, DragEvent } from "react"
+import type { FC, FormEvent, ChangeEvent } from "react"
 import { useEffect, useState } from "react"
 
 type Phase = "config" | "playing"
@@ -21,7 +21,7 @@ const TwodotsGameClient: FC = () => {
     const [phase, setPhase] = useState<Phase>("config")
     const [config, setConfig] = useState<TwoDotsConfig>(defaultConfig)
     const [error, setError] = useState<string>("")
-    const [isDragOver, setIsDragOver] = useState(false)
+
 
     const avatarSrc = `/images/twodots/avatars/avatar${config.avatar}.png`
 
@@ -47,49 +47,8 @@ const TwodotsGameClient: FC = () => {
         setPhase("playing")
     }
 
-    const handleNickChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setConfig((prev) => ({ ...prev, nick: event.target.value }))
-    }
-
     const handleSizeChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setConfig((prev) => ({ ...prev, tamano: event.target.value }))
-    }
-
-    const handleAvatarClick = (avatarNumber: number) => {
-        setConfig((prev) => ({ ...prev, avatar: avatarNumber }))
-    }
-
-    const handleAvatarDragStart = (
-        event: DragEvent<HTMLButtonElement>,
-        avatarNumber: number,
-    ) => {
-        if (!event.dataTransfer) return
-        event.dataTransfer.setData("text/plain", String(avatarNumber))
-        event.currentTarget.style.opacity = "0.5"
-    }
-
-    const handleAvatarDragEnd = (event: DragEvent<HTMLButtonElement>) => {
-        event.currentTarget.style.opacity = "1"
-    }
-
-    const handleAvatarContainerDragOver = (event: DragEvent<HTMLDivElement>) => {
-        event.preventDefault()
-        setIsDragOver(true)
-    }
-
-    const handleAvatarContainerDragLeave = () => {
-        setIsDragOver(false)
-    }
-
-    const handleAvatarContainerDrop = (event: DragEvent<HTMLDivElement>) => {
-        event.preventDefault()
-        setIsDragOver(false)
-        const data = event.dataTransfer?.getData("text/plain")
-        if (!data) return
-        const parsed = Number.parseInt(data, 10)
-        if (!Number.isNaN(parsed)) {
-            setConfig((prev) => ({ ...prev, avatar: parsed }))
-        }
     }
 
     useEffect(() => {
@@ -145,48 +104,6 @@ const TwodotsGameClient: FC = () => {
                             <option value="5">5x5</option>
                             <option value="6">6x6</option>
                         </select>
-                    </fieldset>
-
-                    <fieldset className="avatar-section">
-                        <legend>Choose your avatar</legend>
-                        <section
-                            id="avatarContainer"
-                            className={isDragOver ? "drag-over" : undefined}
-                            onDragOver={handleAvatarContainerDragOver}
-                            onDragLeave={handleAvatarContainerDragLeave}
-                            onDrop={handleAvatarContainerDrop}
-                        >
-                            <img
-                                src={avatarSrc}
-                                alt="Selected avatar"
-                                id="avatarImg"
-                            />
-                        </section>
-
-                        <section id="avatargrid">
-                            {avatars.map((number) => (
-                                <button
-                                    key={number}
-                                    type="button"
-                                    className={`avatarItem${config.avatar === number ? " selected" : ""
-                                        }`}
-                                    data-avatar={number}
-                                    draggable
-                                    onClick={() => handleAvatarClick(number)}
-                                    onDragStart={(event) =>
-                                        handleAvatarDragStart(event, number)
-                                    }
-                                    onDragEnd={handleAvatarDragEnd}
-                                >
-                                    <img
-                                        src={`/images/twodots/avatars/avatar${number}.png`}
-                                        alt={`Avatar ${number}`}
-                                        width={35}
-                                        height={35}
-                                    />
-                                </button>
-                            ))}
-                        </section>
                     </fieldset>
 
                     <button
