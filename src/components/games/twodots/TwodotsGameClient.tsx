@@ -15,8 +15,6 @@ const defaultConfig: TwoDotsConfig = {
     avatar: 1,
 }
 
-const avatars = [1, 2, 3, 4, 5, 6] as const
-
 const TwodotsGameClient: FC = () => {
     const [phase, setPhase] = useState<Phase>("config")
     const [config, setConfig] = useState<TwoDotsConfig>(defaultConfig)
