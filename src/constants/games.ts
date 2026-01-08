@@ -9,14 +9,14 @@ export interface Game {
 export const games: Game[] = [
     {
         id: "memory",
-        title: "Pair Memory (DC)",
-        description: "Pair matching memory game with DC cards.",
+        title: "Pair-Memory (DC)",
+        description: "Pair matching memory game with cards with DC characters.",
         image: "/images/memory.png",
         path: "/memory",
     },
     {
         id: "twodots",
-        title: "Two Dots",
+        title: "Two-Dots",
         description: "Connect the dots of the same color to clear the board.",
         image: "/images/twodots.png",
         path: "/twodots",

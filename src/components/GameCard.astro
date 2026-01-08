@@ -1,22 +1,37 @@
 ---
-import { Image } from "astro:assets"
 import type { Game } from "@/constants/games"
 
 interface Props {
     game: Game
-    imageMap: Record<string, any>
 }
 
 const { game } = Astro.props
 
-import imageSrc from "@/images/memory.png"
-console.log(game)
+const { title, description } = game
+
+import { Image } from "astro:assets"
+import ImageSrc from "@/images/memory.png"
 ---
 
-<a href={game.path}>
-    <article>
-        <Image src={imageSrc} alt={`${game.title} preview`} width={100} />
-        <h2>{game.title}</h2>
-        <p>{game.description}</p>
-    </article>
+<a
+    href={game.path}
+    class="flex flex-col rounded-3xl overflow-hidden max-w-[600px] w-full shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-2xl bg-linear-to-b from-[#e8e8d8] via-[#d4d4c4] via-40% to-[#3d2f45]"
+>
+    <div
+        class="w-full aspect-video overflow-hidden bg-linear-to-b from-[#e8e8d8] to-[#d4d4c4] flex items-center justify-center"
+    >
+        <Image
+            src={ImageSrc}
+            alt={`${game.title} preview`}
+            class="w-full h-full object-cover block"
+        />
+    </div>
+    <div class="p-8 flex flex-col gap-4 flex-1">
+        <h2 class="text-4xl font-bold text-white m-0 leading-tight">
+            {title}
+        </h2>
+        <p class="text-lg text-[#b8a8c0] m-0 leading-relaxed flex-1">
+            {description}
+        </p>
+    </div>
 </a>
