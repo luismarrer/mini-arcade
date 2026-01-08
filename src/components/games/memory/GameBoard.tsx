@@ -33,7 +33,7 @@ const GameBoard: FC<GameBoardProps> = ({ cards, onCardClick }) => {
                         <div className="tarjeta-front" />
                         <div className="tarjeta-back">
                             <img
-                                src={`/images/memory/cards/${card.content}.avif`}
+                                src={`src/images/memory/cards/${card.content}.avif`}
                                 alt={card.content}
                                 style={{
                                     width: '100%',
