@@ -2,15 +2,6 @@
 import Section from "@components/Section.astro"
 import GameCard from "@components/GameCard.astro"
 import { games } from "@/constants/games"
-
-const images = import.meta.glob<{ default: ImageMetadata }>("@/images/*")
-
-const imageMap = Object.fromEntries(
-    Object.entries(images).map(([key, value]) => [
-        key.replace("@/images/", "").replace(".png", ""),
-        // value.default,
-    ]),
-)
 ---
 
 <Section>
@@ -18,7 +9,7 @@ const imageMap = Object.fromEntries(
         {
             games.map((game) => (
                 <li>
-                    <GameCard {game} {imageMap} />
+                    <GameCard {game} />
                 </li>
             ))
         }
