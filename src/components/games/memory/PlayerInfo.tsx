@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import avatarDefault from 'src/images/avatars/batman.avif'
 
 interface PlayerInfoProps {
     avatarSrc: string
@@ -11,7 +12,7 @@ const PlayerInfo: FC<PlayerInfoProps> = ({ avatarSrc, nickname, movesRemaining, 
     return (
         <section className="text-black bg-white rounded-lg p-4 flex flex-col gap-4">
             <article className="flex flex-col items-center gap-2">
-                <img src="src/images/avatars/batman.avif" alt="Player avatar" width={100} />
+                <img src={avatarDefault.src} alt="Player avatar" width={100} />
                 <h3 className="font-semibold">{nickname}</h3>
             </article>
 
