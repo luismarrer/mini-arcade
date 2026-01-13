@@ -5,10 +5,15 @@ import { games } from "@/constants/games"
 ---
 
 <Section>
-    <ul class="flex flex-col gap-4 items-center mx-5 md:flex-row">
+    <ul
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-5 justify-items-center"
+    >
         {
-            games.map((game) => (
-                <li class="animate-fadeInUp [animation-fill-mode:both]">
+            games.map((game, index) => (
+                <li
+                    class="animate-fadeInUp [animation-fill-mode:both]"
+                    style={`animation-delay: ${index * 0.1}s`}
+                >
                     <GameCard {game} />
                 </li>
             ))
