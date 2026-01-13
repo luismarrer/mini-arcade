@@ -11,7 +11,7 @@ Some were born from online courses, while others came from curiosity — experim
 
 ## Live Demo 🌐
 
-The project is available online via GitHub Pages:
+The project is available online via Vercel:
 
 **[🎮 Play Now - Mini Arcade](https://mini-arcade-dev.vercel.app/)**
 
@@ -113,22 +113,20 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 ### Web Development
 
 - [ ] Two Dots: Pasar de JS vanilla a React
+- [ ] Memory: Traducir todo al inglés
 - [ ] Usar base de datos para guardar el nick
 - [ ] Improve mobile responsiveness
 - [ ] Complete migration to Tailwind CSS
 
 ### Games to be completed
 
-- [X] Complete Two Dots
 - [ ] Complete MonkeyType
 - [ ] Complete Stack
-- [X] Hangman
 
 ### Features
 
 - [ ] Add global scoring system
 - [ ] Implement multiplayer mode
-- [ ] Add more classic titles
 - [ ] PWA (Progressive Web App)
 
 ## License 📄
