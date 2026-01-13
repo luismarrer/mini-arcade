@@ -112,7 +112,6 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 
 ### Web Development
 
-- [X] Aprender a usar el componente `<Image>` de Astro para optimizar imágenes
 - [ ] Two Dots: Pasar de JS vanilla a React
 - [ ] Usar base de datos para guardar el nick
 - [ ] Improve mobile responsiveness
