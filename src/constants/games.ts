@@ -35,4 +35,18 @@ export const games: Game[] = [
         image: "/images/hangman.png",
         path: "/hangman",
     },
+    {
+        id:"stack",
+        title: "Stack Tower",
+        description: "Stack the blocks as high as you can without toppling them.",
+        image: "/images/stack.png",
+        path: "/stack",
+    },
+    {
+        id: "monkeytype",
+        title: "MonkeyType",
+        description: "Test your typing speed and accuracy with fun passages.",
+        image: "/images/monkeytype.png",
+        path: "/monkeytype",
+    }
 ]
