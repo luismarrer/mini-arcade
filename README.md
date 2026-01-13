@@ -106,14 +106,12 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 
 ### Web Development
 
-- [X] Complete migration to Astro
-  - [X] Complete migration to Vercel
-  - [ ] Memory Game
-    - [ ] Form
-      - [ ] Usar base de datos para guardar el nick
-  - [ ] Complete migration to Tailwind CSS
-- [X] Convert all games to Astro components
-- [X] Create footer
+- [ ] Aprender a usar el componente `<Image>` de Astro para optimizar imágenes
+- [ ] Improve mobile responsiveness
+- [ ] Memory Game
+  - [ ] Form
+    - [ ] Usar base de datos para guardar el nick
+- [ ] Complete migration to Tailwind CSS
 
 ### Games to be completed
 
