@@ -77,16 +77,16 @@ footer{
     width: 35px;
     height: 35px;
 }
-.rojo {
+.red {
     background-color: #fd0c49;
     transition: background-color 0.4s ease;
 }
 
-.verde {
+.green {
     background-color: #7ac943;
     transition: background-color 0.4s ease;
 }
-#contenedorJuego {
+#gameContainer {
     flex: 1;
     min-width: 31.25rem;
     max-width: 31.25rem;
@@ -97,8 +97,8 @@ footer{
     max-width: 31.25rem;
 }
 
-/* Panel de juego */
-#juego {
+/* Game panel */
+#game {
     position: relative;
     z-index: 1;
     display: grid;
@@ -113,13 +113,13 @@ footer{
     border-radius: 0.5rem 0.5rem 0 0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
-.juegoAcabadoColor {
+.gameOverColor {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
     transition: background 0.4s ease;
 }
 
-/* Panel de juego acabado */
-#juegoAcabado {
+/* Game over panel */
+#gameOver {
     position: absolute;
     top: 0;
     left: 0;
@@ -139,7 +139,7 @@ footer{
     gap: 2rem;
 }
 
-.juegoAcabadoTexto{
+.gameOverText{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -149,11 +149,11 @@ footer{
 }
 
 
-#juegoAcabado.show {
+#gameOver.show {
     display: flex;
 }
 
-#juegoAcabado h3 {
+#gameOver h3 {
     font-size: 1.5rem;
     font-weight: 500;
     color: #333;
@@ -161,8 +161,8 @@ footer{
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Botón de nueva partida */
-#juegoAcabado button {
+/* New game button */
+#gameOver button {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
@@ -177,11 +177,11 @@ footer{
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-#juegoAcabado button:hover {
+#gameOver button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
-#tituloJuego {
+#gameTitle {
     width: 100%;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: 1px solid #e2e8f0;
@@ -191,12 +191,12 @@ footer{
     text-align: center;
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
-#tituloJuego h1 {
+#gameTitle h1 {
     font-size: 1.5rem;
     font-weight: 400;
     margin: 0;
 }
-#contenedorUsuario {
+#userContainer {
     width: 21.875rem;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 1rem;
@@ -206,7 +206,7 @@ footer{
     height: fit-content;
 }
 
-#contenedorUsuario h2 {
+#userContainer h2 {
     font-size: 1.125rem;
     font-weight: 500;
     margin-bottom: 1rem;
@@ -239,16 +239,16 @@ footer{
         gap: 1rem;
     }
     
-    #contenedorJuego {
+    #gameContainer {
         min-width: auto;
         max-width: 100%;
     }
     
-    #contenedorUsuario {
+    #userContainer {
         width: 100%;
     }
     
-    #juego {
+    #game {
         aspect-ratio: 1;
     }
 }
@@ -258,11 +258,11 @@ footer{
         padding: 0.5rem;
     }
     
-    #tituloJuego h1 {
+    #gameTitle h1 {
         font-size: 1.25rem;
     }
     
-    #contenedorUsuario h2 {
+    #userContainer h2 {
         font-size: 1rem;
     }
 }

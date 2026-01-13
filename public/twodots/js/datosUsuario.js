@@ -1,37 +1,37 @@
 /*
-* JS Para la gestión de los datos de usuario
+* JS for user data management
 *
 */
 
 //sessionStorage
 
 /**
- * Almacenar los datos en el sessionStorage
- * @param {String} nick nick del usuario
- * @param {Number} tamano tamaño del panel
- * @param {String} avatarCont avatar del usuario
+ * Store data in sessionStorage
+ * @param {String} nick user nickname
+ * @param {Number} size board size
+ * @param {String} avatarCont user avatar
  */
-const datosUsuario = (nick, tamano, avatarCont) => {
+const saveUserData = (nick, size, avatarCont) => {
     sessionStorage.setItem('nick', nick)
-    sessionStorage.setItem('tamano', tamano)
+    sessionStorage.setItem('size', size)
     sessionStorage.setItem('avatarImg', avatarCont)
 }
 
 /**
- * Recoge los datos de la sesion del sessionStage
+ * Gets session data from sessionStorage
  */
-const getDatosUsuario = () => {
+const getUserData = () => {
     nick = sessionStorage.getItem('nick')
-    tamano = parseInt(sessionStorage.getItem('tamano'))
+    size = parseInt(sessionStorage.getItem('size'))
     avatarImg = sessionStorage.getItem('avatarImg')
 }
 
 /**
- * Comprueba si existe nick en el sessionStorage
+ * Checks if nick exists in sessionStorage
  */
-const comprobacionDatosUsuario = () => {
+const validateUserData = () => {
     if (nick == null) {
-        sessionStorage.setItem('error','No se ha rellenado correctamente el formulario')
+        sessionStorage.setItem('error','The form was not filled out correctly')
         return false
     }
     return true
@@ -39,24 +39,24 @@ const comprobacionDatosUsuario = () => {
 
 //localStorage
 /**
- * Crea y almacena en el localStorage el histórico de entrada
+ * Creates and stores user history in localStorage
  * 
- * @param  {String} nick nick del usuario
+ * @param  {String} nick user nickname
  */
-const historicoUsuarios = (nick) => {
-    let historicoStorage=localStorage.getItem('historico')
-    let historico=[]
-    if (historicoStorage == null) {
-        historico=[]
+const saveUserHistory = (nick) => {
+    let historyStorage=localStorage.getItem('history')
+    let history=[]
+    if (historyStorage == null) {
+        history=[]
     } else {
-        historico=JSON.parse(historicoStorage)
+        history=JSON.parse(historyStorage)
     }
-    let registroUsuario={
-        usuario:nick,
-        fecha:Date.now()
+    let userRecord={
+        user:nick,
+        date:Date.now()
     }
-    historico.push(registroUsuario)
-    localStorage.setItem('historico',JSON.stringify(historico))
+    history.push(userRecord)
+    localStorage.setItem('history',JSON.stringify(history))
 }
 
-export { datosUsuario }
+export { saveUserData }

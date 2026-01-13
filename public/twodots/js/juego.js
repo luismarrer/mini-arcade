@@ -1,19 +1,19 @@
 // @ts-check
 
 /**
- * JS Para el juego Masterdots
+ * JS for the Masterdots game
  */
 
-let iniciadoMarcado=false
-let adyacentes=[]
-let idMarcados=[]
-let classMarcada
-let idInterval = 0
-let tamano = 0
-let puntuacion = 0
+let markingStarted=false
+let adjacent=[]
+let markedIds=[]
+let markedClass
+let intervalId = 0
+let size = 0
+let score = 0
 
 /**
- * Devuelve un numero random entre 0 y max
+ * Returns a random number between 0 and max
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
  * @param  {} max
  */
@@ -22,224 +22,224 @@ const getRandomInt = (max) => {
 }
 
 /**
- * Pinta el panel del juego
+ * Draws the game board
  */
-const pintarPanelJuego = () => {
-    const tamanoPanel=sessionStorage.getItem('tamano')
-    if (!tamanoPanel) {
-        // Redirigir a la página de inicio
+const drawGameBoard = () => {
+    const boardSize=sessionStorage.getItem('size')
+    if (!boardSize) {
+        // Redirect to home page
         location.href="index.html" 
         return
     }
-    tamano = parseInt(tamanoPanel)
-    const juegoElement = document.getElementById("juego")
-    if (!juegoElement) {
-        console.error("Element with ID 'juego' not found")
+    size = parseInt(boardSize)
+    const gameElement = document.getElementById("game")
+    if (!gameElement) {
+        console.error("Element with ID 'game' not found")
         return
     }
-    juegoElement.style.gridTemplateColumns="repeat("+tamano+", 1fr)"
-    juegoElement.style.gridTemplateRows="repeat("+tamano+", 1fr)"
+    gameElement.style.gridTemplateColumns="repeat("+size+", 1fr)"
+    gameElement.style.gridTemplateRows="repeat("+size+", 1fr)"
 
-    // Elementos de forma automatica
+    // Create elements automatically
     let items = ""
-    let color = ["rojo","verde"]
+    let color = ["red","green"]
     let colorRnd = 0
-    for (let index = 0; index < (parseInt(tamanoPanel)*parseInt(tamanoPanel)); index++) {
+    for (let index = 0; index < (parseInt(boardSize)*parseInt(boardSize)); index++) {
         if (index%2>0) colorRnd=getRandomInt(2)
         items+=`<div class="containerItem"><div id="${index}" class="item ${color[colorRnd]}"></div></div>`
     }
-    juegoElement.innerHTML=items
+    gameElement.innerHTML=items
 }
 
 /**
- * Muestra los datos del usuario
+ * Displays user data
  */
-const mostrarDatosUsuario = () => {
+const displayUserData = () => {
     const avatar=sessionStorage.getItem('avatarImg')
     const nick=sessionStorage.getItem('nick')
-    const tamano=sessionStorage.getItem('tamano')
+    const boardSize=sessionStorage.getItem('size')
     
     const avatarElement = /** @type {HTMLImageElement} */ (document.getElementById("avatarImg"))
     const nickElement = /** @type {HTMLInputElement} */ (document.getElementById("nick"))
-    const tamanoElement = /** @type {HTMLInputElement} */ (document.getElementById("tamano"))
+    const sizeElement = /** @type {HTMLInputElement} */ (document.getElementById("boardSize"))
     
     if (avatarElement && avatar) avatarElement.src = avatar
     if (nickElement && nick) nickElement.innerText = `Nick: ${nick}`
-    if (tamanoElement && tamano) tamanoElement.innerText = `Tamaño: ${tamano}x${tamano}`
+    if (sizeElement && boardSize) sizeElement.innerText = `Size: ${boardSize}x${boardSize}`
 }
 
 /**
- * Calcula el array de los adyacentes
- * @param  {Number} idMarcado número marcado
+ * Calculates the array of adjacent cells
+ * @param  {Number} markedId marked cell number
  */
-const calcularAdyacentes = (idMarcado) => {
-    adyacentes=[]
-    //Adyacente superior
-    if((idMarcado-tamano)>=0) adyacentes.push(idMarcado-tamano)
-    //Adyacente inferior
-    if((idMarcado+tamano)<(tamano*tamano)) adyacentes.push(idMarcado+tamano)
-    //Adyacente izquierda
-    if((idMarcado%tamano)>0) adyacentes.push(idMarcado-1)
-    //Adyacente derecha
-    if(((idMarcado+1)%tamano)>0) adyacentes.push(idMarcado+1)
+const calculateAdjacent = (markedId) => {
+    adjacent=[]
+    // Top adjacent
+    if((markedId-size)>=0) adjacent.push(markedId-size)
+    // Bottom adjacent
+    if((markedId+size)<(size*size)) adjacent.push(markedId+size)
+    // Left adjacent
+    if((markedId%size)>0) adjacent.push(markedId-1)
+    // Right adjacent
+    if(((markedId+1)%size)>0) adjacent.push(markedId+1)
 
 }
 
 /**
- * Funcion que realiza el conteo hacia atrás del juego
- * En segundos
+ * Countdown timer function for the game
+ * In seconds
  */
-const cuentaAtras = () => {
+const countdown = () => {
 
-    // Inicializar el temporizador
-    let tmpoRestante = 60
-    // Elemento del temporizador
-    const tmpoElement = /** @type {HTMLInputElement} */ (document.getElementById("tmpo"))
-    if (!tmpoElement) return console.error("Element with ID 'tmpo' not found")
+    // Initialize timer
+    let remainingTime = 60
+    // Timer element
+    const timerElement = /** @type {HTMLInputElement} */ (document.getElementById("timer"))
+    if (!timerElement) return console.error("Element with ID 'timer' not found")
 
-    // bucle del temporizador
-    idInterval = setInterval(() => {
-        tmpoRestante--
-        if (tmpoRestante < 0) {
-            clearInterval(idInterval)
-            tmpoRestante = 0
-            finJuego()
+    // Timer loop
+    intervalId = setInterval(() => {
+        remainingTime--
+        if (remainingTime < 0) {
+            clearInterval(intervalId)
+            remainingTime = 0
+            endGame()
         }
-        tmpoElement.innerText = `Tiempo restante: ${tmpoRestante}`
+        timerElement.innerText = `Remaining time: ${remainingTime}`
     }, 1000)
 }
 
 /**
- * Fin del juego
+ * End of game
  */
-const finJuego = () => {
+const endGame = () => {
     const items=document.getElementsByClassName('item')
     for (let item of items) {
-        item.removeEventListener('mousedown',comenzarMarcar)
-        item.removeEventListener('mouseover',continuarMarcando)
+        item.removeEventListener('mousedown',startMarking)
+        item.removeEventListener('mouseover',continueMarking)
     }
-    document.removeEventListener('mouseup',finalizarMarcado)
+    document.removeEventListener('mouseup',finishMarking)
 
-    // Cambiar la visibilidad de los paneles
-    const juegoAcabadoElement = document.getElementById("juegoAcabado")
-    const juegoElement = document.getElementById("juego")
-    if (juegoAcabadoElement) {
-        juegoAcabadoElement.style.display="block"
+    // Change panel visibility
+    const gameOverElement = document.getElementById("gameOver")
+    const gameElement = document.getElementById("game")
+    if (gameOverElement) {
+        gameOverElement.style.display="block"
     }
-    const nuevaPartidaElement = document.getElementById("nuevaPartida")
-    if (nuevaPartidaElement) {
-        nuevaPartidaElement.addEventListener("click",(e)=>location.reload())
+    const newGameElement = document.getElementById("newGame")
+    if (newGameElement) {
+        newGameElement.addEventListener("click",(e)=>location.reload())
     }
 }
 
 /**
- * Añadir los eventos al juego
+ * Add game events
  */
-const programarEventosJuego = () => {
+const setupGameEvents = () => {
     const items=document.getElementsByClassName('item')
     for (let item of items) {
-        item.addEventListener('mousedown',comenzarMarcar)
-        item.addEventListener('mouseover',continuarMarcando)
+        item.addEventListener('mousedown',startMarking)
+        item.addEventListener('mouseover',continueMarking)
     }
-    document.addEventListener('mouseup',finalizarMarcado)
+    document.addEventListener('mouseup',finishMarking)
 
-    // Cuenta atrás
-    cuentaAtras()
+    // Countdown
+    countdown()
 }
 
 /**
- * Iniciar el marcado de los dots
+ * Start marking dots
  * @param {Event} event
  */
-const comenzarMarcar = (event) => {
+const startMarking = (event) => {
     const item = /** @type {HTMLElement} */ (event.target)
     const containerItem = item?.parentElement
     if (!item || !containerItem) return
     
-    if (item.classList.contains('rojo')) {
-        classMarcada='rojo'
-        containerItem.classList.add('rojo')
+    if (item.classList.contains('red')) {
+        markedClass='red'
+        containerItem.classList.add('red')
     } else {
-        classMarcada='verde'
-        containerItem.classList.add('verde')
+        markedClass='green'
+        containerItem.classList.add('green')
     }
 
-    if (!iniciadoMarcado) iniciadoMarcado=true
+    if (!markingStarted) markingStarted=true
 
-    //Guardo los marcados
-    idMarcados.push(parseInt(item.id))
-    //Comienzo a calcular adyacentes
-    calcularAdyacentes(parseInt(item.id))
+    // Save marked items
+    markedIds.push(parseInt(item.id))
+    // Start calculating adjacent cells
+    calculateAdjacent(parseInt(item.id))
 }
 
 /**
- * Continuar el marcado de los dots
+ * Continue marking dots
  * @param {Event} event
  */
-const continuarMarcando = (event) => {
-    if (iniciadoMarcado) {
+const continueMarking = (event) => {
+    if (markingStarted) {
         const item = /** @type {HTMLElement} */ (event.target)
         const containerItem = item?.parentElement
         if (!item || !containerItem) return
         
-        let idNuevo=parseInt(item.id)
-        //Es adyacente?
-        if(adyacentes.includes(idNuevo)&&item.classList.contains(classMarcada))
+        let newId=parseInt(item.id)
+        // Is it adjacent?
+        if(adjacent.includes(newId)&&item.classList.contains(markedClass))
         {
-            if(item.classList.contains('rojo')) containerItem.classList.add('rojo')
-            else containerItem.classList.add('verde')
-            //Guardo los marcados
-            idMarcados.push(parseInt(item.id))
-            calcularAdyacentes(parseInt(item.id))
+            if(item.classList.contains('red')) containerItem.classList.add('red')
+            else containerItem.classList.add('green')
+            // Save marked items
+            markedIds.push(parseInt(item.id))
+            calculateAdjacent(parseInt(item.id))
         }
 
     }
  }
 
 /**
- * Finalizaría el marcado de los dots
+ * Finish marking dots
  * @param {Event} event
  */
-const finalizarMarcado = (event) => {
-    iniciadoMarcado=false
-    adyacentes=[]
+const finishMarking = (event) => {
+    markingStarted=false
+    adjacent=[]
 
-    // recuperar puntuacion
-    const puntuacionElement = /** @type {HTMLInputElement} */ (document.getElementById("puntuacion"))
-    if (!puntuacionElement) return console.error("Element with ID 'puntuacion' not found")
+    // Get score
+    const scoreElement = /** @type {HTMLInputElement} */ (document.getElementById("score"))
+    if (!scoreElement) return console.error("Element with ID 'score' not found")
     
     
 
-    if(idMarcados.length > 1 && puntuacionElement){
-        puntuacion += idMarcados.length
-        puntuacionElement.innerText = `Puntuación: ${puntuacion}`
+    if(markedIds.length > 1 && scoreElement){
+        score += markedIds.length
+        scoreElement.innerText = `Score: ${score}`
     }
 
-    // Trabajar con los marcados
-    for (let index = 0; index < idMarcados.length; index++) {
-        //Capturar el objeto
-        let itemMarcado=document.getElementById(idMarcados[index].toString())
-        if (itemMarcado && itemMarcado.parentElement) {
-            itemMarcado.parentElement.classList.remove(classMarcada)
+    // Work with marked items
+    for (let index = 0; index < markedIds.length; index++) {
+        // Capture the object
+        let markedItem=document.getElementById(markedIds[index].toString())
+        if (markedItem && markedItem.parentElement) {
+            markedItem.parentElement.classList.remove(markedClass)
         }
-        //Cambiar el color de los objetos de forma rnd
-        let color=["rojo","verde"]
+        // Change object color randomly
+        let color=["red","green"]
         let colorRnd=getRandomInt(2)
-        if (itemMarcado) {
-            itemMarcado.classList.remove(classMarcada)
-            itemMarcado.classList.add(color[colorRnd])
+        if (markedItem) {
+            markedItem.classList.remove(markedClass)
+            markedItem.classList.add(color[colorRnd])
         }
     }
-    idMarcados=[]
+    markedIds=[]
  }
 
  /**
- * Inicializa el juego
+ * Initializes the game
  */
 const initGame = () => {
-    pintarPanelJuego()
-    mostrarDatosUsuario()
-    programarEventosJuego()
+    drawGameBoard()
+    displayUserData()
+    setupGameEvents()
 }
 
 if (typeof window !== 'undefined') {

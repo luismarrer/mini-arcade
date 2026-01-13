@@ -1,24 +1,24 @@
 // @ts-check
 
 /**
- * JS Para la comprobación de datos del Formulario de entrada
+ * JS for form data validation
  */
 
 let avatarItems
 let avatarCont
 let selectedAvatar = 1
-import { datosUsuario } from "./datosUsuario.js";
+import { saveUserData } from "./datosUsuario.js";
 
 /**
- * Comprueba los datos correctos del formualrio de entrada
- * @param  {Event} event Evento que salta al realizar submit
+ * Validates the form data
+ * @param  {Event} event Event triggered on form submit
  */
-const comprobarForm = (event, error) => {
+const validateForm = (event, error) => {
     let nickInput = /** @type {HTMLInputElement} */ (document.getElementById("nick"))
-    let tamanoInput = /** @type {HTMLSelectElement} */ (document.getElementById("tamano"))
+    let sizeInput = /** @type {HTMLSelectElement} */ (document.getElementById("size"))
 
     // Check if required elements exist
-    if (!nickInput || !tamanoInput || !error) {
+    if (!nickInput || !sizeInput || !error) {
         console.error("Required form elements not found")
         event.preventDefault()
         return false
@@ -28,17 +28,17 @@ const comprobarForm = (event, error) => {
         nickInput.focus()
         event.preventDefault()
         error.style.display="block"
-        error.innerText="El campo de nick no puede comenzar con un numero"
+        error.innerText="The nick field cannot start with a number"
         return false
-    } else if (tamanoInput.value=="0") {
-        tamanoInput.focus()
+    } else if (sizeInput.value=="0") {
+        sizeInput.focus()
         event.preventDefault()
         error.style.display="block"
-        error.innerText="Se debe seleccionar un tamaño de panel"
+        error.innerText="You must select a board size"
         return false
     }
 
-    datosUsuario(nickInput.value, parseInt(tamanoInput.value), avatarCont.src)
+    saveUserData(nickInput.value, parseInt(sizeInput.value), avatarCont.src)
     error.style.display="none"
     return true
 }
@@ -151,9 +151,9 @@ const handleDrop = (event) => {
 }
 
 /**
- * Carga de objetos del DOM comprobaciones y eventos del formulario
+ * Loads DOM objects, performs validations and sets up form events
  */
-const domCargado = () => {
+const domLoaded = () => {
 
     let formEntrada = /** @type {HTMLFormElement} */ (document.getElementById("formEntrada"))
     let error = /** @type {HTMLElement} */ (document.getElementById("error"))
@@ -164,14 +164,14 @@ const domCargado = () => {
         return
     }
     
-    // Comprobar si hay algún error de juego.html
+    // Check if there's any error from game.html
     const errorMessage = sessionStorage.getItem('error')
     if (errorMessage != null) {
         error.innerText = errorMessage
         sessionStorage.removeItem('error')
     }
 
-    formEntrada.addEventListener('submit', (event)=>comprobarForm(event,error))
+    formEntrada.addEventListener('submit', (event)=>validateForm(event,error))
 
     // Avatar selection events
     avatarItems = document.querySelectorAll('.avatarItem')
@@ -205,7 +205,7 @@ const domCargado = () => {
 
 // Event listener for DOMContentLoaded
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', domCargado)
+    document.addEventListener('DOMContentLoaded', domLoaded)
 } else {
-    domCargado()
+    domLoaded()
 }

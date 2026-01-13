@@ -32,11 +32,11 @@ See the UI design in [Figma](https://www.figma.com/design/FEBHZo4guKObNeA8UTbSfK
 #### Vanilla technologies (HTML, CSS, JS)
 
 - Hexapawn
-- Memory
 - Two Dots
 
 #### React
 
+- Memory
 - Hangman
 
 ## Project Structure 📁
@@ -112,11 +112,10 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 
 ### Web Development
 
-- [ ] Aprender a usar el componente `<Image>` de Astro para optimizar imágenes
+- [X] Aprender a usar el componente `<Image>` de Astro para optimizar imágenes
+- [ ] Two Dots: Pasar de JS vanilla a React
+- [ ] Usar base de datos para guardar el nick
 - [ ] Improve mobile responsiveness
-- [ ] Memory Game
-  - [ ] Form
-    - [ ] Usar base de datos para guardar el nick
 - [ ] Complete migration to Tailwind CSS
 
 ### Games to be completed
