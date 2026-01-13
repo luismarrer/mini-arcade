@@ -4,8 +4,6 @@ A collection of web games — all in one site, built with modern web technologie
 
 ![Mini Arcade Preview](preview.png)
 
-## 🌐 Demo en Vivo
-
 ## Description
 
 This project is a collection of small web games built for fun and learning.  
@@ -15,7 +13,7 @@ Some were born from online courses, while others came from curiosity — experim
 
 The project is available online via GitHub Pages:
 
-**[🎮 Play Now - Mini Arcade](https://mini-arcade-seven.vercel.app/)**
+**[🎮 Play Now - Mini Arcade](https://mini-arcade-dev.vercel.app/)**
 
 ## Design 🎨
 
@@ -41,6 +39,64 @@ See the UI design in [Figma](https://www.figma.com/design/FEBHZo4guKObNeA8UTbSfK
 
 - Hangman
 
+## Project Structure 📁
+
+```plaintext
+mini-arcade/
+├── astro.config.mjs
+├── package.json
+├── tsconfig.json
+├── public/
+│   ├── hexapawn/
+│   │   └── js/
+│   ├── images/
+│   └── twodots/
+│       └── js/
+└── src/
+    ├── components/
+    │   ├── GameCard.astro
+    │   ├── Section.astro
+    │   ├── games/
+    │   │   ├── HangmanGame.astro
+    │   │   ├── HexapawnGame.astro
+    │   │   ├── MemoryGame.astro
+    │   │   ├── TwodotsGame.astro
+    │   │   ├── hangman/
+    │   │   ├── hexapawn/
+    │   │   ├── memory/
+    │   │   │   └── hooks/
+    │   │   └── twodots/
+    │   └── sections/
+    │       ├── Footer.astro
+    │       ├── Form.astro
+    │       ├── Games.astro
+    │       ├── Header.astro
+    │       └── Hero.astro
+    ├── constants/
+    │   └── games.ts
+    ├── images/
+    │   ├── avatars/
+    │   └── memory/
+    │       └── cards/
+    ├── layouts/
+    │   └── Layout.astro
+    ├── lib/
+    │   ├── auth.ts
+    │   └── supabase.ts
+    ├── pages/
+    │   ├── index.astro
+    │   ├── login.astro
+    │   ├── signup.astro
+    │   └── games/
+    ├── styles/
+    │   ├── global.css
+    │   ├── hexapawn/
+    │   ├── memory/
+    │   └── twodots/
+    └── types/
+        └── database.ts
+```
+
 ## Contributing 🤝
 
 Contributions are welcome!  
@@ -50,14 +106,14 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 
 ### Web Development
 
-- [ ] Complete migration to Astro
+- [X] Complete migration to Astro
   - [X] Complete migration to Vercel
   - [ ] Memory Game
     - [ ] Form
       - [ ] Usar base de datos para guardar el nick
   - [ ] Complete migration to Tailwind CSS
 - [X] Convert all games to Astro components
-- [ ] Create footer
+- [X] Create footer
 
 ### Games to be completed
 
