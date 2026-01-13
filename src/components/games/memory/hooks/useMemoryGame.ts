@@ -15,15 +15,15 @@ interface UseMemoryGameProps {
 }
 
 const FLIP_TIME: Record<string, number> = {
-    baja: 2000, // 2 seconds
-    media: 1000, // 1 second
-    alta: 500, // 0.5 seconds
+    low: 2000, // 2 seconds
+    medium: 1000, // 1 second
+    high: 500, // 0.5 seconds
 }
 
 const MOVE_MULTIPLIERS: Record<string, number> = {
-    baja: 5,
-    media: 4,
-    alta: 3,
+    low: 5,
+    medium: 4,
+    high: 3,
 }
 
 const createCards = (numCards: number, cardImages: CardImage[]): Card[] => {
@@ -54,7 +54,7 @@ const createCards = (numCards: number, cardImages: CardImage[]): Card[] => {
 
 const calculateMaxMoves = (difficulty: string, numCards: number): number => {
     const pairs = numCards / 2
-    const multiplier = MOVE_MULTIPLIERS[difficulty] || MOVE_MULTIPLIERS.baja
+    const multiplier = MOVE_MULTIPLIERS[difficulty] || MOVE_MULTIPLIERS.low
     return Math.floor(pairs * multiplier)
 }
 
@@ -68,7 +68,7 @@ export const useMemoryGame = ({ difficulty, numCards, cardImages }: UseMemoryGam
     const [gameWon, setGameWon] = useState(false)
     const [gameLost, setGameLost] = useState(false)
 
-    const flipTime = FLIP_TIME[difficulty] || FLIP_TIME.baja
+    const flipTime = FLIP_TIME[difficulty] || FLIP_TIME.low
 
     const flipCard = useCallback(
         (cardId: number) => {

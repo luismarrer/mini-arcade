@@ -56,7 +56,7 @@ const GameBoard: FC<GameBoardProps> = ({ cards, onCardClick, cardImages }) => {
                             aria-label={card.isMatched ? `Matched card ${card.content}` : 'Hidden card'}
                         >
                             <div className="card-inner relative w-full h-full text-center transition-transform duration-600 rounded-xl">
-                                {/* Cara frontal (boca abajo) */}
+                                {/* Front face (face down) */}
                                 <div className="
                                     card-front
                                     absolute w-full h-full rounded-xl
@@ -67,7 +67,7 @@ const GameBoard: FC<GameBoardProps> = ({ cards, onCardClick, cardImages }) => {
                                     shadow-lg
                                     before:content-['?'] before:text-3xl before:md:text-4xl before:drop-shadow-md
                                 "/>
-                                {/* Cara trasera (boca arriba) */}
+                                {/* Back face (face up) */}
                                 <div className={`
                                     card-back
                                     absolute w-full h-full rounded-xl

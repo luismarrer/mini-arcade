@@ -2,29 +2,29 @@ import { useState, useCallback } from 'react'
 
 export interface Artifact {
     id: string
-    nombre: string
-    descripcion: string
-    usosMaximos: number
-    usosRestantes: number
-    activo: boolean
+    name: string
+    description: string
+    maxUses: number
+    remainingUses: number
+    active: boolean
 }
 
 const AVAILABLE_ARTIFACTS: Record<string, Artifact> = {
-    'destapar-todas': {
-        id: 'destapar-todas',
-        nombre: 'Reveal all cards',
-        descripcion: 'Shows all cards for 3 seconds',
-        usosMaximos: 1,
-        usosRestantes: 1,
-        activo: true,
+    'reveal-all': {
+        id: 'reveal-all',
+        name: 'Reveal all cards',
+        description: 'Shows all cards for 3 seconds',
+        maxUses: 1,
+        remainingUses: 1,
+        active: true,
     },
-    'mas-turnos': {
-        id: 'mas-turnos',
-        nombre: 'More turns',
-        descripcion: 'Adds 5 additional moves',
-        usosMaximos: 2,
-        usosRestantes: 2,
-        activo: true,
+    'more-turns': {
+        id: 'more-turns',
+        name: 'More turns',
+        description: 'Adds 5 additional moves',
+        maxUses: 2,
+        remainingUses: 2,
+        active: true,
     },
 }
 
@@ -37,7 +37,7 @@ export const useArtifacts = (selectedArtifactId: string | null) => {
     })
 
     const canUseArtifact = useCallback(() => {
-        return artifact !== null && artifact.activo && artifact.usosRestantes > 0
+        return artifact !== null && artifact.active && artifact.remainingUses > 0
     }, [artifact])
 
     const useArtifact = useCallback(() => {
@@ -46,11 +46,11 @@ export const useArtifacts = (selectedArtifactId: string | null) => {
         setArtifact((prev) => {
             if (!prev) return null
             
-            const newUsesRemaining = prev.usosRestantes - 1
+            const newUsesRemaining = prev.remainingUses - 1
             return {
                 ...prev,
-                usosRestantes: newUsesRemaining,
-                activo: newUsesRemaining > 0,
+                remainingUses: newUsesRemaining,
+                active: newUsesRemaining > 0,
             }
         })
 
@@ -71,7 +71,7 @@ export const useArtifacts = (selectedArtifactId: string | null) => {
 
     const getArtifactText = useCallback(() => {
         if (!artifact) return 'No artifacts available'
-        return `${artifact.nombre} (${artifact.usosRestantes}/${artifact.usosMaximos})`
+        return `${artifact.name} (${artifact.remainingUses}/${artifact.maxUses})`
     }, [artifact])
 
     return {

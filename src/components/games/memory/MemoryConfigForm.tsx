@@ -1,9 +1,9 @@
 import type { FC, FormEvent, ChangeEvent } from "react"
 
 interface MemoryConfig {
-    dificultad: string
-    tarjetas: string
-    artefactos: string
+    difficulty: string
+    cards: string
+    artifacts: string
 }
 
 interface ConfigFormProps {
@@ -18,22 +18,22 @@ const ConfigForm: FC<ConfigFormProps> = ({ config, onConfigChange, onSubmit }) =
             <label className="flex flex-col gap-2 font-medium text-white text-base">
                 Difficulty
                 <select
-                    name="dificultad"
-                    value={config.dificultad}
+                    name="difficulty"
+                    value={config.difficulty}
                     onChange={onConfigChange}
                     className="px-4 py-3 border border-slate-200 rounded-lg text-base bg-white text-slate-800 transition-all duration-200 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                 >
-                    <option value="baja">Low</option>
-                    <option value="media">Medium</option>
-                    <option value="alta">High</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
                 </select>
             </label>
 
             <label className="flex flex-col gap-2 font-medium text-white text-base">
                 Number of cards
                 <select
-                    name="tarjetas"
-                    value={config.tarjetas}
+                    name="cards"
+                    value={config.cards}
                     onChange={onConfigChange}
                     className="px-4 py-3 border border-slate-200 rounded-lg text-base bg-white text-slate-800 transition-all duration-200 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                 >
@@ -46,14 +46,14 @@ const ConfigForm: FC<ConfigFormProps> = ({ config, onConfigChange, onSubmit }) =
             <label className="flex flex-col gap-2 font-medium text-white text-base">
                 Artifacts
                 <select
-                    name="artefactos"
-                    value={config.artefactos}
+                    name="artifacts"
+                    value={config.artifacts}
                     onChange={onConfigChange}
                     className="px-4 py-3 border border-slate-200 rounded-lg text-base bg-white text-slate-800 transition-all duration-200 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
                 >
                     <option value="">Select artifact</option>
-                    <option value="destapar-todas">Reveal all</option>
-                    <option value="mas-turnos">More turns</option>
+                    <option value="reveal-all">Reveal all</option>
+                    <option value="more-turns">More turns</option>
                 </select>
             </label>
 

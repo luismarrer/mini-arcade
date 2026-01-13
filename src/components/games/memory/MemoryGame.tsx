@@ -8,9 +8,9 @@ import GameControls from "./GameControls"
 import type { CardImage } from "./MemoryGameClient"
 
 interface MemoryConfig {
-    dificultad: string
-    tarjetas: string
-    artefactos: string
+    difficulty: string
+    cards: string
+    artifacts: string
 }
 
 interface MemoryGameBoardProps {
@@ -20,7 +20,7 @@ interface MemoryGameBoardProps {
 }
 
 const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, cardImages }) => {
-    const numCards = parseInt(config.tarjetas)
+    const numCards = parseInt(config.cards)
     
     const {
         cards,
@@ -33,7 +33,7 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
         addMoves,
         revealAllCards,
     } = useMemoryGame({
-        difficulty: config.dificultad,
+        difficulty: config.difficulty,
         numCards,
         cardImages,
     })
@@ -44,7 +44,7 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
         useArtifact,
         resetArtifact,
         getArtifactText,
-    } = useArtifacts(config.artefactos || null)
+    } = useArtifacts(config.artifacts || null)
 
     // Handle artifact usage
     const handleUseArtifact = () => {
@@ -58,10 +58,10 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
 
         // Execute artifact functionality
         switch (artifact.id) {
-            case 'destapar-todas':
+            case 'reveal-all':
                 revealAllCards()
                 break
-            case 'mas-turnos':
+            case 'more-turns':
                 addMoves(5)
                 alert("You've gained 5 additional moves!")
                 break
@@ -102,14 +102,14 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
         <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-2 text-white text-sm">
                 <p>
-                    Difficulty: <span className="font-semibold">{config.dificultad}</span>
+                    Difficulty: <span className="font-semibold">{config.difficulty}</span>
                 </p>
                 <p>
-                    Cards: <span className="font-semibold">{config.tarjetas}</span>
+                    Cards: <span className="font-semibold">{config.cards}</span>
                 </p>
-                {config.artefactos && config.artefactos !== '0' && (
+                {config.artifacts && config.artifacts !== '0' && (
                     <p>
-                        Artifact: <span className="font-semibold">{artifact?.nombre || config.artefactos}</span>
+                        Artifact: <span className="font-semibold">{artifact?.name || config.artifacts}</span>
                     </p>
                 )}
             </div>

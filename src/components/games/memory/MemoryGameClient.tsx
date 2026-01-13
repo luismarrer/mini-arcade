@@ -6,15 +6,15 @@ import GameBoard from "./MemoryGame"
 type Phase = "config" | "playing"
 
 interface MemoryConfig {
-    dificultad: string
-    tarjetas: string
-    artefactos: string
+    difficulty: string
+    cards: string
+    artifacts: string
 }
 
 const defaultConfig: MemoryConfig = {
-    dificultad: "baja",
-    tarjetas: "12",
-    artefactos: "",
+    difficulty: "low",
+    cards: "12",
+    artifacts: "",
 }
 
 export type CardImage = {
