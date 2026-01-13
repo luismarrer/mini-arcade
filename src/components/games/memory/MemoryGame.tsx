@@ -5,6 +5,7 @@ import { useArtifacts } from "./hooks/useArtifacts"
 import PlayerInfo from "./PlayerInfo"
 import GameBoard from "./GameBoard"
 import GameControls from "./GameControls"
+import type { CardImage } from "./MemoryGameClient"
 
 interface MemoryConfig {
     dificultad: string
@@ -15,9 +16,10 @@ interface MemoryConfig {
 interface MemoryGameBoardProps {
     config: MemoryConfig
     onBackToConfig: () => void
+    cardImages: CardImage[]
 }
 
-const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig }) => {
+const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, cardImages }) => {
     const numCards = parseInt(config.tarjetas)
     
     const {
@@ -33,6 +35,7 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig }) =
     } = useMemoryGame({
         difficulty: config.dificultad,
         numCards,
+        cardImages,
     })
 
     const {
@@ -121,7 +124,7 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig }) =
 
                 <section className="mx-auto bg-[#222f49] p-4 rounded-lg w-full">
                     <h2 className="text-white text-lg font-semibold mb-4">Game Board</h2>
-                    <GameBoard cards={cards} onCardClick={flipCard} />
+                    <GameBoard cards={cards} onCardClick={flipCard} cardImages={cardImages} />
                     <GameControls
                         onRestart={handleRestart}
                         onBack={onBackToConfig}

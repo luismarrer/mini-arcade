@@ -1,6 +1,44 @@
 ---
-import MemoryGameClient from "@/components/games/memory/MemoryGameClient"
+import MemoryGameClient from "@components/games/memory/MemoryGameClient"
 import "@/styles/memory/card.css"
+
+import { getImage } from "astro:assets"
+
+// Importa las cartas desde src/
+const raw = import.meta.glob(
+    "../../images/memory/cards/*.{png,jpg,jpeg,webp,avif}",
+    {
+        eager: true,
+        import: "default",
+    },
+)
+
+// Define tamaños realistas para cartas
+const widths = [64, 96, 128, 192, 256]
+
+const cards = await Promise.all(
+    Object.entries(raw).map(async ([path, meta]) => {
+        const img = await getImage({
+            src: meta,
+            widths,
+            sizes: "(max-width: 640px) 22vw, (max-width: 1024px) 12vw, 96px",
+            formats: ["avif", "webp"],
+            quality: 75,
+        })
+
+        const name = path.split("/").pop()?.split(".")[0] ?? "card"
+
+        return {
+            id: name,
+            alt: name,
+            src: img.src,
+            srcSet: img.attributes.srcset,
+            sizes: img.attributes.sizes,
+            width: img.attributes.width,
+            height: img.attributes.height,
+        }
+    }),
+)
 ---
 
-<MemoryGameClient client:load />
+<MemoryGameClient client:load cards={cards} />

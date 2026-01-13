@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
+import type { CardImage } from '../MemoryGameClient'
 
 export interface Card {
     id: number
@@ -10,25 +11,8 @@ export interface Card {
 interface UseMemoryGameProps {
     difficulty: string
     numCards: number
+    cardImages: CardImage[]
 }
-
-const CARD_IMAGES = [
-    'alfred-pennyworth',
-    'bane',
-    'batwoman',
-    'bizarro',
-    'brainiac',
-    'doomsday',
-    'krypto',
-    'lex-luthor',
-    'lois-lane',
-    'nightwing',
-    'riddler',
-    'robin',
-    'scarecrow',
-    'the-joker',
-    'two-face',
-]
 
 const FLIP_TIME: Record<string, number> = {
     baja: 2000, // 2 seconds
@@ -42,13 +26,14 @@ const MOVE_MULTIPLIERS: Record<string, number> = {
     alta: 3,
 }
 
-const createCards = (numCards: number): Card[] => {
+const createCards = (numCards: number, cardImages: CardImage[]): Card[] => {
     const numPairs = numCards / 2
 
-    // Select random images
-    const selectedImages = [...CARD_IMAGES]
+    // Select random images from available card images
+    const selectedImages = [...cardImages]
         .sort(() => Math.random() - 0.5)
         .slice(0, numPairs)
+        .map(img => img.id)
 
     // Create pairs
     const pairs: string[] = []
@@ -73,8 +58,8 @@ const calculateMaxMoves = (difficulty: string, numCards: number): number => {
     return Math.floor(pairs * multiplier)
 }
 
-export const useMemoryGame = ({ difficulty, numCards }: UseMemoryGameProps) => {
-    const [cards, setCards] = useState<Card[]>(() => createCards(numCards))
+export const useMemoryGame = ({ difficulty, numCards, cardImages }: UseMemoryGameProps) => {
+    const [cards, setCards] = useState<Card[]>(() => createCards(numCards, cardImages))
     const [flippedCards, setFlippedCards] = useState<number[]>([])
     const [isLocked, setIsLocked] = useState(false)
     const [maxMoves] = useState(() => calculateMaxMoves(difficulty, numCards))
@@ -167,14 +152,14 @@ export const useMemoryGame = ({ difficulty, numCards }: UseMemoryGameProps) => {
     }, [cards, movesRemaining, gameWon, gameLost, flippedCards.length])
 
     const resetGame = useCallback(() => {
-        setCards(createCards(numCards))
+        setCards(createCards(numCards, cardImages))
         setFlippedCards([])
         setIsLocked(false)
         setMovesRemaining(maxMoves)
         setScore(0)
         setGameWon(false)
         setGameLost(false)
-    }, [numCards, maxMoves])
+    }, [numCards, maxMoves, cardImages])
 
     const addMoves = useCallback((amount: number) => {
         setMovesRemaining((prev) => prev + amount)

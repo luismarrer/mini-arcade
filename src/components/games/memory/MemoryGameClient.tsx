@@ -17,7 +17,17 @@ const defaultConfig: MemoryConfig = {
     artefactos: "",
 }
 
-const MemoryGameClient: FC = () => {
+export type CardImage = {
+  id: string;
+  alt: string;
+  src: string;
+  srcSet: string;
+  sizes: string;
+  width: number;
+  height: number;
+}
+
+const MemoryGameClient: FC<{ cards: CardImage[] }> = ({ cards }) => {
     const [phase, setPhase] = useState<Phase>("config")
     const [config, setConfig] = useState<MemoryConfig>(defaultConfig)
 
@@ -68,7 +78,7 @@ const MemoryGameClient: FC = () => {
         <section className="mx-auto mt-16 bg-[#222f49] p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-5xl flex flex-col gap-8">
             {phase === "config" ? (
                 <ConfigForm config={config} onConfigChange={handleChange} onSubmit={handleSubmit} />
-            ) : <GameBoard config={config} onBackToConfig={handleBackToConfig} />}
+            ) : <GameBoard config={config} onBackToConfig={handleBackToConfig} cardImages={cards} />}
         </section>
     )
 }

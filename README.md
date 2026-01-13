@@ -64,7 +64,13 @@ mini-arcade/
     │   │   ├── hangman/
     │   │   ├── hexapawn/
     │   │   ├── memory/
-    │   │   │   └── hooks/
+    │   │   │   ├── hooks/
+    |   |   |   ├── GameBoard.tsx
+    │   │   │   ├── GameControls.tsx
+    │   │   │   ├── MemoryConfigForm.tsx
+    │   │   │   ├── MemoryGame.tsx
+    |   |   |   ├── MemoryGameClient.tsx
+    │   |   │   └── PlayerInfo.tsx
     │   │   └── twodots/
     │   └── sections/
     │       ├── Footer.astro
