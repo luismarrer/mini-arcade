@@ -4,11 +4,11 @@ import { $ } from './myjquery.js'
 import { gameState, setGameState } from './state.js'
 
 /**
- * Guardar nombre del jugador con sessionStorage
+ * Save player name with sessionStorage
  * @param {HTMLFormElement} form
  */
 export const savePlayerName = (form) => {
-    // Escuchar el evento submit del formulario
+    // Listen for form submit event
     if (!form) return
     form.addEventListener('submit', (event) => {
         const name = /** @type {HTMLInputElement} */ ($('player-name'))?.value
@@ -19,7 +19,7 @@ export const savePlayerName = (form) => {
 }
 
 /**
- * Recuperar nombre del jugador
+ * Get player name
  */
 export const getPlayerName = () => {
     const playerName = localStorage.getItem('player-name')
@@ -29,17 +29,17 @@ export const getPlayerName = () => {
 }
 
 /**
- * Estado inicial de cada juego nuevo
+ * Initial state for each new game
  */
 export const getInitialState = () => ({
     board: [
-        ['computer', 'computer', 'computer'], // fila 1 peones de la computadora
-        ['', '', ''], // fila 2
-        ['player', 'player', 'player'], // fila 3 peones del jugador
+        ['computer', 'computer', 'computer'], // row 1 computer pawns
+        ['', '', ''], // row 2
+        ['player', 'player', 'player'], // row 3 player pawns
     ],
-    currentPlayer: 'player', // turno del jugador
-    gameOver: false, // si el juego termino
-    winner: null, // ganador
+    currentPlayer: 'player', // player's turn
+    gameOver: false, // if the game is over
+    winner: null, // winner
 })
 
 

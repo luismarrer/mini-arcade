@@ -22,11 +22,11 @@ export default function LoginClient() {
 
       if (signInError) throw signInError;
 
-      // Redirigir al juego
+      // Redirect to game
       window.location.href = '/memory/game';
     } catch (err: any) {
-      console.error('Error al iniciar sesión:', err);
-      setError(err.message || 'Error al iniciar sesión');
+      console.error('Error signing in:', err);
+      setError(err.message || 'Error signing in');
     } finally {
       setLoading(false);
     }
@@ -81,13 +81,13 @@ export default function LoginClient() {
         disabled={loading}
         className="px-6 py-3 bg-blue-600 text-white rounded-lg text-base font-medium cursor-pointer transition-all duration-200 mt-3 hover:bg-blue-700 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-blue-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {loading ? 'Iniciando sesión...' : 'Sign In'}
+        {loading ? 'Signing in...' : 'Sign In'}
       </button>
 
       <p className="text-center text-white text-sm">
-        ¿No tienes cuenta?{' '}
+        Don't have an account?{' '}
         <a href="/signup" className="text-blue-400 hover:underline">
-          Regístrate
+          Sign up
         </a>
       </p>
     </form>

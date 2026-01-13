@@ -55,8 +55,8 @@ export const updateDisplay = () => {
     const currentPlayerElement = document.getElementById('current-player')
     if (currentPlayerElement) {
         currentPlayerElement.textContent = gameState.gameOver
-            ? `Ganador: ${gameState.winner === 'player' ? getPlayerName() || 'Jugador' : 'Computadora'}`
-            : gameState.currentPlayer === 'player' ? getPlayerName() || 'Jugador' : 'Computadora'
+            ? `Winner: ${gameState.winner === 'player' ? getPlayerName() || 'Player' : 'Computer'}`
+            : gameState.currentPlayer === 'player' ? getPlayerName() || 'Player' : 'Computer'
     }
 
 }
@@ -103,7 +103,7 @@ export const endGame = (winner) => {
     const newGameState = { ...gameState, gameOver: true, winner }
     setGameState(newGameState)
     
-    // Actualizar el tablero con el nuevo estado
+    // Update board with new state
     updateBoardDisplay(newGameState)
 
     // Disable all pawns

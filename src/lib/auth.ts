@@ -10,7 +10,7 @@ export interface UserProfile {
 }
 
 /**
- * Obtiene el usuario actual autenticado
+ * Gets the current authenticated user
  */
 export async function getCurrentUser(): Promise<User | null> {
   const { data: { user } } = await supabase.auth.getUser();
@@ -18,7 +18,7 @@ export async function getCurrentUser(): Promise<User | null> {
 }
 
 /**
- * Obtiene el perfil del usuario actual
+ * Gets the current user's profile
  */
 export async function getCurrentProfile(): Promise<Profile | null> {
   const user = await getCurrentUser();
@@ -31,7 +31,7 @@ export async function getCurrentProfile(): Promise<Profile | null> {
     .single();
 
   if (error) {
-    console.error('Error al obtener perfil:', error);
+    console.error('Error getting profile:', error);
     return null;
   }
 
@@ -39,7 +39,7 @@ export async function getCurrentProfile(): Promise<Profile | null> {
 }
 
 /**
- * Obtiene el usuario y su perfil
+ * Gets the user and their profile
  */
 export async function getUserProfile(): Promise<UserProfile | null> {
   const user = await getCurrentUser();
@@ -52,7 +52,7 @@ export async function getUserProfile(): Promise<UserProfile | null> {
 }
 
 /**
- * Verifica si un nick está disponible
+ * Checks if a nick is available
  */
 export async function isNickAvailable(nick: string): Promise<boolean> {
   const { data } = await supabase
@@ -65,14 +65,14 @@ export async function isNickAvailable(nick: string): Promise<boolean> {
 }
 
 /**
- * Cierra la sesión del usuario
+ * Signs out the user
  */
 export async function signOut(): Promise<void> {
   await supabase.auth.signOut();
 }
 
 /**
- * Inicia sesión con email y password
+ * Signs in with email and password
  */
 export async function signIn(email: string, password: string) {
   return await supabase.auth.signInWithPassword({
@@ -82,7 +82,7 @@ export async function signIn(email: string, password: string) {
 }
 
 /**
- * Actualiza el perfil del usuario
+ * Updates the user's profile
  */
 export async function updateProfile(
   userId: string,

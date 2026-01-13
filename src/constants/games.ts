@@ -48,5 +48,12 @@ export const games: Game[] = [
         description: "Test your typing speed and accuracy with fun passages.",
         image: "/images/monkeytype.png",
         path: "/monkeytype",
+    },
+    {
+        id: "tetris",
+        title: "Tetris",
+        description: "Classic block-stacking puzzle game.",
+        image: "/images/tetris.png",
+        path: "/tetris",
     }
 ]

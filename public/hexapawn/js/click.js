@@ -5,7 +5,7 @@ import { highlightValidMoves, selectPawn, deselectAllPawns, clearHighlights } fr
 import { gameState } from "./state.js"
 
 /**
- * Manejar el juego con clicks
+ * Handle the game with clicks
  */
 
 let selectedPawn = null
@@ -23,9 +23,9 @@ const handleClick = (event) => {
     const col = parseInt(cell.dataset.col || '0')
     const piece = gameState.board[row][col]
     
-    // Si hay un peón seleccionado
+    // If there's a selected pawn
     if (selectedPawn) {
-        // Si clickeamos el mismo peón, lo deseleccionamos
+        // If we click the same pawn, deselect it
         if (selectedPawn.row === row && selectedPawn.col === col) {
             selectedPawn = null
             deselectAllPawns()
@@ -33,7 +33,7 @@ const handleClick = (event) => {
             return
         }
         
-        // Si clickeamos otro peón del jugador actual, cambiamos la selección
+        // If we click another pawn of the current player, change selection
         if (piece && piece === gameState.currentPlayer) {
             deselectAllPawns()
             clearHighlights()
@@ -44,11 +44,11 @@ const handleClick = (event) => {
             return
         }
         
-        // Si clickeamos una celda vacía o enemiga, mostrar movimientos válidos
+        // If we click an empty or enemy cell, show valid moves
         const validMoves = getValidMoves(selectedPawn)
         highlightValidMoves(validMoves)
     } else {
-        // No hay peón seleccionado, seleccionar si es del jugador actual
+        // No pawn selected, select if it belongs to the current player
         if (piece && piece === gameState.currentPlayer) {
             selectedPawn = { row, col }
             selectPawn(row, col)

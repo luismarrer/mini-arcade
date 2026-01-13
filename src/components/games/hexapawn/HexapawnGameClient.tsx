@@ -151,7 +151,7 @@ const getComputerMove = (state: GameState): Move | null => {
 const HexapawnGameClient: FC = () => {
     const [gameState, setGameState] = useState<GameState>(getInitialState())
     const [stats, setStats] = useState<Stats>({ wins: 0, losses: 0 })
-    const [playerName, setPlayerName] = useState<string>("Jugador")
+    const [playerName, setPlayerName] = useState<string>("Player")
     const [selectedPawn, setSelectedPawn] = useState<Position | null>(null)
     const [validMoves, setValidMoves] = useState<Move[]>([])
     const [draggedPawn, setDraggedPawn] = useState<Position | null>(null)
@@ -235,16 +235,16 @@ const HexapawnGameClient: FC = () => {
 
         const piece = gameState.board[row][col]
 
-        // Si hay un peón seleccionado
+        // If there's a selected pawn
         if (selectedPawn) {
-            // Si clickeamos el mismo peón, lo deseleccionamos
+            // If we click the same pawn, deselect it
             if (selectedPawn.row === row && selectedPawn.col === col) {
                 setSelectedPawn(null)
                 setValidMoves([])
                 return
             }
 
-            // Si clickeamos otro peón del jugador, cambiamos la selección
+            // If we click another player's pawn, change selection
             if (piece === "player") {
                 setSelectedPawn({ row, col })
                 const moves = getValidMoves({ row, col }, gameState)
@@ -252,7 +252,7 @@ const HexapawnGameClient: FC = () => {
                 return
             }
 
-            // Intentar hacer un movimiento
+            // Try to make a move
             const move = validMoves.find((m) => m.to.row === row && m.to.col === col)
             if (move) {
                 const newState = makeMove(move, gameState)
@@ -265,7 +265,7 @@ const HexapawnGameClient: FC = () => {
                 }
             }
         } else {
-            // No hay peón seleccionado, seleccionar si es del jugador
+            // No pawn selected, select if it belongs to the player
             if (piece === "player") {
                 setSelectedPawn({ row, col })
                 const moves = getValidMoves({ row, col }, gameState)
@@ -321,7 +321,7 @@ const HexapawnGameClient: FC = () => {
     }
 
     const resetStats = () => {
-        if (confirm("¿Estás seguro de que quieres reiniciar las estadísticas?")) {
+        if (confirm("Are you sure you want to reset the statistics?")) {
             const newStats = { wins: 0, losses: 0 }
             setStats(newStats)
             localStorage.setItem("hexapawn-stats", JSON.stringify(newStats))
@@ -339,26 +339,26 @@ const HexapawnGameClient: FC = () => {
     return (
         <>
             <section className="game-info">
-                <h2>Estado del Juego</h2>
+                <h2>Game Status</h2>
                 <div className="stats">
                     <div className="stat">
-                        <span className="label">Turno:</span>
+                        <span className="label">Turn:</span>
                         <span id="current-player" className="value">
                             {gameState.gameOver
-                                ? `Ganador: ${gameState.winner === "player" ? playerName : "Computadora"}`
+                                ? `Winner: ${gameState.winner === "player" ? playerName : "Computer"}`
                                 : gameState.currentPlayer === "player"
                                   ? playerName
-                                  : "Computadora"}
+                                  : "Computer"}
                         </span>
                     </div>
                     <div className="stat">
-                        <span className="label">Victorias:</span>
+                        <span className="label">Wins:</span>
                         <span id="wins" className="value">
                             {stats.wins}
                         </span>
                     </div>
                     <div className="stat">
-                        <span className="label">Derrotas:</span>
+                        <span className="label">Losses:</span>
                         <span id="losses" className="value">
                             {stats.losses}
                         </span>
@@ -366,7 +366,7 @@ const HexapawnGameClient: FC = () => {
                 </div>
             </section>
             <section className="game-board-container">
-                <h2 className="visually-hidden">Tablero de Hexapawn</h2>
+                <h2 className="visually-hidden">Hexapawn Board</h2>
                 <div id="game-board" className={`game-board ${gameState.gameOver ? "game-over" : ""}`}>
                     {gameState.board.map((row, rowIndex) =>
                         row.map((cell, colIndex) => (
@@ -403,10 +403,10 @@ const HexapawnGameClient: FC = () => {
             </section>
             <section className="game-controls">
                 <button id="new-game" className="btn btn-primary" onClick={startNewGame}>
-                    Nuevo Juego
+                    New Game
                 </button>
                 <button id="reset-stats" className="btn btn-secondary" onClick={resetStats}>
-                    Reiniciar Estadísticas
+                    Reset Statistics
                 </button>
             </section>
         </>

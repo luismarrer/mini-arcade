@@ -26,7 +26,7 @@ export default function FormClient() {
     setSuccess(false);
 
     try {
-      // Verificar si el nick ya existe
+      // Check if nick already exists
       const { data: existingProfile } = await supabase
         .from('profiles')
         .select('nick')
@@ -34,12 +34,12 @@ export default function FormClient() {
         .single();
 
       if (existingProfile) {
-        setError('Este nick ya está en uso. Por favor elige otro.');
+        setError('This nickname is already in use. Please choose another.');
         setLoading(false);
         return;
       }
 
-      // Registrar usuario en Supabase Auth
+      // Register user in Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
@@ -48,10 +48,10 @@ export default function FormClient() {
       if (authError) throw authError;
 
       if (!authData.user) {
-        throw new Error('No se pudo crear el usuario');
+        throw new Error('Could not create user');
       }
 
-      // Crear perfil del usuario
+      // Create user profile
       const { error: profileError } = await supabase.from('profiles').insert({
         user_id: authData.user.id,
         nick: formData.nick,
@@ -62,13 +62,13 @@ export default function FormClient() {
 
       setSuccess(true);
       
-      // Redirigir después de un momento
+      // Redirect after a moment
       setTimeout(() => {
         window.location.href = '/memory/game';
       }, 2000);
     } catch (err: any) {
-      console.error('Error al registrar:', err);
-      setError(err.message || 'Error al registrar el usuario');
+      console.error('Error registering:', err);
+      setError(err.message || 'Error registering user');
     } finally {
       setLoading(false);
     }
@@ -94,7 +94,7 @@ export default function FormClient() {
       
       {success && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-          ¡Registro exitoso! Redirigiendo...
+          Registration successful! Redirecting...
         </div>
       )}
 
@@ -166,13 +166,13 @@ export default function FormClient() {
         disabled={loading}
         className="px-6 py-3 bg-blue-600 text-white rounded-lg text-base font-medium cursor-pointer transition-all duration-200 mt-3 hover:bg-blue-700 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-blue-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {loading ? 'Registrando...' : 'Sign Up'}
+        {loading ? 'Registering...' : 'Sign Up'}
       </button>
 
       <p className="text-center text-white text-sm">
-        ¿Ya tienes cuenta?{' '}
+        Already have an account?{' '}
         <a href="/login" className="text-blue-400 hover:underline">
-          Inicia sesión
+          Sign in
         </a>
       </p>
     </form>

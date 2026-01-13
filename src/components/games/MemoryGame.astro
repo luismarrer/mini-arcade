@@ -2,7 +2,7 @@
 import MemoryGameClient from "@components/games/memory/MemoryGameClient"
 import { getImage } from "astro:assets"
 
-// Importa las cartas desde src/
+// Import cards from src/
 const raw = import.meta.glob(
     "../../images/memory/cards/*.{png,jpg,jpeg,webp,avif}",
     {
@@ -11,7 +11,7 @@ const raw = import.meta.glob(
     },
 )
 
-// Define tamaños realistas para cartas
+// Define realistic sizes for cards
 const widths = [64, 96, 128, 192, 256]
 
 const cards = await Promise.all(

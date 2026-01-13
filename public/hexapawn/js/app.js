@@ -1,9 +1,9 @@
 // @ts-check
 
 /**
- * El archivo app.js es el archivo principal del juego.
- * Aquí se inicializa el juego y se definen las funciones principales.
- * Es por donde comienza toda la lógica.
+ * The app.js file is the main file of the game.
+ * Here the game is initialized and the main functions are defined.
+ * This is where all the logic begins.
  */
 
 import { $ } from './myjquery.js'
@@ -15,22 +15,22 @@ import { setupDragAndDrop } from './dragAndDrop.js'
 import { handleClick } from './click.js'
 
 
-// Guardar nombre del jugador
+// Save player name
 const playerForm = document.getElementById('player-name-form')
 if (playerForm) {
     savePlayerName(/** @type {HTMLFormElement} */ (playerForm))
 }
 
 /**
- * Mostrar el nombre del jugador
+ * Show the player's name
  */
 const showPlayerName = () => {
-    // recuperar el nombre del jugador
+    // Get the player's name
     const playerName = getPlayerName()
-    // recuperar el elemento del nombre del jugador
+    // Get the player name element
     const playerNameElement = $('current-player')
     if (playerNameElement) {
-        playerNameElement.textContent = playerName || 'Jugador'
+        playerNameElement.textContent = playerName || 'Player'
     }
 }
 
@@ -52,10 +52,10 @@ export const handleMove = (move) => {
     const newState = makeMove(move)
     if (!newState) return console.log('Invalid move')
 
-    // Actualizar el estado global antes de cualquier otra operación
+    // Update global state before any other operation
     setGameState(newState)
     
-    // Actualizar el tablero visualmente
+    // Update the board visually
     updateBoardDisplay(newState)
     
     
@@ -83,7 +83,7 @@ const startNewGame = () => {
 }
 
 const resetStats = () => {
-    if (confirm('¿Estás seguro de que quieres reiniciar las estadísticas?')) {
+    if (confirm('Are you sure you want to reset the statistics?')) {
         saveStats({ wins: 0, losses: 0 })
         showStats()
         updateAndSave()
@@ -95,13 +95,13 @@ const startOldGame = () => {
 }
 
 /**
- * Inicializar el juego
+ * Initialize the game
  */
 
 const initGame = () => {
     showPlayerName()
 
-    // manejar movimientos del jugador
+    // Handle player moves
     const board = document.getElementById('game-board')
     if (board) {
         setupDragAndDrop(board, handleMove)
@@ -123,14 +123,14 @@ const initGame = () => {
     if (!state || !state.board) {
         startNewGame()
     } else {
-        // Actualizar el tablero con el estado cargado
+        // Update board with loaded state
         updateBoardDisplay(state)
         showStats()
         startOldGame()
     }
 }
 
-// Inicializar cuando el DOM esté listo
+// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initGame)
 } else {

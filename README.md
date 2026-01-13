@@ -112,8 +112,10 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 
 ### Web Development
 
-- [ ] Two Dots: Pasar de JS vanilla a React
-- [ ] Memory: Traducir todo al inglés
+- [X] Two Dots: Pasar de JS vanilla a React
+- [X] Memory: Traducir todo al inglés
+- [ ] Two Dots: migrate styles to Tailwind CSS
+- [ ] Hexapawn: migrate styles to Tailwind CSS
 - [ ] Usar base de datos para guardar el nick
 - [ ] Improve mobile responsiveness
 - [ ] Complete migration to Tailwind CSS
