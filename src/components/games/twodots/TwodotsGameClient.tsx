@@ -1,19 +1,16 @@
 import type { FC, FormEvent, ChangeEvent } from "react"
-import { useEffect, useState } from "react"
-import GameContainer from "./GameContainer"
-import PlayerInfo from "./PlayerInfo"
+import { useState } from "react"
+import TwodotsGame from "./TwodotsGame"
 import TwodotsConfigForm from "./TwodotsConfigForm"
 
 type Phase = "config" | "playing"
 
 interface TwoDotsConfig {
-    nick: string
     size: string
     avatar: number
 }
 
 const defaultConfig: TwoDotsConfig = {
-    nick: "",
     size: "",
     avatar: 1,
 }
@@ -23,11 +20,9 @@ const TwodotsGameClient: FC = () => {
     const [config, setConfig] = useState<TwoDotsConfig>(defaultConfig)
     const [error, setError] = useState<string>("")
 
-
-    const avatarSrc = `/images/twodots/avatars/avatar${config.avatar}.png`
-
     const handleBackToConfig = () => {
         setPhase("config")
+        setConfig(defaultConfig)
     }
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -38,12 +33,6 @@ const TwodotsGameClient: FC = () => {
             return
         }
 
-        if (typeof window === "undefined") return
-
-        const session = window.sessionStorage
-        session.setItem("size", config.size)
-        session.setItem("avatarImg", avatarSrc)
-
         setError("")
         setPhase("playing")
     }
@@ -51,31 +40,6 @@ const TwodotsGameClient: FC = () => {
     const handleSizeChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setConfig((prev) => ({ ...prev, size: event.target.value }))
     }
-
-    useEffect(() => {
-        if (phase !== "playing") return
-        if (typeof window === "undefined") return
-
-        let cancelled = false
-
-        const tryInit = () => {
-            if (cancelled) return
-            const globalAny = window as unknown as {
-                TwodotsGame?: { init?: () => void }
-            }
-            if (globalAny.TwodotsGame?.init) {
-                globalAny.TwodotsGame.init()
-                return
-            }
-            window.setTimeout(tryInit, 50)
-        }
-
-        tryInit()
-
-        return () => {
-            cancelled = true
-        }
-    }, [phase])
 
     if (phase === "config") {
         return (
@@ -89,10 +53,10 @@ const TwodotsGameClient: FC = () => {
     }
 
     return (
-        <>
-            <GameContainer />
-            <PlayerInfo avatarSrc={avatarSrc} onBackToConfig={handleBackToConfig} />
-        </>
+        <TwodotsGame
+            config={config}
+            onBackToConfig={handleBackToConfig}
+        />
     )
 }
 
