@@ -19,7 +19,7 @@ const widths = [64, 96, 128, 192, 256]
 const cards = await Promise.all(
     Object.entries(raw).map(async ([path, meta]) => {
         const img = await getImage({
-            src: meta,
+            src: meta as ImageMetadata,
             widths,
             sizes: "(max-width: 640px) 22vw, (max-width: 1024px) 12vw, 96px",
             formats: ["avif", "webp"],
