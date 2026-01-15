@@ -112,8 +112,7 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 
 ### Web Development
 
-- [X] Two Dots: migrate styles to Tailwind CSS
-- [ ] Hexapawn: refactor JavaScript to React
+- [X] Hexapawn: refactor JavaScript to React
 - [ ] Hexapawn: migrate styles to Tailwind CSS
 - [ ] Use database to save nick
 - [ ] Improve mobile responsiveness
