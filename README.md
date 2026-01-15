@@ -32,11 +32,11 @@ See the UI design in [Figma](https://www.figma.com/design/FEBHZo4guKObNeA8UTbSfK
 #### Vanilla technologies (HTML, CSS, JS)
 
 - Hexapawn
-- Two Dots
 
 #### React
 
 - Memory
+- Two Dots
 - Hangman
 
 ## Project Structure 📁
@@ -112,11 +112,10 @@ If you have suggestions or find bugs, please open an issue or submit a pull requ
 
 ### Web Development
 
-- [X] Two Dots: Pasar de JS vanilla a React
-- [X] Memory: Traducir todo al inglés
-- [ ] Two Dots: migrate styles to Tailwind CSS
+- [X] Two Dots: migrate styles to Tailwind CSS
+- [ ] Hexapawn: refactor JavaScript to React
 - [ ] Hexapawn: migrate styles to Tailwind CSS
-- [ ] Usar base de datos para guardar el nick
+- [ ] Use database to save nick
 - [ ] Improve mobile responsiveness
 - [ ] Complete migration to Tailwind CSS
 
