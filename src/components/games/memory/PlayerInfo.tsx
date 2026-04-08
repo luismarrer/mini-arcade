@@ -1,24 +1,24 @@
 import type { FC } from 'react'
-import avatarDefault from 'src/images/avatars/batman.avif'
 
 interface PlayerInfoProps {
-    avatarSrc: string
-    nickname: string
     movesRemaining: number
     score: number
+    pairsFound: number
+    totalPairs: number
 }
 
-const PlayerInfo: FC<PlayerInfoProps> = ({ avatarSrc, nickname, movesRemaining, score }) => {
+const PlayerInfo: FC<PlayerInfoProps> = ({ movesRemaining, score, pairsFound, totalPairs }) => {
     return (
         <section className="text-black bg-white rounded-lg p-4 flex flex-col gap-4">
-            <article className="flex flex-col items-center gap-2">
-                <img src={avatarDefault.src} alt="Player avatar" width={100} />
-                <h3 className="font-semibold">{nickname}</h3>
-            </article>
 
             <section className="text-center">
-                <h3 className="font-semibold">Remaining moves</h3>
+                <h3 className="font-semibold">Moves</h3>
                 <p aria-live="polite">{movesRemaining}</p>
+            </section>
+
+            <section className="text-center">
+                <h3 className="font-semibold">Pairs</h3>
+                <p aria-live="polite">{pairsFound}/{totalPairs}</p>
             </section>
 
             <section className="text-center">

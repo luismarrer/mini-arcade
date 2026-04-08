@@ -21,7 +21,7 @@ interface MemoryGameBoardProps {
 
 const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, cardImages }) => {
     const numCards = parseInt(config.cards)
-    
+
     const {
         cards,
         movesRemaining,
@@ -96,7 +96,9 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
     }
 
     const playerData = getPlayerData()
-    const avatarSrc = `/images/memory/avatars/${playerData.avatar}.avif`
+    const avatarSrc = playerData.avatar.startsWith('avatar')
+        ? `/images/avatars/${playerData.avatar}.png`
+        : `/images/avatars/${playerData.avatar}.avif`
 
     return (
         <div className="flex flex-col gap-8">
@@ -116,14 +118,13 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
 
             <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-start">
                 <PlayerInfo
-                    avatarSrc={avatarSrc}
-                    nickname={playerData.nick}
                     movesRemaining={movesRemaining}
                     score={score}
+                    pairsFound={score}
+                    totalPairs={numCards / 2}
                 />
 
                 <section className="mx-auto bg-[#222f49] p-4 rounded-lg w-full">
-                    <h2 className="text-white text-lg font-semibold mb-4">Game Board</h2>
                     <GameBoard cards={cards} onCardClick={flipCard} cardImages={cardImages} />
                     <GameControls
                         onRestart={handleRestart}

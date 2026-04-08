@@ -1,6 +1,7 @@
 ---
 import Image from "astro/components/Image.astro"
 import Logo from "@/images/logo.png"
+import AuthNav from "./AuthNav"
 ---
 
 <header
@@ -15,7 +16,7 @@ import Logo from "@/images/logo.png"
         <ul class="flex flex-row items-center gap-3">
             <li><a href="/all-games">Games</a></li>
             <li><a href="/about">About</a></li>
-            <li><a href="/signup">Sign Up</a></li>
+            <AuthNav client:load />
         </ul>
     </nav>
 </header>

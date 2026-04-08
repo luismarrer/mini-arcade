@@ -27,11 +27,15 @@ export default function FormClient() {
 
     try {
       // Check if nick already exists
-      const { data: existingProfile } = await supabase
+      const { data: existingProfile, error: checkError } = await supabase
         .from('profiles')
         .select('nick')
         .eq('nick', formData.nick)
-        .single();
+        .maybeSingle();
+
+      if (checkError && checkError.code !== 'PGRST116') {
+        throw checkError;
+      }
 
       if (existingProfile) {
         setError('This nickname is already in use. Please choose another.');
@@ -43,6 +47,12 @@ export default function FormClient() {
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
+        options: {
+          data: {
+            nick: formData.nick,
+            avatar: formData.avatar,
+          },
+        },
       });
 
       if (authError) throw authError;
@@ -51,20 +61,11 @@ export default function FormClient() {
         throw new Error('Could not create user');
       }
 
-      // Create user profile
-      const { error: profileError } = await supabase.from('profiles').insert({
-        user_id: authData.user.id,
-        nick: formData.nick,
-        avatar: formData.avatar,
-      });
-
-      if (profileError) throw profileError;
-
       setSuccess(true);
       
       // Redirect after a moment
       setTimeout(() => {
-        window.location.href = '/memory/game';
+        window.location.href = '/';
       }, 2000);
     } catch (err: any) {
       console.error('Error registering:', err);

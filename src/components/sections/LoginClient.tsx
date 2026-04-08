@@ -23,7 +23,7 @@ export default function LoginClient() {
       if (signInError) throw signInError;
 
       // Redirect to game
-      window.location.href = '/memory/game';
+      window.location.href = '/memory';
     } catch (err: any) {
       console.error('Error signing in:', err);
       setError(err.message || 'Error signing in');
