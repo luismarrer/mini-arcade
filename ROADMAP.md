@@ -1,20 +1,40 @@
-## TODO 📝
+# Mini-Arcade Roadmap 🕹️
 
-### Web Development
+This document outlines the planned features, improvements, and games for the Mini-Arcade project.
 
-- [X] Hexapawn: refactor JavaScript to React
-- [ ] Hexapawn: migrate styles to Tailwind CSS
-- [ ] Use database to save nick
-- [ ] Improve mobile responsiveness
-- [ ] Complete migration to Tailwind CSS
+## 🏗️ Core & Infrastructure
+- [x] Refactor games to React (Hexapawn completed)
+- [ ] Complete sitewide Tailwind CSS migration
+    - [ ] Migrate Hexapawn styles to Tailwind
+    - [ ] Finalize layout responsiveness
+- [ ] **Supabase Integration**
+    - [x] Initial setup and connection
+    - [ ] User profiles (Avatar, Nickname, Bio)
+    - [ ] Data persistence for game sessions
+    - [ ] Global authentication system
 
-### Games to be completed
+## 🎮 Game Catalog
+- [ ] **In-Progress**
+    - [ ] **MonkeyType**: Complete basic typing mechanics and UI
+    - [ ] **Stack**: Implement scoring and mobile controls
+- [ ] **New Additions**
+    - [ ] Implement real-time Multiplayer mode
+    - [ ] Integration of more classic arcade logic games
 
-- [ ] Complete MonkeyType
-- [ ] Complete Stack
+## ✨ Features & UX
+- [ ] **Scoring Framework**
+    - [ ] Global scoring system (Accumulate points across all games)
+    - [ ] Per-game leaderboards (High Score tables)
+    - [ ] Dynamic scoring mechanics (e.g., bonuses for speed/accuracy)
+- [ ] **UX Enhancements**
+    - [ ] Mobile-first responsive design overhaul
+    - [ ] Interactive tutorials for new players
+    - [ ] Sound effects and micro-animations
 
-### Features
+## 📱 Platform & Distribution
+- [ ] PWA (Progressive Web App) support for offline play
+- [ ] SEO Optimization and Meta tags
+- [ ] Deployment automation and performance tuning
 
-- [ ] Add global scoring system
-- [ ] Implement multiplayer mode
-- [ ] PWA (Progressive Web App)
+---
+*Last updated: April 2026*
