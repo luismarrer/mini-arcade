@@ -31,103 +31,17 @@ See the UI design in [Figma](https://www.figma.com/design/FEBHZo4guKObNeA8UTbSfK
 
 #### Vanilla technologies (HTML, CSS, JS)
 
-- Hexapawn
-
 #### React
 
 - Memory
 - Two Dots
+- Hexapawn
 - Hangman
-
-## Project Structure 📁
-
-```plaintext
-mini-arcade/
-├── astro.config.mjs
-├── package.json
-├── tsconfig.json
-├── public/
-│   ├── hexapawn/
-│   │   └── js/
-│   ├── images/
-│   └── twodots/
-│       └── js/
-└── src/
-    ├── components/
-    │   ├── GameCard.astro
-    │   ├── Section.astro
-    │   ├── games/
-    │   │   ├── HangmanGame.astro
-    │   │   ├── HexapawnGame.astro
-    │   │   ├── MemoryGame.astro
-    │   │   ├── TwodotsGame.astro
-    │   │   ├── hangman/
-    │   │   ├── hexapawn/
-    │   │   ├── memory/
-    │   │   │   ├── hooks/
-    |   |   |   ├── GameBoard.tsx
-    │   │   │   ├── GameControls.tsx
-    │   │   │   ├── MemoryConfigForm.tsx
-    │   │   │   ├── MemoryGame.tsx
-    |   |   |   ├── MemoryGameClient.tsx
-    │   |   │   └── PlayerInfo.tsx
-    │   │   └── twodots/
-    │   └── sections/
-    │       ├── Footer.astro
-    │       ├── Form.astro
-    │       ├── Games.astro
-    │       ├── Header.astro
-    │       └── Hero.astro
-    ├── constants/
-    │   └── games.ts
-    ├── images/
-    │   ├── avatars/
-    │   └── memory/
-    │       └── cards/
-    ├── layouts/
-    │   └── Layout.astro
-    ├── lib/
-    │   ├── auth.ts
-    │   └── supabase.ts
-    ├── pages/
-    │   ├── index.astro
-    │   ├── login.astro
-    │   ├── signup.astro
-    │   └── games/
-    ├── styles/
-    │   ├── global.css
-    │   ├── hexapawn/
-    │   ├── memory/
-    │   └── twodots/
-    └── types/
-        └── database.ts
-```
 
 ## Contributing 🤝
 
 Contributions are welcome!  
 If you have suggestions or find bugs, please open an issue or submit a pull request.
-
-## TODO 📝
-
-### Web Development
-
-- [X] Hexapawn: refactor JavaScript to React
-- [ ] Hexapawn: migrate styles to Tailwind CSS
-- [ ] Use database to save nick
-- [ ] Improve mobile responsiveness
-- [ ] Complete migration to Tailwind CSS
-
-### Games to be completed
-
-- [ ] Complete MonkeyType
-- [ ] Complete Stack
-
-### Features
-
-- [ ] Add global scoring system
-- [ ] Implement multiplayer mode
-- [ ] PWA (Progressive Web App)
 
 ## License 📄
 
