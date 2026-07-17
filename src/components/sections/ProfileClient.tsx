@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../lib/supabase';
 import { getUserProfile, signOut, type UserProfile } from '../../lib/auth';
 
 export default function ProfileClient() {
@@ -23,28 +22,29 @@ export default function ProfileClient() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+      <div className="flex justify-center items-center py-20" aria-label="Loading profile">
+        <div className="animate-spin rounded-full h-10 w-10 border-2 border-[#665175] border-t-[#a857ff]"></div>
       </div>
     );
   }
 
   if (!userProfile) {
     return (
-      <div className="text-center py-20 text-white">
-        <p className="text-xl mb-4">You are not logged in.</p>
-        <a href="/login" className="text-blue-400 hover:underline">
-          Go to Login
+      <div className="surface max-w-xl p-8 text-center">
+        <p className="text-lg font-semibold mb-2 text-[#f8f5fb]">There is no active player profile.</p>
+        <p className="mb-5 text-sm text-[#b9a9c5]">Sign in to see your nickname and avatar.</p>
+        <a href="/login" className="button">
+          Sign in
         </a>
       </div>
     );
   }
 
   return (
-    <div className="max-w-md mx-auto bg-[#222f49] rounded-xl shadow-2xl overflow-hidden p-8 border border-white/10">
+    <div className="max-w-xl overflow-hidden rounded-[1.35rem] border border-[#443451] bg-[#21172e] p-6 text-[#f8f5fb] shadow-[0_18px_45px_rgba(0,0,0,0.24)] sm:p-8">
       <div className="flex flex-col items-center gap-6">
         <div className="relative group">
-          <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-3xl font-bold text-white uppercase border-4 border-blue-400/30 overflow-hidden shadow-xl transition-transform duration-300 group-hover:scale-105">
+          <div className="w-24 h-24 rounded-full bg-[#8b2cff] flex items-center justify-center text-3xl font-bold text-white uppercase border-2 border-[#665175] overflow-hidden shadow-[0_0_24px_rgba(139,44,255,0.2)] transition-transform duration-300 group-hover:scale-105">
             {userProfile.profile.avatar ? (
               <img
                 src={userProfile.profile.avatar.startsWith('avatar') 
@@ -60,30 +60,30 @@ export default function ProfileClient() {
               <span>{userProfile.profile.nick.charAt(0)}</span>
             )}
           </div>
-          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-[#222f49] rounded-full shadow-lg"></div>
+          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#82dc3d] border-4 border-[#21172e] rounded-full shadow-[0_0_10px_rgba(130,220,61,0.45)]"></div>
         </div>
         
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-1">
+          <h2 className="text-3xl font-extrabold tracking-[-0.04em] text-[#f8f5fb] mb-1">
             {userProfile.profile.nick}
           </h2>
-          <p className="text-slate-400 text-sm">
+          <p className="text-[#b9a9c5] text-sm">
             {userProfile.user.email}
           </p>
         </div>
 
-        <div className="w-full h-px bg-white/10 my-2"></div>
+        <div className="w-full h-px bg-[#443451] my-2"></div>
 
         <div className="grid grid-cols-2 gap-4 w-full">
-          <div className="bg-white/5 p-4 rounded-lg border border-white/5 text-center flex flex-col items-center justify-center">
-            <span className="block text-xs uppercase tracking-wider text-slate-500 mb-1">Avatar</span>
+          <div className="bg-[#191022] p-4 rounded-lg border border-[#443451] text-center flex flex-col items-center justify-center">
+            <span className="block font-mono text-[0.62rem] uppercase tracking-wider text-[#82728f] mb-1">Avatar</span>
             <div className="flex items-center gap-2">
-              <span className="text-white font-medium capitalize">{userProfile.profile.avatar.replace(/-/g, ' ')}</span>
+              <span className="text-[#f8f5fb] font-medium capitalize">{userProfile.profile.avatar.replace(/-/g, ' ')}</span>
             </div>
           </div>
-          <div className="bg-white/5 p-4 rounded-lg border border-white/5 text-center">
-            <span className="block text-xs uppercase tracking-wider text-slate-500 mb-1">Joined</span>
-            <span className="text-white font-medium">
+          <div className="bg-[#191022] p-4 rounded-lg border border-[#443451] text-center">
+            <span className="block font-mono text-[0.62rem] uppercase tracking-wider text-[#82728f] mb-1">Joined</span>
+            <span className="text-[#f8f5fb] font-medium">
               {new Date(userProfile.profile.created_at).toLocaleDateString()}
             </span>
           </div>
@@ -91,7 +91,7 @@ export default function ProfileClient() {
 
         <button
           onClick={handleSignOut}
-          className="w-full mt-4 px-6 py-3 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg text-base font-medium transition-all duration-200 hover:bg-red-500/20 hover:text-red-300 focus:outline-none focus:ring-4 focus:ring-red-500/10"
+          className="w-full mt-4 px-6 py-3 bg-[#2a1724] text-[#ff9aa9] border border-[#874052] rounded-lg font-mono text-xs font-semibold uppercase tracking-[0.05em] transition-all duration-200 hover:bg-[#3a1b2b] hover:text-[#ffc5ce] focus:outline-none focus:ring-4 focus:ring-red-500/10"
         >
           Sign Out
         </button>

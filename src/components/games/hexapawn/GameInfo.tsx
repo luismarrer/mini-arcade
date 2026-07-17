@@ -18,7 +18,7 @@ const GameInfo: FC<GameInfoProps> = ({ gameState, stats, playerName }) => {
 
     return (
         <section className="game-info">
-            <h2>Game Status</h2>
+            <h2>Match status</h2>
             <div className="stats">
                 <div className="stat">
                     <span className="label">Turn:</span>

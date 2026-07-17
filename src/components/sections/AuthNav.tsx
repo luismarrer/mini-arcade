@@ -1,48 +1,40 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../../lib/supabase';
-import type { User } from '@supabase/supabase-js';
+import { useEffect, useState } from "react"
+import type { User } from "@supabase/supabase-js"
+import { supabase } from "../../lib/supabase"
 
 export default function AuthNav() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState<User | null>(null)
 
-  useEffect(() => {
-    // Check initial session
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setUser(session?.user ?? null);
-      setLoading(false);
-    };
+    useEffect(() => {
+        if (!supabase) return
 
-    checkUser();
+        supabase.auth.getSession().then(({ data }) => {
+            setUser(data.session?.user ?? null)
+        })
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null);
-      }
-    );
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+            (_event, session) => setUser(session?.user ?? null),
+        )
 
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
+        return () => subscription.unsubscribe()
+    }, [])
 
-  if (loading) {
-    return null; // Or a skeleton if needed
-  }
+    if (user) {
+        return (
+            <li>
+                <a href="/profile" className="auth-login">Profile</a>
+            </li>
+        )
+    }
 
-  return (
-    <li>
-      {user ? (
-        <a href="/profile" className="hover:text-blue-400 transition-colors">
-          Profile
-        </a>
-      ) : (
-        <a href="/signup" className="hover:text-blue-400 transition-colors">
-          Sign Up
-        </a>
-      )}
-    </li>
-  );
+    return (
+        <>
+            <li>
+                <a href="/login" className="auth-login">Sign in</a>
+            </li>
+            <li>
+                <a href="/signup" className="auth-signup">Join</a>
+            </li>
+        </>
+    )
 }

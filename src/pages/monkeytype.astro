@@ -1,37 +1,21 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+import MonkeytypeGame from "@/components/games/MonkeytypeGame.astro"
+import { getGame } from "@/constants/games"
+
+const game = getGame("monkeytype")!
 ---
 
-<Layout>
-    <section class="construction-container">
-        <article class="construction-content">
-            <h1>🚧 MonkeyType 🚧</h1>
-            <h2>Game Under Construction</h2>
-
-            <div class="construction-icon">
-                <div class="gear gear-1">⚙️</div>
-                <div class="gear gear-2">⚙️</div>
-                <div class="gear gear-3">⚙️</div>
+<Layout title={game.title} description={game.description}>
+    <article class="shell game-page" style={`--game-accent: ${game.accent};`}>
+        <header class="game-page__header">
+            <div>
+                <span class="eyebrow">{game.category} · {game.session}</span>
+                <h1 class="display-type">{game.title}</h1>
+                <p>{game.description}</p>
             </div>
-
-            <p>We're working hard to bring you the best typing game.</p>
-            <p>Soon you'll be able to test your typing speed!</p>
-
-            <div class="features">
-                <h3>Upcoming Features:</h3>
-                <ul>
-                    <li>✨ Typing speed tests</li>
-                    <li>📊 Detailed statistics</li>
-                    <li>🎯 Different difficulty levels</li>
-                    <li>🏆 Scoring system</li>
-                    <li>⌨️ Multiple language support</li>
-                </ul>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-                <span class="progress-text">Progress: 25%</span>
-            </div>
-        </article>
-    </section>
+            <a href="/all-games" class="button button--secondary button--small">← All games</a>
+        </header>
+        <div class="game-page__stage"><MonkeytypeGame /></div>
+    </article>
 </Layout>

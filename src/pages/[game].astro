@@ -1,48 +1,44 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 import { games } from "@/constants/games"
-const gameModules = import.meta.glob("../components/games/*.astro", {
-    eager: true,
-})
+
+const gameModules = import.meta.glob("../components/games/*.astro", { eager: true })
 
 const gameComponents = Object.fromEntries(
     Object.entries(gameModules).map(([path, module]) => {
         const fileName = path.split("/").pop() || ""
         const key = fileName.replace("Game.astro", "").toLowerCase()
-        return [key, (module as any).default]
+        return [key, (module as { default: unknown }).default]
     }),
 ) as Record<string, any>
 
 export function getStaticPaths() {
-    return games.map((game) => ({
-        params: { game: game.id },
-        props: { game },
-    }))
+    return games
+        .filter((game) => !["stack", "monkeytype"].includes(game.id))
+        .map((game) => ({ params: { game: game.id }, props: { game } }))
 }
 
 const { game } = Astro.props
-
 const SelectedGame = gameComponents[game.id] ?? null
 ---
 
-<Layout title={game.title}>
-    {
-        SelectedGame ? (
-            <div class="mx-auto w-full max-w-4xl px-4 py-8">
-                <SelectedGame />
+<Layout title={game.title} description={game.description}>
+    <article class="shell game-page" style={`--game-accent: ${game.accent};`}>
+        <header class="game-page__header">
+            <div>
+                <span class="eyebrow">{game.category} · {game.session}</span>
+                <h1 class="display-type">{game.title}</h1>
+                <p>{game.description}</p>
             </div>
-        ) : (
-            <div class="flex items-center justify-center h-auto py-16 px-4">
-                <section class="max-w-xl mx-auto flex flex-col gap-4 text-center">
-                    <h1 class="text-3xl font-bold text-slate-50">
-                        {game.title}
-                    </h1>
-                    <p class="text-slate-300">
-                        This game is still under construction. Come back soon to
-                        play.
-                    </p>
-                </section>
-            </div>
-        )
-    }
+            <a href="/all-games" class="button button--secondary button--small">← All games</a>
+        </header>
+
+        {
+            SelectedGame ? (
+                <div class="game-page__stage">
+                    <SelectedGame />
+                </div>
+            ) : null
+        }
+    </article>
 </Layout>

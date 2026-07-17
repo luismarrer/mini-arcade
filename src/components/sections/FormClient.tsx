@@ -26,6 +26,10 @@ export default function FormClient() {
     setSuccess(false);
 
     try {
+      if (!supabase) {
+        throw new Error('Authentication is not configured for this deployment.');
+      }
+
       // Check if nick already exists
       const { data: existingProfile, error: checkError } = await supabase
         .from('profiles')
@@ -85,21 +89,21 @@ export default function FormClient() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto mt-16 bg-[#222f49] p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md flex flex-col gap-6"
+      className="form-panel !m-0 !max-w-none flex flex-col gap-5"
     >
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+        <div className="notice">
           {error}
         </div>
       )}
       
       {success && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-          Registration successful! Redirecting...
+        <div className="notice notice--success">
+          Profile created. Taking you back to the arcade...
         </div>
       )}
 
-      <label className="flex flex-col gap-2 font-medium text-white text-base">
+      <label className="field">
         Nick
         <input
           type="text"
@@ -110,11 +114,11 @@ export default function FormClient() {
           placeholder="Hero123"
           pattern="[a-zA-Z][a-zA-Z0-9]{2,14}"
           aria-label="Nick"
-          className="px-4 py-3 border border-slate-200 rounded-lg text-base bg-white text-slate-800 transition-all duration-200 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 placeholder:text-slate-500"
+          className="input"
         />
       </label>
 
-      <label className="flex flex-col gap-2 font-medium text-white text-base">
+      <label className="field">
         Email
         <input
           type="email"
@@ -124,11 +128,11 @@ export default function FormClient() {
           required
           placeholder="mail@example.com"
           aria-label="Email"
-          className="px-4 py-3 border border-slate-200 rounded-lg text-base bg-white text-slate-800 transition-all duration-200 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 placeholder:text-slate-500"
+          className="input"
         />
       </label>
 
-      <label className="flex flex-col gap-2 font-medium text-white text-base">
+      <label className="field">
         Password
         <input
           type="password"
@@ -139,17 +143,17 @@ export default function FormClient() {
           minLength={6}
           placeholder="********"
           aria-label="Password"
-          className="px-4 py-3 border border-slate-200 rounded-lg text-base bg-white text-slate-800 transition-all duration-200 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 placeholder:text-slate-500"
+          className="input"
         />
       </label>
 
-      <label className="flex flex-col gap-2 font-medium text-white text-base">
+      <label className="field">
         Avatar
         <select
           name="avatar"
           value={formData.avatar}
           onChange={handleChange}
-          className="px-4 py-3 border border-slate-200 rounded-lg text-base bg-white text-slate-800 transition-all duration-200 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+          className="input"
         >
           <option value="batman">Batman</option>
           <option value="superman">Superman</option>
@@ -165,14 +169,14 @@ export default function FormClient() {
       <button
         type="submit"
         disabled={loading}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg text-base font-medium cursor-pointer transition-all duration-200 mt-3 hover:bg-blue-700 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-blue-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="button mt-2 w-full disabled:cursor-not-allowed disabled:opacity-50"
       >
         {loading ? 'Registering...' : 'Sign Up'}
       </button>
 
-      <p className="text-center text-white text-sm">
+      <p className="mb-0 text-center text-sm text-[#b9a9c5]">
         Already have an account?{' '}
-        <a href="/login" className="text-blue-400 hover:underline">
+        <a href="/login" className="text-link">
           Sign in
         </a>
       </p>

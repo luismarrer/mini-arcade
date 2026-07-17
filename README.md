@@ -1,52 +1,39 @@
-# 🎮 Mini Arcade ✨
+# Mini Arcade
 
-A collection of web games — all in one site, built with modern web technologies.
+Mini Arcade is a public browser-game lab: a growing collection of small games I build to learn about interaction, state, logic, and the web.
 
-![Mini Arcade Preview](preview.png)
+**[Play Mini Arcade](https://mini-arcade-dev.vercel.app/)**
 
-## Description
+## The cabinet
 
-This project is a collection of small web games built for fun and learning.  
-Some were born from online courses, while others came from curiosity — experimenting with web APIs, design ideas, or simply exploring how far plain web technologies can go.
+Four games are currently playable:
 
-## Live Demo 🌐
+- Pair Memory — a configurable matching game featuring DC characters
+- Two Dots — a timed color-connection puzzle
+- Hexapawn — a compact strategy game against a learning computer
+- Hangman — a keyboard-friendly word game
 
-The project is available online via Vercel:
+Stack, MonkeyType, and Tetris remain visible as honest work-in-progress experiments.
 
-**[🎮 Play Now - Mini Arcade](https://mini-arcade-dev.vercel.app/)**
+## Built with
 
-## Design 🎨
+- Astro
+- React
+- TypeScript
+- Tailwind CSS
+- Supabase for optional player profiles
 
-See the UI design in [Figma](https://www.figma.com/design/FEBHZo4guKObNeA8UTbSfK/Mini-Arcade?node-id=0-1&t=gLYkOVYzIx4Otxnm-1)
+The site compiles and runs without Supabase credentials. Player accounts connect to Supabase when `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_ANON_KEY` are configured.
 
-## Stack 🛠️
+## Local development
 
-### Web
+```bash
+pnpm install
+pnpm dev
+```
 
-- [Astro](https://astro.build/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [TypeScript](https://www.typescriptlang.org/)
+Run `pnpm build` before shipping changes.
 
-### Games
+## About
 
-#### Vanilla technologies (HTML, CSS, JS)
-
-#### React
-
-- Memory
-- Two Dots
-- Hexapawn
-- Hangman
-
-## Contributing 🤝
-
-Contributions are welcome!  
-If you have suggestions or find bugs, please open an issue or submit a pull request.
-
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
-
----
-
-👨‍💻 Developed with ❤️ by [Luis Marrero](https://luismarrer.github.io/en)
+Made by [Luis Marrero](https://luismarrer.github.io/en). The project is available under the [MIT License](LICENSE).

@@ -1,39 +1,180 @@
 ---
-import Section from "@components/Section.astro"
 import GameCard from "@components/GameCard.astro"
 import { games } from "@/constants/games"
+
+interface Props {
+    heading?: string
+    intro?: string
+    showHeader?: boolean
+}
+
+const {
+    heading = "Choose a game",
+    intro = "Four are ready to play. The others are experiments I’m still building.",
+    showHeader = true,
+} = Astro.props
+
+const playableGames = games.filter((game) => game.status === "playable")
+const inProgressGames = games.filter((game) => game.status === "in-progress")
 ---
 
-<Section>
-    <ul
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-5 justify-items-center"
-    >
-        {
-            games.map((game, index) => (
-                <li
-                    class="animate-fadeInUp [animation-fill-mode:both]"
-                    style={`animation-delay: ${index * 0.1}s`}
-                >
-                    <GameCard {game} />
-                </li>
-            ))
-        }
-    </ul>
-</Section>
+<section
+    id="games"
+    class="shell games-section"
+    aria-labelledby={showHeader ? "games-heading" : undefined}
+    aria-label={showHeader ? undefined : "Games"}
+>
+    {showHeader && (
+        <header class="games-section__header">
+            <div>
+                <span class="section-label">Game select</span>
+                <h2 id="games-heading">{heading}</h2>
+            </div>
+            <p>{intro}</p>
+        </header>
+    )}
+
+    <div class="game-group">
+        <div class="game-group__heading">
+            <h3><span class="status-dot is-online"></span> Playable now</h3>
+            <span>{playableGames.length} games</span>
+        </div>
+        <ul class="games-grid games-grid--playable">
+            {playableGames.map((game) => <li><GameCard {game} /></li>)}
+        </ul>
+    </div>
+
+    <div class="game-group game-group--progress">
+        <div class="game-group__heading">
+            <h3><span class="status-dot"></span> Still building</h3>
+            <span>{inProgressGames.length} experiments</span>
+        </div>
+        <ul class="games-grid games-grid--progress">
+            {inProgressGames.map((game) => <li><GameCard {game} /></li>)}
+        </ul>
+    </div>
+</section>
 
 <style>
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+    .games-section {
+        padding-bottom: clamp(4rem, 8vw, 7rem);
+    }
+
+    .games-section__header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.7fr);
+        gap: clamp(2rem, 7vw, 6rem);
+        align-items: end;
+        margin-bottom: 2.5rem;
+        padding-bottom: 1.4rem;
+        border-bottom: 1px solid var(--arcade-border);
+    }
+
+    .section-label {
+        display: block;
+        margin-bottom: 0.45rem;
+        color: var(--arcade-purple-bright);
+        font-family: var(--font-utility);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .games-section h2 {
+        margin-bottom: 0;
+        color: #fff;
+        font-size: clamp(2.15rem, 5vw, 3.7rem);
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        line-height: 1;
+    }
+
+    .games-section__header p {
+        margin-bottom: 0;
+        color: var(--arcade-muted);
+        font-size: 0.95rem;
+    }
+
+    .game-group + .game-group {
+        margin-top: 3.5rem;
+    }
+
+    .game-group__heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .game-group__heading h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        margin: 0;
+        color: var(--arcade-text);
+        font-size: 0.95rem;
+        font-weight: 700;
+    }
+
+    .game-group__heading > span {
+        color: var(--arcade-subtle);
+        font-family: var(--font-utility);
+        font-size: 0.62rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    .status-dot {
+        width: 0.48rem;
+        height: 0.48rem;
+        border-radius: 50%;
+        background: var(--arcade-yellow);
+        box-shadow: 0 0 10px rgba(244, 196, 48, 0.45);
+    }
+
+    .status-dot.is-online {
+        background: var(--arcade-green);
+        box-shadow: 0 0 10px rgba(130, 220, 61, 0.5);
+    }
+
+    .games-grid {
+        display: grid;
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .games-grid--playable {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .games-grid--progress {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .games-grid li {
+        min-width: 0;
+    }
+
+    @media (max-width: 960px) {
+        .games-grid--playable,
+        .games-grid--progress {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 
-    .animate-fadeInUp {
-        animation: fadeInUp 0.6s ease-out;
+    @media (max-width: 680px) {
+        .games-section__header {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .games-grid--playable,
+        .games-grid--progress {
+            grid-template-columns: 1fr;
+        }
     }
 </style>

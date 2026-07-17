@@ -1,0 +1,166 @@
+<section class="typing-lab" aria-labelledby="typing-status">
+    <header class="typing-bar">
+        <span>monkeytype_prototype.ts</span>
+        <span class="typing-state">not playable yet</span>
+    </header>
+
+    <div class="typing-screen" aria-hidden="true">
+        <div class="typing-metrics">
+            <span><b>00</b> wpm</span>
+            <span><b>100</b> acc</span>
+            <span><b>30</b> sec</span>
+        </div>
+        <p class="typing-copy">
+            <span class="is-done">small games are where ideas learn to move</span>
+            <span class="is-caret">one</span>
+            <span>keystroke at a time</span>
+        </p>
+        <div class="typing-keyboard">
+            {['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l'].map((key) => <kbd>{key}</kbd>)}
+        </div>
+    </div>
+
+    <footer class="typing-notes">
+        <div>
+            <p class="typing-kicker">Typing prototype / 25%</p>
+            <h2 id="typing-status">I’m working on the rhythm before the scoreboard.</h2>
+        </div>
+        <p>
+            The next pass is about accurate word timing, keyboard-first focus and
+            feedback that stays out of the way while you type.
+        </p>
+    </footer>
+</section>
+
+<style>
+    .typing-lab {
+        overflow: hidden;
+        border: 1px solid #493d5d;
+        border-radius: 0.8rem;
+        color: #d9d3df;
+        background: #141118;
+        box-shadow: 0 24px 55px rgba(0, 0, 0, 0.35);
+        font-family: var(--font-utility);
+    }
+
+    .typing-bar {
+        display: flex;
+        min-height: 2.9rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.7rem 1rem;
+        border-bottom: 1px solid #332b3d;
+        color: #81758e;
+        background: #1c1722;
+        font-size: 0.68rem;
+    }
+
+    .typing-state { color: #f4c430; }
+
+    .typing-screen {
+        min-height: 22rem;
+        padding: clamp(1.5rem, 5vw, 4rem);
+        background:
+            radial-gradient(circle at 80% 0%, rgba(155, 92, 255, 0.12), transparent 24rem),
+            #141118;
+    }
+
+    .typing-metrics {
+        display: flex;
+        gap: 1.4rem;
+        margin-bottom: clamp(2.8rem, 7vw, 5rem);
+        color: #786d84;
+        font-size: 0.7rem;
+    }
+
+    .typing-metrics b { display: block; color: #b783ff; font-size: 1.35rem; font-weight: 400; }
+
+    .typing-copy {
+        max-width: 58rem;
+        color: #4e4656;
+        font-size: clamp(1.35rem, 4vw, 2.7rem);
+        line-height: 1.45;
+        letter-spacing: -0.035em;
+    }
+
+    .typing-copy span { margin-right: 0.35em; }
+    .typing-copy .is-done { color: #a49aaa; }
+    .typing-copy .is-caret { position: relative; color: #e6e1ea; }
+    .typing-copy .is-caret::after {
+        position: absolute;
+        top: 0.12em;
+        right: -0.18em;
+        width: 2px;
+        height: 1.05em;
+        background: #f4c430;
+        content: "";
+        animation: caret-blink 1s steps(1) infinite;
+    }
+
+    .typing-keyboard {
+        display: flex;
+        max-width: 42rem;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-top: 3rem;
+        opacity: 0.72;
+    }
+
+    .typing-keyboard kbd {
+        display: grid;
+        width: 2rem;
+        height: 2rem;
+        place-items: center;
+        border: 1px solid #403648;
+        border-radius: 0.3rem;
+        color: #988da2;
+        background: #211b27;
+        font: inherit;
+        font-size: 0.68rem;
+        box-shadow: 0 2px 0 #09070b;
+    }
+
+    .typing-notes {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(15rem, 0.85fr);
+        gap: 2rem;
+        align-items: end;
+        padding: clamp(1.35rem, 4vw, 2.4rem);
+        border-top: 1px solid #332b3d;
+        background: #1a151f;
+    }
+
+    .typing-kicker {
+        margin-bottom: 0.5rem;
+        color: #b783ff;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .typing-notes h2 {
+        margin: 0;
+        color: #f4f0f7;
+        font-family: var(--font-body);
+        font-size: clamp(1.6rem, 4vw, 2.6rem);
+        line-height: 1.06;
+        letter-spacing: -0.04em;
+    }
+
+    .typing-notes > p {
+        margin: 0;
+        color: #9c91a4;
+        font-size: 0.78rem;
+        line-height: 1.75;
+    }
+
+    @keyframes caret-blink { 50% { opacity: 0; } }
+
+    @media (max-width: 700px) {
+        .typing-notes { grid-template-columns: 1fr; }
+        .typing-keyboard { display: none; }
+        .typing-screen { min-height: 17rem; }
+        .typing-state { display: none; }
+    }
+</style>

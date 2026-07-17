@@ -15,7 +15,7 @@ interface TwodotsGameBoardProps {
 
 const TwodotsGame: FC<TwodotsGameBoardProps> = ({ config, onBackToConfig }) => {
     const size = parseInt(config.size)
-    const avatarSrc = `/images/twodots/avatars/avatar${config.avatar}.png`
+    const avatarSrc = `/images/avatars/avatar${config.avatar}.png`
 
     const {
         dots,
@@ -29,7 +29,7 @@ const TwodotsGame: FC<TwodotsGameBoardProps> = ({ config, onBackToConfig }) => {
     } = useTwodotsGame({ size })
 
     return (
-        <div className="flex flex-wrap gap-8 items-start">
+        <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_15rem]">
             <GameBoard
                 dots={dots}
                 size={size}

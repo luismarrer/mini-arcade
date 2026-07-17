@@ -2,65 +2,176 @@
 import Layout from "@/layouts/Layout.astro"
 ---
 
-<Layout title="About">
-    <div class="max-w-3xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-bold mb-8 text-center">About Mini Arcade</h1>
+<Layout title="About" description="About Mini Arcade, Luis Marrero’s home for small browser game experiments.">
+    <header class="shell page-intro about-intro">
+        <div>
+            <span class="eyebrow">About Mini Arcade</span>
+            <h1 class="display-type">I make small games to learn how things work.</h1>
+        </div>
+        <p>
+            This is the shelf where I keep them: course projects, weekend experiments,
+            half-finished ideas and the ones that became fun enough to share.
+        </p>
+    </header>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">What is this?</h2>
-            <p class="text-lg mb-4">
-                Mini Arcade is my personal playground where I bring together web
-                games I've built while learning and experimenting with different
-                technologies and concepts.
+    <article class="shell about-grid">
+        <aside class="cabinet-note">
+            <div class="cabinet-note__lights" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </div>
+            <p>
+                There is no grand release plan. I add a game when an experiment
+                gives me something worth keeping.
             </p>
-            <p class="text-lg mb-4">
-                Some games were born from online courses, while others came from
-                pure curiosity — exploring web APIs, testing design ideas, or
-                simply seeing how far I can push web technologies.
-            </p>
-        </section>
+        </aside>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Tech Stack</h2>
-            <p class="text-lg mb-4">
-                This site is built with <strong>Astro</strong>, <strong
-                    >Tailwind CSS</strong
-                >, and <strong>TypeScript</strong>. The games themselves use a
-                mix of vanilla JavaScript, React, and other web technologies.
-            </p>
-        </section>
+        <div class="about-copy">
+            <section>
+                <h2>Why this exists</h2>
+                <p>
+                    Games are a good excuse to learn. They make state, interaction,
+                    animation and all the awkward edge cases visible very quickly.
+                    Mini Arcade gives those exercises a permanent home instead of
+                    leaving them scattered across old folders.
+                </p>
+            </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Open Source</h2>
-            <p class="text-lg mb-4">
-                The entire project is open source and available on GitHub. Feel
-                free to check out the code, suggest improvements, or report
-                bugs.
-            </p>
-            <a
-                href="https://github.com/luismarrer/mini-arcade"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-            >
-                View on GitHub →
-            </a>
-        </section>
+            <section>
+                <h2>What it is made with</h2>
+                <p>
+                    Astro holds the site together. React and TypeScript handle most
+                    of the game logic, and CSS gives each game room to have its own
+                    personality. The stack changes when an experiment needs it.
+                </p>
+                <ul class="tool-list" aria-label="Technology used">
+                    <li>Astro</li>
+                    <li>React</li>
+                    <li>TypeScript</li>
+                    <li>CSS</li>
+                </ul>
+            </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4">About Me</h2>
-            <p class="text-lg mb-4">
-                I'm <strong>Luis Marrero</strong>, a developer passionate about
-                learning and building things 😁 🌱.
-            </p>
-            <a
-                href="https://luismarrer.github.io/en"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-blue-600 hover:text-blue-800 underline"
-            >
-                Visit my portfolio →
-            </a>
-        </section>
-    </div>
+            <section>
+                <h2>Who is behind it</h2>
+                <p>
+                    I’m Luis Marrero, a developer who likes learning by building.
+                    The project is open source, including the unfinished parts.
+                </p>
+                <div class="about-actions">
+                    <a href="https://github.com/luismarrer/mini-arcade" target="_blank" rel="noopener noreferrer" class="button">View the source ↗</a>
+                    <a href="https://luismarrer.github.io/en" target="_blank" rel="noopener noreferrer" class="button button--secondary">My portfolio ↗</a>
+                </div>
+            </section>
+        </div>
+    </article>
 </Layout>
+
+<style>
+    .about-grid {
+        display: grid;
+        grid-template-columns: minmax(13rem, 0.55fr) minmax(0, 1.25fr);
+        gap: clamp(2.5rem, 8vw, 7rem);
+        max-width: 980px;
+        padding-block: clamp(3rem, 7vw, 5.5rem);
+    }
+
+    .about-intro h1 {
+        max-width: 760px;
+        font-size: clamp(2.65rem, 6vw, 4.6rem);
+    }
+
+    .cabinet-note {
+        position: sticky;
+        top: 2rem;
+        height: fit-content;
+        padding: 1.15rem;
+        border: 1px solid var(--arcade-border);
+        border-top-color: var(--arcade-purple-bright);
+        border-radius: var(--radius-md);
+        background: rgba(33, 23, 46, 0.7);
+    }
+
+    .cabinet-note__lights {
+        display: flex;
+        gap: 0.35rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .cabinet-note__lights span {
+        width: 0.48rem;
+        height: 0.48rem;
+        border-radius: 50%;
+        background: var(--arcade-red);
+        box-shadow: 0 0 10px rgba(229, 69, 75, 0.4);
+    }
+
+    .cabinet-note__lights span:nth-child(2) { background: var(--arcade-yellow); }
+    .cabinet-note__lights span:nth-child(3) { background: var(--arcade-green); }
+
+    .cabinet-note p {
+        margin: 0;
+        color: var(--arcade-muted);
+        font-size: 0.82rem;
+        line-height: 1.65;
+    }
+
+    .about-copy {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .about-copy section {
+        padding-block: 0.25rem 2.4rem;
+        border-bottom: 1px solid var(--arcade-border);
+    }
+
+    .about-copy section + section { padding-top: 2.4rem; }
+
+    .about-copy h2 {
+        margin-bottom: 0.8rem;
+        color: var(--arcade-text);
+        font-size: clamp(1.45rem, 3vw, 2rem);
+        letter-spacing: -0.035em;
+    }
+
+    .about-copy p {
+        max-width: 680px;
+        margin-bottom: 0;
+        color: var(--arcade-muted);
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    .tool-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin: 1.5rem 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .tool-list li {
+        padding: 0.45rem 0.8rem;
+        border: 1px solid var(--arcade-border-bright);
+        border-radius: 999px;
+        color: var(--arcade-muted);
+        background: var(--arcade-surface);
+        font-family: var(--font-utility);
+        font-size: 0.68rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .about-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        margin-top: 1.5rem;
+    }
+
+    @media (max-width: 760px) {
+        .about-grid { grid-template-columns: 1fr; }
+        .cabinet-note { position: static; }
+    }
+</style>

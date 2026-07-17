@@ -70,13 +70,15 @@ const Cell: FC<CellProps> = ({
     onDragEnd,
 }) => {
     return (
-        <div
+        <button
+            type="button"
             className={`cell ${isValidMove ? 'valid-move' : ''}`}
             data-row={row}
             data-col={col}
             onClick={onClick}
             onDragOver={onDragOver}
             onDrop={onDrop}
+            aria-label={`${piece ? `${piece} pawn` : 'Empty cell'} at row ${row + 1}, column ${col + 1}${isValidMove ? ', valid move' : ''}`}
         >
             {piece && (
                 <Pawn
@@ -90,7 +92,7 @@ const Cell: FC<CellProps> = ({
                     onDragEnd={onDragEnd}
                 />
             )}
-        </div>
+        </button>
     )
 }
 

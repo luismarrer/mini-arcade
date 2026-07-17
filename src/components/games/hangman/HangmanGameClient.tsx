@@ -3,111 +3,124 @@ import { HangImage } from "./HangImage"
 import { getRandomWord } from "./getRandomWord"
 import { letters } from "./letters"
 
+function HangmanGameClient() {
+    const [word, setWord] = useState("")
+    const [hiddenWord, setHiddenWord] = useState("")
+    const [attempts, setAttempts] = useState(0)
+    const [guessedLetters, setGuessedLetters] = useState<string[]>([])
+    const [lose, setLose] = useState(false)
+    const [won, setWon] = useState(false)
 
-// import "./App.css"
+    useEffect(() => {
+        if (attempts >= 9) setLose(true)
+    }, [attempts])
 
+    useEffect(() => {
+        if (word && hiddenWord.replaceAll(" ", "") === word) setWon(true)
+    }, [hiddenWord, word])
 
-function App() {
+    const checkLetter = (letter: string) => {
+        if (!word || won || lose || guessedLetters.includes(letter)) return
 
+        setGuessedLetters((current) => [...current, letter])
 
-  const [word, setWord] = useState(getRandomWord())
-  const [hiddenWord, setHiddenWord] = useState('_ '.repeat(word.length))
-  const [attempts, setAttempts] = useState(0)
-  const [lose, setLose] = useState(false)
-  const [won, setWon] = useState(false)
-
-  // Detect lose
-  useEffect(() => {
-    if (attempts === 9) {
-      setLose(true)
-    }
-  }, [attempts]) // hooks
-
-  // Detect win
-  useEffect(() => {
-    const currentHiddenWord = hiddenWord.replaceAll(' ', '')
-    if (currentHiddenWord === word) {
-      setWon(true)
-    }
-  }, [hiddenWord]) // hooks
-
-  const checkLetter = (letter: string) => {
-
-    if (won || lose) return
-
-    if (!word.includes(letter)) {
-      setAttempts(Math.min(attempts + 1, 9))
-      return
-    }
-
-
-    const hiddenWordArray = hiddenWord.split(' ')
-    for (let i = 0; i < word.length; i++) {
-      if (word[i] === letter) {
-        hiddenWordArray[i] = letter
-      }
-    }
-    setHiddenWord(hiddenWordArray.join(' '))
-
-  }
-
-  const newGame = () => {
-    const newWord = getRandomWord()
-    setWord(newWord)
-    setHiddenWord('_ '.repeat(newWord.length))
-    setAttempts(0)
-    setLose(false)
-    setWon(false)
-  }
-
-
-  return (
-    <div className="max-w-7xl mx-auto p-8 text-center">
-      {/* Images */}
-      <HangImage imageNumber={attempts} />
-
-      {/* Word to guess */}
-      <h3 className="text-2xl font-bold my-4">{hiddenWord}</h3>
-
-      {/* Attempts counter */}
-      <h3 className="text-xl my-3">Attempts: {attempts}</h3>
-
-      {/* Lose message */}
-      {
-        lose && (
-          <h3 className="text-2xl font-bold text-red-500 my-4">LOSE GAME {word}</h3>
-        )
-      }
-
-      {/* Win message */}
-      {
-        won && (
-          <h3 className="text-2xl font-bold text-green-500 my-4">WIN GAME Congrats!</h3>
-        )
-      }
-
-      {/* Buttons letters */}
-      <div className="p-8 my-4">
-        {
-          letters.map((letter) => (
-            <button
-              key={letter}
-              className="px-4 py-2 m-1 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors"
-              onClick={() => checkLetter(letter)}>
-              {letter}
-            </button>
-          ))
+        if (!word.includes(letter)) {
+            setAttempts((current) => Math.min(current + 1, 9))
+            return
         }
-      </div>
 
-      {/* Reset button */}
-      <button 
-        className="px-6 py-3 mt-4 bg-green-500 hover:bg-green-600 text-white rounded font-semibold transition-colors"
-        onClick={newGame}>
-        New Game
-      </button>
-    </div>
-  )
+        const hiddenWordArray = hiddenWord.trimEnd().split(" ")
+        for (let index = 0; index < word.length; index++) {
+            if (word[index] === letter) hiddenWordArray[index] = letter
+        }
+        setHiddenWord(hiddenWordArray.join(" "))
+    }
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.repeat) return
+
+            const key = event.key.toUpperCase()
+            if (letters.includes(key)) checkLetter(key)
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+        return () => window.removeEventListener("keydown", handleKeyDown)
+    })
+
+    const newGame = () => {
+        const nextWord = getRandomWord()
+        setWord(nextWord)
+        setHiddenWord("_ ".repeat(nextWord.length))
+        setAttempts(0)
+        setGuessedLetters([])
+        setLose(false)
+        setWon(false)
+    }
+
+    useEffect(() => {
+        const firstWord = getRandomWord()
+        setWord(firstWord)
+        setHiddenWord("_ ".repeat(firstWord.length))
+    }, [])
+
+    return (
+        <section className="mx-auto my-4 grid max-w-5xl overflow-hidden rounded-2xl border border-[#2d5271] bg-[#0b1726] shadow-[0_1.4rem_4rem_rgba(2,10,20,0.42),0_0_2.5rem_rgba(35,135,196,0.1)] lg:grid-cols-[0.82fr_1.18fr]">
+            <div className="relative flex min-h-[23rem] flex-col items-center justify-center overflow-hidden border-b border-[#2d5271] bg-[#10243a] p-5 lg:border-r lg:border-b-0">
+                <div className="pointer-events-none absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(98,183,235,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(98,183,235,0.12)_1px,transparent_1px)] [background-size:24px_24px]" aria-hidden="true" />
+                <span className="relative mb-4 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#87c8ed]">
+                    Drawing · {9 - attempts} misses left
+                </span>
+                <div className="relative rounded-xl border border-[#315879] bg-[#0a1828]/80 p-4 shadow-[inset_0_0_2rem_rgba(35,135,196,0.08)]">
+                    <HangImage imageNumber={attempts} />
+                </div>
+            </div>
+
+            <div className="flex flex-col justify-center bg-[#0d1c2d] p-5 sm:p-8">
+                <div className="mb-6 border-b border-[#29445d] pb-6 text-center">
+                    <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#6fa9cc]">
+                        Hidden word
+                    </span>
+                    <p className="mt-4 mb-0 min-h-[2.75rem] break-words font-mono text-[clamp(1.25rem,5vw,2.2rem)] font-semibold tracking-[0.14em] text-[#dff4ff] [text-shadow:0_0_1.25rem_rgba(98,183,235,0.2)]" aria-live="polite">
+                        {word ? hiddenWord : "· · ·"}
+                    </p>
+                </div>
+
+                {(won || lose) && (
+                    <div role="status" className={`mb-5 rounded-lg border px-4 py-3 text-center font-mono text-sm font-semibold ${won ? "border-[#4f8d32] bg-[#142e22] text-[#9ee96d]" : "border-[#9d4052] bg-[#351927] text-[#ff91a5]"}`}>
+                        {won ? "Word found." : `The word was ${word}.`}
+                    </div>
+                )}
+
+                <div className="grid grid-cols-7 gap-1.5 sm:grid-cols-9" aria-label="Letter keyboard">
+                    {letters.map((letter) => {
+                        const hasBeenGuessed = guessedLetters.includes(letter)
+                        const wasCorrect = hasBeenGuessed && word.includes(letter)
+                        return (
+                            <button
+                                key={letter}
+                                type="button"
+                                disabled={!word || hasBeenGuessed || won || lose}
+                                className={`aspect-square min-w-0 rounded-md border font-mono text-xs font-semibold transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8ed8ff] disabled:cursor-not-allowed disabled:hover:translate-y-0 ${hasBeenGuessed ? (wasCorrect ? "border-[#4f8d32] bg-[#142e22] text-[#9ee96d]" : "border-[#6b3544] bg-[#2a1722] text-[#b77684]") : "border-[#315879] bg-[#142b42] text-[#dff4ff] hover:-translate-y-0.5 hover:border-[#6ac7ff] hover:bg-[#1a3a58]"}`}
+                                onClick={() => checkLetter(letter)}
+                                aria-label={`Guess ${letter}`}
+                            >
+                                {letter}
+                            </button>
+                        )
+                    })}
+                </div>
+
+                <button
+                    type="button"
+                    className="mt-6 min-h-12 rounded-md border border-[#62b7eb] bg-[#2387c4] px-6 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-white shadow-[0_0_1.2rem_rgba(35,135,196,0.16)] transition-all hover:-translate-y-0.5 hover:bg-[#2c9bdf] hover:shadow-[0_0_1.5rem_rgba(35,135,196,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8ed8ff]"
+                    onClick={newGame}
+                >
+                    New word
+                </button>
+            </div>
+        </section>
+    )
 }
 
-export default App
+export default HangmanGameClient

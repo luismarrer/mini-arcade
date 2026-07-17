@@ -19,10 +19,10 @@ const GameControls: FC<GameControlsProps> = ({
     getArtifactText,
 }) => {
     return (
-        <nav className="mt-4 flex gap-4 justify-end flex-wrap">
+        <nav className="mt-5 flex flex-wrap justify-end gap-2 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.06em]">
             <button
                 type="button"
-                className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                className="rounded-md border border-[#54aee3] bg-[#2387c4] px-4 py-2.5 text-white transition-colors hover:bg-[#2d9bdb] focus:outline-none focus:ring-2 focus:ring-[#6ec5f3]"
                 onClick={onRestart}
             >
                 Restart Game
@@ -31,10 +31,10 @@ const GameControls: FC<GameControlsProps> = ({
             {artifact && (
                 <button
                     type="button"
-                    className={`px-4 py-2 rounded text-white transition-colors ${
+                    className={`rounded-md border px-4 py-2.5 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#d291e8] ${
                         canUseArtifact
-                            ? 'bg-purple-600 hover:bg-purple-700'
-                            : 'bg-gray-400 cursor-not-allowed'
+                            ? 'border-[#aa5cc7] bg-[#74328e] hover:bg-[#873ca4]'
+                            : 'cursor-not-allowed border-[#465a7a] bg-[#2a3850] opacity-50'
                     }`}
                     onClick={onUseArtifact}
                     disabled={!canUseArtifact}
@@ -45,7 +45,7 @@ const GameControls: FC<GameControlsProps> = ({
 
             <button
                 type="button"
-                className="px-4 py-2 rounded bg-slate-500 text-white hover:bg-slate-600 transition-colors"
+                className="rounded-md border border-[#52647f] bg-[#1b2840] px-4 py-2.5 text-[#dbe5f3] transition-colors hover:bg-[#2a3850] focus:outline-none focus:ring-2 focus:ring-[#91a8c8]"
                 onClick={onBack}
             >
                 Back to Config

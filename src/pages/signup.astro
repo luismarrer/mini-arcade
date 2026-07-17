@@ -3,6 +3,51 @@ import Layout from "@/layouts/Layout.astro"
 import Form from "@/components/sections/Form.astro"
 ---
 
-<Layout title="Sign Up">
-    <Form />
+<Layout title="Create a profile" description="Create a Mini Arcade player profile.">
+    <section class="shell auth-page">
+        <header>
+            <span class="eyebrow">New player</span>
+            <h1 class="display-type">Create a profile</h1>
+            <p>Choose a nickname and an avatar for the experiments that save player data.</p>
+            <a href="/all-games" class="auth-back">← Back to the games</a>
+        </header>
+        <Form />
+    </section>
 </Layout>
+
+<style>
+    .auth-page {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(19rem, 1fr);
+        gap: clamp(2rem, 7vw, 6rem);
+        align-items: start;
+        max-width: 900px;
+        padding-block: clamp(3.5rem, 9vw, 7rem);
+    }
+
+    .auth-page h1 {
+        margin-bottom: 0.8rem;
+        font-size: clamp(2.7rem, 6vw, 4.5rem);
+    }
+
+    .auth-page header p {
+        max-width: 30rem;
+        color: var(--arcade-muted);
+        font-size: 0.98rem;
+    }
+
+    .auth-back {
+        display: inline-block;
+        margin-top: 1.2rem;
+        color: var(--arcade-subtle);
+        font-family: var(--font-utility);
+        font-size: 0.7rem;
+        transition: color 160ms ease;
+    }
+
+    .auth-back:hover { color: var(--arcade-text); }
+
+    @media (max-width: 760px) {
+        .auth-page { grid-template-columns: 1fr; }
+    }
+</style>

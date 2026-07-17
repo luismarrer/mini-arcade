@@ -13,6 +13,7 @@ export interface UserProfile {
  * Gets the current authenticated user
  */
 export async function getCurrentUser(): Promise<User | null> {
+  if (!supabase) return null;
   const { data: { user } } = await supabase.auth.getUser();
   return user;
 }
@@ -21,6 +22,7 @@ export async function getCurrentUser(): Promise<User | null> {
  * Gets the current user's profile
  */
 export async function getCurrentProfile(): Promise<Profile | null> {
+  if (!supabase) return null;
   const user = await getCurrentUser();
   if (!user) return null;
 
@@ -55,6 +57,7 @@ export async function getUserProfile(): Promise<UserProfile | null> {
  * Checks if a nick is available
  */
 export async function isNickAvailable(nick: string): Promise<boolean> {
+  if (!supabase) return false;
   const { data } = await supabase
     .from('profiles')
     .select('nick')
@@ -68,6 +71,7 @@ export async function isNickAvailable(nick: string): Promise<boolean> {
  * Signs out the user
  */
 export async function signOut(): Promise<void> {
+  if (!supabase) return;
   await supabase.auth.signOut();
 }
 
@@ -75,6 +79,9 @@ export async function signOut(): Promise<void> {
  * Signs in with email and password
  */
 export async function signIn(email: string, password: string) {
+  if (!supabase) {
+    return { error: new Error('Authentication is not configured for this deployment.') };
+  }
   return await supabase.auth.signInWithPassword({
     email,
     password,
@@ -88,6 +95,9 @@ export async function updateProfile(
   userId: string,
   updates: Database['public']['Tables']['profiles']['Update']
 ) {
+  if (!supabase) {
+    return { error: new Error('Authentication is not configured for this deployment.') };
+  }
   return await supabase
     .from('profiles')
     .update(updates)

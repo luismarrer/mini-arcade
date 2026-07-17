@@ -1,5 +1,4 @@
 import type { FC } from "react"
-import { useEffect } from "react"
 import { useMemoryGame } from "./hooks/useMemoryGame"
 import { useArtifacts } from "./hooks/useArtifacts"
 import PlayerInfo from "./PlayerInfo"
@@ -52,7 +51,6 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
 
         const success = useArtifact()
         if (!success) {
-            alert('This artifact has no available uses left')
             return
         }
 
@@ -63,7 +61,6 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
                 break
             case 'more-turns':
                 addMoves(5)
-                alert("You've gained 5 additional moves!")
                 break
         }
     }
@@ -72,21 +69,6 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
         resetGame()
         resetArtifact()
     }
-
-    // Show game result alerts
-    useEffect(() => {
-        if (gameWon) {
-            setTimeout(() => {
-                alert('Congratulations! You completed the game.')
-            }, 500)
-        }
-    }, [gameWon])
-
-    useEffect(() => {
-        if (gameLost) {
-            alert('You lost! No more moves remaining.')
-        }
-    }, [gameLost])
 
     // Get player data from sessionStorage
     const getPlayerData = () => {
@@ -101,22 +83,28 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
         : `/images/avatars/${playerData.avatar}.avif`
 
     return (
-        <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-2 text-white text-sm">
-                <p>
-                    Difficulty: <span className="font-semibold">{config.difficulty}</span>
+        <div className="flex flex-col gap-6">
+            <div className="flex flex-wrap gap-2 font-mono text-[0.66rem] uppercase tracking-[0.08em] text-[#bdc9dc]">
+                <p className="m-0 rounded-full border border-[#465a7a] bg-[#172238] px-3 py-1.5">
+                    Difficulty · <span className="font-semibold">{config.difficulty}</span>
                 </p>
-                <p>
-                    Cards: <span className="font-semibold">{config.cards}</span>
+                <p className="m-0 rounded-full border border-[#465a7a] bg-[#172238] px-3 py-1.5">
+                    Cards · <span className="font-semibold">{config.cards}</span>
                 </p>
                 {config.artifacts && config.artifacts !== '0' && (
-                    <p>
-                        Artifact: <span className="font-semibold">{artifact?.name || config.artifacts}</span>
+                    <p className="m-0 rounded-full border border-[#aa5cc7] bg-[#3b214c] px-3 py-1.5 text-[#f0c9ff]">
+                        Artifact · <span className="font-semibold">{artifact?.name || config.artifacts}</span>
                     </p>
                 )}
             </div>
 
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-start">
+            {(gameWon || gameLost) && (
+                <div role="status" className={`rounded-lg border px-4 py-3 font-semibold ${gameWon ? 'border-[#4fbf90] bg-[#16392f] text-[#a4f3d2]' : 'border-[#e34a7a] bg-[#451d2d] text-[#ffc2d5]'}`}>
+                    {gameWon ? 'Board cleared — every pair found.' : 'No moves left. Reset the deck and try another route.'}
+                </div>
+            )}
+
+            <div className="grid items-start gap-5 lg:grid-cols-[11rem_minmax(0,1fr)]">
                 <PlayerInfo
                     movesRemaining={movesRemaining}
                     score={score}
@@ -124,7 +112,7 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
                     totalPairs={numCards / 2}
                 />
 
-                <section className="mx-auto bg-[#222f49] p-4 rounded-lg w-full">
+                <section className="mx-auto w-full rounded-xl border border-[#3b4d69] bg-[#121a2d] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-5">
                     <GameBoard cards={cards} onCardClick={flipCard} cardImages={cardImages} />
                     <GameControls
                         onRestart={handleRestart}

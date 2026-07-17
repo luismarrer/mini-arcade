@@ -2,32 +2,42 @@
 import Header from "@components/sections/Header.astro"
 import Footer from "@components/sections/Footer.astro"
 
+import "@fontsource-variable/manrope"
+import "@fontsource/ibm-plex-mono/400.css"
+import "@fontsource/ibm-plex-mono/600.css"
 import "@/styles/global.css"
 
-const { title } = Astro.props
+interface Props {
+    title?: string
+    description?: string
+}
+
+const {
+    title = "Mini Arcade",
+    description = "Small browser games, built one experiment at a time by Luis Marrero.",
+} = Astro.props
+
+const pageTitle = title === "Mini Arcade" ? title : `${title} · Mini Arcade`
 ---
 
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
-        <title>{title ?? "Mini Arcade"}</title>
+        <meta name="description" content={description} />
+        <meta name="theme-color" content="#120b1c" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <title>{pageTitle}</title>
     </head>
-    <body
-        class="flex flex-col min-h-screen bg-primary container mx-auto text-white"
-    >
-        <Header />
-        <main>
-            <slot />
-        </main>
-        <Footer />
+    <body>
+        <div class="site-shell">
+            <Header />
+            <main class="site-main">
+                <slot />
+            </main>
+            <Footer />
+        </div>
     </body>
 </html>
-
-<style>
-    body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-    }
-</style>

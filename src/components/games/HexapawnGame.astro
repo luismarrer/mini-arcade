@@ -3,14 +3,18 @@ import HexapawnGameClient from "./hexapawn/HexapawnGameClient"
 import "@/styles/hexapawn/styles.css"
 ---
 
-<HexapawnGameClient client:load />
+<div class="hexapawn-experience">
+    <div class="hexapawn-play">
+        <HexapawnGameClient client:load />
+    </div>
 
-<section class="game-rules">
-    <h2>Game Rules</h2>
-    <ul>
-        <li>Pawns move 1 square forward</li>
-        <li>Pawns capture diagonally</li>
-        <li>Win by reaching the opponent's last row with a pawn</li>
-        <li>Also win by leaving the opponent without valid moves</li>
-    </ul>
-</section>
+    <section class="game-rules">
+        <span>RULES.TXT</span>
+        <h2>How to win</h2>
+        <ul>
+            <li>Move one square forward into an empty cell.</li>
+            <li>Capture a computer pawn diagonally.</li>
+            <li>Reach the top row or leave the computer without a legal move.</li>
+        </ul>
+    </section>
+</div>

@@ -31,11 +31,16 @@ const GameBoard: FC<GameBoardProps> = ({ cards, onCardClick, cardImages }) => {
                 .card-inner { transform-style: preserve-3d; }
                 .card-front, .card-back { backface-visibility: hidden; }
                 .card-back { transform: rotateY(180deg); }
+
+                @media (prefers-reduced-motion: reduce) {
+                    .card-matched, .card-no-match { animation: none; }
+                    .card-inner { transition-duration: 0.01ms; }
+                }
             `}</style>
             <div
                 role="grid"
                 aria-label="Memory card board"
-                className="grid gap-2.5 max-w-[400px] mx-auto"
+                className="mx-auto grid max-w-[430px] gap-2 sm:gap-2.5"
                 style={{ gridTemplateColumns: `repeat(${dimension}, 1fr)` }}
             >
                 {cards.map((card) => {
@@ -43,56 +48,64 @@ const GameBoard: FC<GameBoardProps> = ({ cards, onCardClick, cardImages }) => {
                     return (
                         <div
                             key={card.id}
-                            className={`
-                                relative w-full aspect-square cursor-pointer rounded-xl
-                                transition-transform duration-200 ease-out
-                                hover:scale-105
-                                perspective-[1000px]
-                                ${card.isFlipped ? 'card-flipped' : ''}
-                                ${card.isMatched ? 'card-matched pointer-events-none' : ''}
-                            `}
-                            onClick={() => onCardClick(card.id)}
                             role="gridcell"
-                            aria-label={card.isMatched ? `Matched card ${card.content}` : 'Hidden card'}
+                            className="relative aspect-square w-full"
                         >
-                            <div className="card-inner relative w-full h-full text-center transition-transform duration-600 rounded-xl">
-                                {/* Front face (face down) */}
-                                <div className="
-                                    card-front
-                                    absolute w-full h-full rounded-xl
-                                    flex items-center justify-center
-                                    text-2xl md:text-3xl font-bold text-white
-                                    bg-linear-to-br from-blue-500 to-blue-600
-                                    border-[3px] border-slate-700
-                                    shadow-lg
-                                    before:content-['?'] before:text-3xl before:md:text-4xl before:drop-shadow-md
-                                "/>
-                                {/* Back face (face up) */}
-                                <div className={`
-                                    card-back
-                                    absolute w-full h-full rounded-xl
-                                    flex items-center justify-center
-                                    text-xl md:text-2xl font-bold text-white
-                                    border-[3px] shadow-lg
-                                    overflow-hidden
-                                    ${card.isMatched 
-                                        ? 'bg-linear-to-br from-green-500 to-green-600 border-green-700' 
-                                        : 'bg-linear-to-br from-red-500 to-red-600 border-slate-700'
-                                    }
-                                `}>
-                                    {cardImage && (
-                                        <img
-                                            src={cardImage.src}
-                                            srcSet={cardImage.srcSet}
-                                            sizes={cardImage.sizes}
-                                            width={cardImage.width}
-                                            height={cardImage.height}
-                                            alt={cardImage.alt}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    )}
+                            <button
+                                type="button"
+                                className={`
+                                    relative h-full w-full cursor-pointer rounded-lg p-0 sm:rounded-xl
+                                    transition-transform duration-200 ease-out
+                                    hover:scale-105
+                                    focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6ec5f3] focus-visible:ring-offset-2 focus-visible:ring-offset-[#121a2d]
+                                    perspective-[1000px]
+                                    ${card.isFlipped ? 'card-flipped' : ''}
+                                    ${card.isMatched ? 'card-matched cursor-default' : ''}
+                                `}
+                                onClick={() => onCardClick(card.id)}
+                                aria-label={card.isMatched ? `Matched card ${card.content}` : card.isFlipped ? `Card ${card.content}` : 'Hidden card'}
+                                aria-pressed={card.isFlipped || card.isMatched}
+                                disabled={card.isMatched}
+                            >
+                                <div className="card-inner relative w-full h-full text-center transition-transform duration-600 rounded-xl">
+                                    {/* Front face (face down) */}
+                                    <div className="
+                                        card-front
+                                        absolute w-full h-full rounded-xl
+                                        flex items-center justify-center
+                                        text-2xl md:text-3xl font-bold text-white
+                                        bg-linear-to-br from-[#277fbc] via-[#245da4] to-[#273364]
+                                        border-[3px] border-[#6ec5f3]
+                                        shadow-[0_8px_18px_rgba(3,11,29,0.45)]
+                                        before:content-['?'] before:text-3xl before:md:text-4xl before:drop-shadow-md
+                                    "/>
+                                    {/* Back face (face up) */}
+                                    <div className={`
+                                        card-back
+                                        absolute w-full h-full rounded-xl
+                                        flex items-center justify-center
+                                        text-xl md:text-2xl font-bold text-white
+                                        border-[3px] shadow-[0_8px_18px_rgba(3,11,29,0.45)]
+                                        overflow-hidden
+                                        ${card.isMatched
+                                            ? 'bg-[#214f45] border-[#68d2ae]'
+                                            : 'bg-[#55243a] border-[#e34a7a]'
+                                        }
+                                    `}>
+                                        {cardImage && (
+                                            <img
+                                                src={cardImage.src}
+                                                srcSet={cardImage.srcSet}
+                                                sizes={cardImage.sizes}
+                                                width={cardImage.width}
+                                                height={cardImage.height}
+                                                alt={cardImage.alt}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            </button>
                         </div>
                     )
                 })}

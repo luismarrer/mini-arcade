@@ -3,13 +3,32 @@ import Layout from "@layouts/Layout.astro"
 import ProfileClient from "@components/sections/ProfileClient"
 ---
 
-<Layout title="Profile - Mini Arcade">
-    <main class="min-h-screen bg-linear-to-b from-gray-900 to-gray-800 py-12">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl font-bold text-white text-center mb-8">
-                Your Profile
-            </h1>
-            <ProfileClient client:load />
-        </div>
-    </main>
+<Layout title="Player profile" description="View your Mini Arcade player profile.">
+    <section class="shell profile-page">
+        <header>
+            <span class="eyebrow">Player profile</span>
+            <h1 class="display-type">Your profile</h1>
+            <p>Your nickname, avatar and the date you joined the arcade.</p>
+        </header>
+        <ProfileClient client:load />
+    </section>
 </Layout>
+
+<style>
+    .profile-page {
+        max-width: 680px;
+        padding-block: clamp(3.5rem, 9vw, 6rem);
+    }
+
+    .profile-page > header { margin-bottom: 1.8rem; }
+
+    .profile-page h1 {
+        margin-bottom: 0.65rem;
+        font-size: clamp(2.8rem, 7vw, 4.6rem);
+    }
+
+    .profile-page header p {
+        margin-bottom: 0;
+        color: var(--arcade-muted);
+    }
+</style>

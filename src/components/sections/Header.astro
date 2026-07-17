@@ -1,24 +1,152 @@
 ---
-import Image from "astro/components/Image.astro"
+import { Image } from "astro:assets"
 import Logo from "@/images/logo.png"
 import AuthNav from "./AuthNav"
+
+const pathname = Astro.url.pathname
 ---
 
-<header
-    class="container mx-auto whitespace-nowrap px-4 sm:px-6 md:px-10 flex flex-row justify-between items-center border-b border-solid border-white/40 text-white py-3 mt-5 mb-7"
->
-    <a href="/" class="flex flex-row items-center gap-3">
-        <Image src={Logo} alt="Logo" width={25} />
-        <h2>Mini Arcade</h2>
-    </a>
+<header class="site-header">
+    <div class="shell site-header__inner">
+        <a href="/" class="brand" aria-label="Mini Arcade home">
+            <Image src={Logo} alt="" width={38} height={38} class="brand__logo" />
+            <span>
+                <strong>Mini Arcade</strong>
+                <small>by Luis Marrero</small>
+            </span>
+        </a>
 
-    <nav>
-        <ul class="flex flex-row items-center gap-3">
-            <li><a href="/all-games">Games</a></li>
-            <li><a href="/about">About</a></li>
-            <AuthNav client:load />
-        </ul>
-    </nav>
+        <nav aria-label="Primary navigation">
+            <ul class="site-nav">
+                <li>
+                    <a href="/all-games" aria-current={pathname === "/all-games" ? "page" : undefined}>Games</a>
+                </li>
+                <li>
+                    <a href="/about" aria-current={pathname === "/about" ? "page" : undefined}>About</a>
+                </li>
+                <AuthNav client:load />
+            </ul>
+        </nav>
+    </div>
 </header>
 
-<style></style>
+<style>
+    .site-header {
+        padding-top: 1rem;
+    }
+
+    .site-header__inner {
+        display: flex;
+        min-height: 4.4rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        padding: 0.65rem 0;
+        border-bottom: 1px solid var(--arcade-border);
+    }
+
+    .brand {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .brand :global(.brand__logo) {
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 0.45rem;
+        filter: drop-shadow(0 0 12px rgba(244, 196, 48, 0.2));
+    }
+
+    .brand strong,
+    .brand small {
+        display: block;
+        line-height: 1.1;
+    }
+
+    .brand strong {
+        color: #fff;
+        font-size: 0.98rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+    }
+
+    .brand small {
+        margin-top: 0.25rem;
+        color: var(--arcade-subtle);
+        font-family: var(--font-utility);
+        font-size: 0.56rem;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+    }
+
+    .site-nav {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .site-nav :global(a) {
+        display: inline-flex;
+        min-height: 2.4rem;
+        align-items: center;
+        justify-content: center;
+        padding: 0.55rem 0.75rem;
+        border: 1px solid transparent;
+        border-radius: 0.55rem;
+        color: var(--arcade-muted);
+        font-size: 0.78rem;
+        font-weight: 650;
+        transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .site-nav :global(a:hover),
+    .site-nav :global(a[aria-current="page"]) {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.045);
+    }
+
+    .site-nav :global(.auth-login) {
+        border-color: var(--arcade-border-bright);
+        color: var(--arcade-text);
+        background: var(--arcade-surface);
+    }
+
+    .site-nav :global(.auth-signup) {
+        border-color: var(--arcade-purple-bright);
+        color: #fff;
+        background: var(--arcade-purple);
+    }
+
+    .site-nav :global(.auth-signup:hover) {
+        background: var(--arcade-purple-bright);
+    }
+
+    @media (max-width: 680px) {
+        .site-header__inner {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        nav,
+        .site-nav {
+            width: 100%;
+        }
+
+        .site-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(4.4rem, 1fr));
+        }
+
+        .site-nav :global(a) {
+            width: 100%;
+            padding-inline: 0.35rem;
+            font-size: 0.7rem;
+        }
+    }
+</style>
