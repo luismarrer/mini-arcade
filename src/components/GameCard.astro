@@ -78,12 +78,15 @@ const status = gameStatuses[game.status]
 
     .game-card__preview :global(.game-preview) {
         min-height: 12.5rem;
+        padding-top: 2rem;
     }
 
     .game-card__status {
         position: absolute;
-        top: 0.8rem;
+        top: 0.2rem;
         left: 0.8rem;
+        z-index: 2;
+        pointer-events: none;
     }
 
     .game-card__body {
