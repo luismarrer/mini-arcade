@@ -10,7 +10,7 @@ Four games are currently playable:
 
 - Pair Memory — a configurable matching game featuring DC characters
 - Two Dots — a timed color-connection puzzle
-- Hexapawn — a compact strategy game against a learning computer
+- Hexapawn — a compact strategy game against a capture-first computer
 - Hangman — a keyboard-friendly word game
 
 Stack, MonkeyType, and Tetris remain visible as honest work-in-progress experiments.

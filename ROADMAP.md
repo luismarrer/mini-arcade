@@ -59,11 +59,11 @@ No se recomienda self-hosting solo para evitar la tarifa: actualizaciones, segur
 
 ### 3. Arreglar los estados del catálogo
 
-- [ ] Definir tres estados claros: `playable`, `in-development` y `planned`.
-- [ ] Reparar los tags `Playable` e `In development` y convertirlos en un componente reutilizable.
-- [ ] Asegurar copy, contraste, icono, alineación y comportamiento correcto desde 320 px, sin depender únicamente del color.
-- [ ] Usar `src/constants/games.ts` como única fuente para badges, grupos, cantidades, CTA y rutas.
-- [ ] Revisar que cada afirmación del catálogo coincida con el juego real. En especial, implementar aprendizaje en Hexapawn o dejar de describir su computadora como una que aprende.
+- [x] Definir tres estados claros: `playable`, `in-development` y `planned`.
+- [x] Reparar los tags `Playable` e `In development` y convertirlos en un componente reutilizable.
+- [x] Asegurar copy, contraste, icono, alineación y comportamiento correcto desde 320 px, sin depender únicamente del color.
+- [x] Usar `src/constants/games.ts` como única fuente para badges, grupos, cantidades, CTA y rutas.
+- [x] Revisar que cada afirmación del catálogo coincida con el juego real. En especial, implementar aprendizaje en Hexapawn o dejar de describir su computadora como una que aprende.
 
 ## P0 — Backend y cuentas
 
