@@ -1,4 +1,46 @@
-export type GameStatus = "playable" | "in-progress"
+export type GameStatus = "playable" | "in-development" | "planned"
+
+export interface GameStatusDetails {
+    label: string
+    description: string
+    actionLabel: string
+    actionAriaLabel: (title: string) => string
+    groupLabel: string
+    countLabel: string
+}
+
+export const gameStatuses: Record<GameStatus, GameStatusDetails> = {
+    playable: {
+        label: "Playable",
+        description: "Complete game loop, ready to play now.",
+        actionLabel: "Play",
+        actionAriaLabel: (title) => `Play ${title}`,
+        groupLabel: "Playable now",
+        countLabel: "games",
+    },
+    "in-development": {
+        label: "In development",
+        description: "A visible build that is not a complete game yet.",
+        actionLabel: "View progress",
+        actionAriaLabel: (title) => `View development progress for ${title}`,
+        groupLabel: "In development",
+        countLabel: "builds",
+    },
+    planned: {
+        label: "Planned",
+        description: "On the roadmap, but development has not started.",
+        actionLabel: "View plan",
+        actionAriaLabel: (title) => `View the plan for ${title}`,
+        groupLabel: "Planned next",
+        countLabel: "games",
+    },
+}
+
+export const catalogStatusOrder: GameStatus[] = [
+    "playable",
+    "in-development",
+    "planned",
+]
 
 export interface Game {
     id: string
@@ -38,7 +80,7 @@ export const games: Game[] = [
     {
         id: "hexapawn",
         title: "Hexapawn",
-        description: "A tiny three-by-three strategy game against a computer that learns from defeat.",
+        description: "A tiny three-by-three strategy game against a computer that prioritizes captures.",
         path: "/hexapawn",
         status: "playable",
         category: "Strategy",
@@ -62,7 +104,7 @@ export const games: Game[] = [
         title: "Stack",
         description: "Stack moving blocks and keep the tower balanced.",
         path: "/stack",
-        status: "in-progress",
+        status: "in-development",
         category: "Timing",
         session: "In the lab",
         accent: "#f59e0b",
@@ -73,7 +115,7 @@ export const games: Game[] = [
         title: "MonkeyType",
         description: "A typing experiment for speed, accuracy and rhythm.",
         path: "/monkeytype",
-        status: "in-progress",
+        status: "in-development",
         category: "Typing",
         session: "In the lab",
         accent: "#9b5cff",
@@ -84,7 +126,7 @@ export const games: Game[] = [
         title: "Tetris",
         description: "The classic falling-block puzzle, currently being rebuilt for this collection.",
         path: "/tetris",
-        status: "in-progress",
+        status: "in-development",
         category: "Puzzle",
         session: "In the lab",
         accent: "#22b8cf",
@@ -93,3 +135,9 @@ export const games: Game[] = [
 ]
 
 export const getGame = (id: string) => games.find((game) => game.id === id)
+
+export const getGamesByStatus = (status: GameStatus) =>
+    games.filter((game) => game.status === status)
+
+export const getGameCount = (status: GameStatus) =>
+    getGamesByStatus(status).length

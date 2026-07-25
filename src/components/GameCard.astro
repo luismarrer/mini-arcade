@@ -1,6 +1,7 @@
 ---
-import type { Game } from "@/constants/games"
+import { gameStatuses, type Game } from "@/constants/games"
 import GamePreview from "./GamePreview.astro"
+import GameStatusBadge from "./GameStatusBadge.astro"
 
 interface Props {
     game: Game
@@ -8,20 +9,18 @@ interface Props {
 
 const { game } = Astro.props
 const isPlayable = game.status === "playable"
+const status = gameStatuses[game.status]
 ---
 
 <a
     href={game.path}
     class="game-card"
     style={`--preview-accent: ${game.accent}; --preview-soft: ${game.accentSoft}; --card-accent: ${game.accent};`}
-    aria-label={`${isPlayable ? "Play" : "View progress for"} ${game.title}`}
+    aria-label={status.actionAriaLabel(game.title)}
 >
     <div class="game-card__preview">
         <GamePreview gameId={game.id} />
-        <span class={`game-card__status ${isPlayable ? "is-playable" : ""}`}>
-            <i aria-hidden="true"></i>
-            {isPlayable ? "Playable" : "In development"}
-        </span>
+        <div class="game-card__status"><GameStatusBadge status={game.status} /></div>
     </div>
 
     <div class="game-card__body">
@@ -33,7 +32,7 @@ const isPlayable = game.status === "playable"
         <div class="game-card__footer">
             <span class="game-card__time">{game.session}</span>
             <span class={`game-card__action ${!isPlayable ? "is-muted" : ""}`}>
-                {isPlayable ? "Play" : "View progress"}
+                {status.actionLabel}
                 <i aria-hidden="true">→</i>
             </span>
         </div>
@@ -85,33 +84,6 @@ const isPlayable = game.status === "playable"
         position: absolute;
         top: 0.8rem;
         left: 0.8rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        padding: 0.35rem 0.55rem;
-        border: 1px solid var(--arcade-border-bright);
-        border-radius: 999px;
-        color: var(--arcade-muted);
-        background: rgba(13, 9, 18, 0.82);
-        backdrop-filter: blur(8px);
-        font-family: var(--font-utility);
-        font-size: 0.56rem;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-    }
-
-    .game-card__status i {
-        width: 0.38rem;
-        height: 0.38rem;
-        border-radius: 50%;
-        background: var(--arcade-yellow);
-        box-shadow: 0 0 8px rgba(244, 196, 48, 0.45);
-    }
-
-    .game-card__status.is-playable i {
-        background: var(--arcade-green);
-        box-shadow: 0 0 8px rgba(130, 220, 61, 0.5);
     }
 
     .game-card__body {

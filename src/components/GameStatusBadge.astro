@@ -1,0 +1,67 @@
+---
+import { gameStatuses, type GameStatus } from "@/constants/games"
+
+interface Props {
+    status: GameStatus
+}
+
+const { status } = Astro.props
+const details = gameStatuses[status]
+---
+
+<span class={`game-status game-status--${status}`} title={details.description}>
+    <svg viewBox="0 0 12 12" aria-hidden="true">
+        {status === "playable" && <path d="M4 2.7 9 6 4 9.3Z" />}
+        {status === "in-development" && (
+            <path d="M2 8.8 6.7 4.1l1.2 1.2L3.2 10H2Zm4-6.5 1.1-1.1 3.7 3.7L9.7 6Z" />
+        )}
+        {status === "planned" && (
+            <path d="M6 1.2a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6Zm.6 2H5.4v3.3l2.4 1.4.6-1-1.8-1Z" />
+        )}
+    </svg>
+    <span>{details.label}</span>
+</span>
+
+<style>
+    .game-status {
+        display: inline-flex;
+        min-height: 1.75rem;
+        align-items: center;
+        gap: 0.38rem;
+        padding: 0.3rem 0.55rem;
+        border: 1px solid var(--status-border);
+        border-radius: 999px;
+        color: var(--status-text);
+        background: rgba(13, 9, 18, 0.88);
+        backdrop-filter: blur(8px);
+        font-family: var(--font-utility);
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.035em;
+        line-height: 1;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    svg {
+        width: 0.72rem;
+        height: 0.72rem;
+        flex: 0 0 auto;
+        fill: currentColor;
+    }
+
+    .game-status--playable {
+        --status-border: #528a37;
+        --status-text: #bff58f;
+    }
+
+    .game-status--in-development {
+        --status-border: #957523;
+        --status-text: #ffe082;
+    }
+
+    .game-status--planned {
+        --status-border: #68577a;
+        --status-text: #cbbbd8;
+    }
+</style>

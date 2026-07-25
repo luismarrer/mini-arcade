@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets"
 import Logo from "@/images/logo.png"
-import { games } from "@/constants/games"
+import { gameStatuses, getGameCount } from "@/constants/games"
 
-const playableCount = games.filter((game) => game.status === "playable").length
-const inProgressCount = games.length - playableCount
+const playableCount = getGameCount("playable")
+const inDevelopmentCount = getGameCount("in-development")
 ---
 
 <section class="shell hero" aria-labelledby="hero-title">
@@ -40,8 +40,8 @@ const inProgressCount = games.length - playableCount
                 </div>
 
                 <dl class="hero__status">
-                    <div><dt>Playable</dt><dd>{String(playableCount).padStart(2, "0")}</dd></div>
-                    <div><dt>In progress</dt><dd>{String(inProgressCount).padStart(2, "0")}</dd></div>
+                    <div><dt>{gameStatuses.playable.label}</dt><dd>{String(playableCount).padStart(2, "0")}</dd></div>
+                    <div><dt>{gameStatuses["in-development"].label}</dt><dd>{String(inDevelopmentCount).padStart(2, "0")}</dd></div>
                     <div><dt>Install</dt><dd>None</dd></div>
                 </dl>
             </div>

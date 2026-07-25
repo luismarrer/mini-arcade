@@ -36,13 +36,11 @@
 }
 
 html {
-    min-width: 320px;
     scroll-behavior: smooth;
     background: var(--arcade-bg);
 }
 
 body {
-    min-width: 320px;
     min-height: 100dvh;
     margin: 0;
     color: var(--arcade-text);

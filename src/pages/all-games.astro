@@ -1,6 +1,10 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 import Games from "@/components/sections/Games.astro"
+import { getGameCount } from "@/constants/games"
+
+const playableCount = getGameCount("playable")
+const inDevelopmentCount = getGameCount("in-development")
 ---
 
 <Layout title="Games" description="Browse every playable game and work-in-progress experiment in Mini Arcade.">
@@ -10,8 +14,8 @@ import Games from "@/components/sections/Games.astro"
             <h1 class="display-type">Pick a game.</h1>
         </div>
         <p>
-            Four are ready to play. The rest are experiments I’m still working on,
-            but they belong here too.
+            {playableCount} are ready to play. {inDevelopmentCount} are honest
+            works in progress, and each card tells you which is which.
         </p>
     </header>
     <Games showHeader={false} />
