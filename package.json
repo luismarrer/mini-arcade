@@ -13,14 +13,14 @@
     "@fontsource-variable/manrope": "5.2.8",
     "@fontsource/ibm-plex-mono": "5.2.7",
     "@supabase/supabase-js": "2.89.0",
-    "@tailwindcss/vite": "4.1.16",
+    "@tailwindcss/vite": "4.3.3",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "astro": "6.1.4",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "sharp": "0.34.4",
-    "tailwindcss": "4.1.16"
+    "tailwindcss": "4.3.3"
   },
   "devDependencies": {
     "baseline-browser-mapping": "2.10.16"
