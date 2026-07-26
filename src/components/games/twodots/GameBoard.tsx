@@ -16,9 +16,20 @@ interface DotItemProps {
     onMouseDown: () => void
     onMouseEnter: () => void
     onTouchMove: (dotId: number) => void
+    onFinishMarking: () => void
+    hasMarkedDots: boolean
+    disabled: boolean
 }
 
-const DotItem: FC<DotItemProps> = ({ dot, onMouseDown, onMouseEnter, onTouchMove }) => {
+const DotItem: FC<DotItemProps> = ({
+    dot,
+    onMouseDown,
+    onMouseEnter,
+    onTouchMove,
+    onFinishMarking,
+    hasMarkedDots,
+    disabled,
+}) => {
     const colorClasses: Record<DotColor, string> = {
         red: "bg-[#fd0c49]",
         green: "bg-[#7ac943]",
@@ -26,10 +37,12 @@ const DotItem: FC<DotItemProps> = ({ dot, onMouseDown, onMouseEnter, onTouchMove
 
     return (
         <div
-            className={`flex items-center justify-center rounded-lg transition-colors duration-200 ${dot.isMarked ? dot.color === 'red' ? 'bg-[#fd0c49]/12' : 'bg-[#7ac943]/15' : ''}`}
+            role="gridcell"
+            className={`flex aspect-square min-w-0 items-center justify-center rounded-lg transition-colors duration-200 ${dot.isMarked ? dot.color === 'red' ? 'bg-[#fd0c49]/12' : 'bg-[#7ac943]/15' : ''}`}
         >
-            <div
-                className={`touch-none h-[clamp(1.25rem,7vw,2.2rem)] w-[clamp(1.25rem,7vw,2.2rem)] cursor-pointer rounded-full border-[clamp(0.28rem,1.4vw,0.58rem)] border-white shadow-[0_2px_8px_rgba(35,27,55,0.08)] transition-all duration-200 hover:scale-110 ${colorClasses[dot.color]} ${dot.isMarked ? 'scale-125 shadow-[0_5px_15px_rgba(35,27,55,0.2)]' : ''}`}
+            <button
+                type="button"
+                className="group grid size-full min-h-11 min-w-11 touch-none place-items-center rounded-lg border-0 bg-transparent p-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#667eea] disabled:cursor-not-allowed"
                 onMouseDown={onMouseDown}
                 onMouseEnter={onMouseEnter}
                 onTouchStart={onMouseDown}
@@ -41,7 +54,27 @@ const DotItem: FC<DotItemProps> = ({ dot, onMouseDown, onMouseEnter, onTouchMove
                     if (dotId) onTouchMove(Number(dotId))
                 }}
                 data-dot-id={dot.id}
-            />
+                disabled={disabled}
+                aria-label={`${dot.color} dot${dot.isMarked ? ", selected" : ""}`}
+                aria-pressed={dot.isMarked}
+                onKeyDown={(event) => {
+                    if (event.key !== "Enter" && event.key !== " ") return
+                    event.preventDefault()
+
+                    if (dot.isMarked) {
+                        onFinishMarking()
+                    } else if (hasMarkedDots) {
+                        onMouseEnter()
+                    } else {
+                        onMouseDown()
+                    }
+                }}
+            >
+                <span
+                    aria-hidden="true"
+                    className={`pointer-events-none size-[clamp(1.25rem,7vw,2.2rem)] rounded-full border-[clamp(0.28rem,1.4vw,0.58rem)] border-white shadow-[0_2px_8px_rgba(35,27,55,0.08)] transition-all duration-200 ${colorClasses[dot.color]} ${dot.isMarked ? 'scale-125 shadow-[0_5px_15px_rgba(35,27,55,0.2)]' : 'group-hover:scale-110'}`}
+                />
+            </button>
         </div>
     )
 }
@@ -55,8 +88,10 @@ const GameBoard: FC<GameBoardProps> = ({
     onFinishMarking,
     onPlayAgain,
 }) => {
+    const hasMarkedDots = dots.some((dot) => dot.isMarked)
+
     return (
-        <section id="gameContainer" className="mx-auto w-full min-w-0 max-w-[31rem]">
+        <section id="gameContainer" className="mx-auto w-full min-w-0 max-w-[31rem] short-landscape:max-w-[var(--short-game-board-size)]">
             <h2 className="sr-only">Game area</h2>
             <section id="gameArea" className="relative w-full">
                 {/* Game Over Overlay */}
@@ -74,7 +109,7 @@ const GameBoard: FC<GameBoardProps> = ({
                             </h3>
                             <button
                                 id="newGame"
-                                className="cursor-pointer rounded-lg border border-[#8d80d7] bg-linear-to-r from-[#667eea] to-[#764ba2] py-3 px-6 font-mono text-xs font-semibold uppercase tracking-[0.06em] text-white shadow-[0_8px_20px_rgba(102,126,234,0.3)] transition-all hover:-translate-y-0.5 hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-[#667eea]/25"
+                                className="min-h-11 cursor-pointer rounded-lg border border-[#8d80d7] bg-linear-to-r from-[#667eea] to-[#764ba2] py-3 px-6 font-mono text-xs font-semibold uppercase tracking-[0.06em] text-white shadow-[0_8px_20px_rgba(102,126,234,0.3)] transition-all hover:-translate-y-0.5 hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-[#667eea]/25"
                                 onClick={onPlayAgain}
                             >
                                 Play again
@@ -88,7 +123,7 @@ const GameBoard: FC<GameBoardProps> = ({
                     id="game"
                     role="grid"
                     aria-label="Two Dots game board"
-                    className="relative z-1 grid aspect-square w-full items-center justify-items-center gap-1.5 rounded-t-xl border border-[#dedde7] bg-white p-2 shadow-[0_16px_44px_rgba(7,3,20,0.22)] sm:gap-2 sm:p-4"
+                    className="relative z-1 grid aspect-square w-full items-center justify-items-center gap-0 rounded-t-xl border border-[#dedde7] bg-white p-0 shadow-[0_16px_44px_rgba(7,3,20,0.22)] sm:gap-2 sm:p-4 short-landscape:gap-0 short-landscape:p-0"
                     style={{
                         gridTemplateColumns: `repeat(${size}, 1fr)`,
                         gridTemplateRows: `repeat(${size}, 1fr)`,
@@ -104,6 +139,9 @@ const GameBoard: FC<GameBoardProps> = ({
                             onMouseDown={() => onStartMarking(dot.id)}
                             onMouseEnter={() => onContinueMarking(dot.id)}
                             onTouchMove={onContinueMarking}
+                            onFinishMarking={onFinishMarking}
+                            hasMarkedDots={hasMarkedDots}
+                            disabled={isGameOver}
                         />
                     ))}
                 </div>
@@ -112,9 +150,9 @@ const GameBoard: FC<GameBoardProps> = ({
             {/* Game Title */}
             <header
                 id="gameTitle"
-                className="w-full rounded-b-xl border border-t-0 border-[#8d80d7] bg-linear-to-r from-[#667eea] to-[#764ba2] p-4 text-center text-white shadow-[0_12px_30px_rgba(102,126,234,0.24)]"
+                className="w-full rounded-b-xl border border-t-0 border-[#8d80d7] bg-linear-to-r from-[#667eea] to-[#764ba2] p-4 text-center text-white shadow-[0_12px_30px_rgba(102,126,234,0.24)] short-landscape:p-2"
             >
-                <h2 className="m-0 text-2xl font-black tracking-[-0.035em]">Two Dots</h2>
+                <h2 className="m-0 text-2xl font-black tracking-[-0.035em] short-landscape:text-xl">Two Dots</h2>
                 <p className="mt-0.5 mb-0 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-white/75">Connect adjacent colors</p>
             </header>
         </section>

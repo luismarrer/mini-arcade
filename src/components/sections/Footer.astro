@@ -1,116 +1,38 @@
 ---
-const year = new Date().getFullYear()
+const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
-    <div class="shell site-footer__inner">
-        <div class="site-footer__brand">
-            <span class="control-lights" aria-hidden="true">
-                <i></i><i></i><i></i>
+<footer class="py-7 pb-9">
+    <div class="shell flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 pt-5 border-t border-arcade-border">
+        <div class="flex items-center gap-3">
+            <span class="flex gap-1" aria-hidden="true">
+                <i class="w-1.5 h-1.5 rounded-full bg-arcade-red shadow-[0_0_8px_rgba(229,69,75,0.35)]"></i>
+                <i class="w-1.5 h-1.5 rounded-full bg-arcade-yellow shadow-[0_0_8px_rgba(244,196,48,0.35)]"></i>
+                <i class="w-1.5 h-1.5 rounded-full bg-arcade-green shadow-[0_0_8px_rgba(130,220,61,0.35)]"></i>
             </span>
-            <p><strong>Mini Arcade</strong> · small browser games by Luis Marrero.</p>
+            <p class="m-0 text-[0.72rem] text-arcade-subtle">
+                <strong class="font-bold text-arcade-muted">Mini-Arcade</strong> · small browser games
+            </p>
         </div>
 
-        <nav class="site-footer__links" aria-label="Footer navigation">
+        <nav class="flex flex-col sm:flex-row sm:items-center gap-[0.45rem] sm:gap-5 font-utility text-[0.72rem] tracking-wider text-arcade-subtle" aria-label="Footer navigation">
             <span>© {year} Luis Marrero</span>
             <a
                 href="https://github.com/luismarrer/mini-arcade"
                 target="_blank"
                 rel="noopener noreferrer"
+                class="inline-flex min-h-11 items-center text-arcade-muted transition-colors duration-150 hover:text-arcade-text"
             >
                 GitHub ↗
             </a>
             <a
-                href="https://luismarrer.github.io/en"
+                href="https://cv.luismarrero.me/en"
                 target="_blank"
                 rel="noopener noreferrer"
+                class="inline-flex min-h-11 items-center text-arcade-muted transition-colors duration-150 hover:text-arcade-text"
             >
                 Portfolio ↗
             </a>
         </nav>
     </div>
 </footer>
-
-<style>
-    .site-footer {
-        padding-block: 1.75rem 2.25rem;
-    }
-
-    .site-footer__inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1.5rem;
-        padding-top: 1.35rem;
-        border-top: 1px solid var(--arcade-border);
-    }
-
-    .site-footer__brand {
-        display: flex;
-        align-items: center;
-        gap: 0.7rem;
-    }
-
-    .site-footer p,
-    .site-footer__links {
-        margin: 0;
-        color: var(--arcade-subtle);
-        font-size: 0.72rem;
-    }
-
-    .site-footer strong {
-        color: var(--arcade-muted);
-    }
-
-    .control-lights {
-        display: flex;
-        gap: 0.25rem;
-    }
-
-    .control-lights i {
-        width: 0.38rem;
-        height: 0.38rem;
-        border-radius: 50%;
-        background: var(--arcade-red);
-        box-shadow: 0 0 8px rgba(229, 69, 75, 0.35);
-    }
-
-    .control-lights i:nth-child(2) {
-        background: var(--arcade-yellow);
-        box-shadow: 0 0 8px rgba(244, 196, 48, 0.35);
-    }
-
-    .control-lights i:nth-child(3) {
-        background: var(--arcade-green);
-        box-shadow: 0 0 8px rgba(130, 220, 61, 0.35);
-    }
-
-    .site-footer__links {
-        display: flex;
-        align-items: center;
-        gap: 1.2rem;
-        font-family: var(--font-utility);
-        letter-spacing: 0.02em;
-    }
-
-    .site-footer a {
-        color: var(--arcade-muted);
-        transition: color 160ms ease;
-    }
-
-    .site-footer a:hover {
-        color: var(--arcade-text);
-    }
-
-    @media (max-width: 700px) {
-        .site-footer__inner,
-        .site-footer__links {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .site-footer__links {
-            gap: 0.45rem;
-        }
-    }
-</style>

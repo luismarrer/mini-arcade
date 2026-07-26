@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabase';
+import PlayerSlotHeader from './PlayerSlotHeader';
 
 interface FormData {
   nick: string;
@@ -7,6 +8,17 @@ interface FormData {
   password: string;
   avatar: string;
 }
+
+const avatars = [
+  { value: 'batman', label: 'Batman' },
+  { value: 'superman', label: 'Superman' },
+  { value: 'wonder-woman', label: 'Wonder Woman' },
+  { value: 'the-flash', label: 'The Flash' },
+  { value: 'green-lantern', label: 'Green Lantern' },
+  { value: 'supergirl', label: 'Supergirl' },
+  { value: 'cyborg', label: 'Cyborg' },
+  { value: 'catwoman', label: 'Catwoman' },
+] as const;
 
 export default function FormClient() {
   const [formData, setFormData] = useState<FormData>({
@@ -91,6 +103,8 @@ export default function FormClient() {
       onSubmit={handleSubmit}
       className="form-panel !m-0 !max-w-none flex flex-col gap-5"
     >
+      <PlayerSlotHeader label="Player slot // new" />
+
       {error && (
         <div className="notice">
           {error}
@@ -147,24 +161,37 @@ export default function FormClient() {
         />
       </label>
 
-      <label className="field">
-        Avatar
-        <select
-          name="avatar"
-          value={formData.avatar}
-          onChange={handleChange}
-          className="input"
-        >
-          <option value="batman">Batman</option>
-          <option value="superman">Superman</option>
-          <option value="wonder-woman">Wonder Woman</option>
-          <option value="the-flash">The Flash</option>
-          <option value="green-lantern">Green Lantern</option>
-          <option value="supergirl">Supergirl</option>
-          <option value="cyborg">Cyborg</option>
-          <option value="catwoman">Catwoman</option>
-        </select>
-      </label>
+      <fieldset className="m-0 min-w-0 border-0 p-0">
+        <legend className="mb-2 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.05em] text-arcade-muted">
+          Avatar
+        </legend>
+        <div className="grid grid-cols-4 gap-2" role="radiogroup" aria-label="Choose an avatar">
+          {avatars.map((avatar) => (
+            <label
+              key={avatar.value}
+              className="group relative grid min-w-0 cursor-pointer place-items-center"
+              title={avatar.label}
+            >
+              <input
+                type="radio"
+                name="avatar"
+                value={avatar.value}
+                checked={formData.avatar === avatar.value}
+                onChange={handleChange}
+                className="peer sr-only"
+              />
+              <img
+                src={`/images/avatars/${avatar.value}.avif`}
+                alt=""
+                width={72}
+                height={72}
+                className="aspect-square w-full rounded-lg border-2 border-arcade-border bg-arcade-bg-soft object-cover p-0.5 transition-all duration-150 group-hover:border-arcade-border-bright peer-checked:border-arcade-yellow peer-checked:shadow-[0_0_18px_rgba(244,196,48,0.2)] peer-focus-visible:ring-2 peer-focus-visible:ring-arcade-yellow peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-arcade-surface"
+              />
+              <span className="sr-only">{avatar.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
       <button
         type="submit"

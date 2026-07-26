@@ -3,10 +3,10 @@ import Layout from "@/layouts/Layout.astro"
 ---
 
 <Layout title="About" description="About Mini Arcade, Luis Marrero’s home for small browser game experiments.">
-    <header class="shell page-intro about-intro">
+    <header class="shell page-intro">
         <div>
             <span class="eyebrow">About Mini Arcade</span>
-            <h1 class="display-type">I make small games to learn how things work.</h1>
+            <h1 class="display-type max-w-[760px] text-[clamp(2.65rem,6vw,4.6rem)]">I make small games to learn how things work.</h1>
         </div>
         <p>
             This is the shelf where I keep them: course projects, weekend experiments,
@@ -14,21 +14,23 @@ import Layout from "@/layouts/Layout.astro"
         </p>
     </header>
 
-    <article class="shell about-grid">
-        <aside class="cabinet-note">
-            <div class="cabinet-note__lights" aria-hidden="true">
-                <span></span><span></span><span></span>
+    <article class="shell grid grid-cols-1 md:grid-cols-[minmax(13rem,0.55fr)_minmax(0,1.25fr)] gap-[clamp(2.5rem,8vw,7rem)] max-w-[980px] py-[clamp(3rem,7vw,5.5rem)]">
+        <aside class="static md:sticky md:top-8 h-fit p-4.5 border border-arcade-border border-t-arcade-purple-bright rounded-[0.9rem] bg-[rgba(33,23,46,0.7)]">
+            <div class="flex gap-1.5 mb-5" aria-hidden="true">
+                <span class="w-2 h-2 rounded-full bg-arcade-red shadow-[0_0_10px_rgba(229,69,75,0.4)]"></span>
+                <span class="w-2 h-2 rounded-full bg-arcade-yellow"></span>
+                <span class="w-2 h-2 rounded-full bg-arcade-green"></span>
             </div>
-            <p>
+            <p class="m-0 text-arcade-muted text-[0.82rem] leading-relaxed">
                 There is no grand release plan. I add a game when an experiment
                 gives me something worth keeping.
             </p>
         </aside>
 
-        <div class="about-copy">
-            <section>
-                <h2>Why this exists</h2>
-                <p>
+        <div class="flex flex-col">
+            <section class="py-1 pb-9.5 border-b border-arcade-border">
+                <h2 class="mb-3 text-arcade-text text-[clamp(1.45rem,3vw,2rem)] tracking-tight font-bold">Why this exists</h2>
+                <p class="max-w-[680px] mb-0 text-arcade-muted text-[1rem] leading-relaxed">
                     Games are a good excuse to learn. They make state, interaction,
                     animation and all the awkward edge cases visible very quickly.
                     Mini Arcade gives those exercises a permanent home instead of
@@ -36,28 +38,28 @@ import Layout from "@/layouts/Layout.astro"
                 </p>
             </section>
 
-            <section>
-                <h2>What it is made with</h2>
-                <p>
+            <section class="py-9.5 border-b border-arcade-border">
+                <h2 class="mb-3 text-arcade-text text-[clamp(1.45rem,3vw,2rem)] tracking-tight font-bold">What it is made with</h2>
+                <p class="max-w-[680px] mb-0 text-arcade-muted text-[1rem] leading-relaxed">
                     Astro holds the site together. React and TypeScript handle most
                     of the game logic, and CSS gives each game room to have its own
                     personality. The stack changes when an experiment needs it.
                 </p>
-                <ul class="tool-list" aria-label="Technology used">
-                    <li>Astro</li>
-                    <li>React</li>
-                    <li>TypeScript</li>
-                    <li>CSS</li>
+                <ul class="flex flex-wrap gap-2.5 mt-6 p-0 list-none" aria-label="Technology used">
+                    <li class="px-3.5 py-[0.45rem] border border-arcade-border-bright rounded-full text-arcade-muted bg-arcade-surface font-utility text-[0.68rem] font-semibold uppercase">Astro</li>
+                    <li class="px-3.5 py-[0.45rem] border border-arcade-border-bright rounded-full text-arcade-muted bg-arcade-surface font-utility text-[0.68rem] font-semibold uppercase">React</li>
+                    <li class="px-3.5 py-[0.45rem] border border-arcade-border-bright rounded-full text-arcade-muted bg-arcade-surface font-utility text-[0.68rem] font-semibold uppercase">TypeScript</li>
+                    <li class="px-3.5 py-[0.45rem] border border-arcade-border-bright rounded-full text-arcade-muted bg-arcade-surface font-utility text-[0.68rem] font-semibold uppercase">CSS</li>
                 </ul>
             </section>
 
-            <section>
-                <h2>Who is behind it</h2>
-                <p>
+            <section class="pt-9.5">
+                <h2 class="mb-3 text-arcade-text text-[clamp(1.45rem,3vw,2rem)] tracking-tight font-bold">Who is behind it</h2>
+                <p class="max-w-[680px] mb-0 text-arcade-muted text-[1rem] leading-relaxed">
                     I’m Luis Marrero, a developer who likes learning by building.
                     The project is open source, including the unfinished parts.
                 </p>
-                <div class="about-actions">
+                <div class="flex flex-wrap gap-[0.7rem] mt-6">
                     <a href="https://github.com/luismarrer/mini-arcade" target="_blank" rel="noopener noreferrer" class="button">View the source ↗</a>
                     <a href="https://luismarrer.github.io/en" target="_blank" rel="noopener noreferrer" class="button button--secondary">My portfolio ↗</a>
                 </div>
@@ -65,113 +67,3 @@ import Layout from "@/layouts/Layout.astro"
         </div>
     </article>
 </Layout>
-
-<style>
-    .about-grid {
-        display: grid;
-        grid-template-columns: minmax(13rem, 0.55fr) minmax(0, 1.25fr);
-        gap: clamp(2.5rem, 8vw, 7rem);
-        max-width: 980px;
-        padding-block: clamp(3rem, 7vw, 5.5rem);
-    }
-
-    .about-intro h1 {
-        max-width: 760px;
-        font-size: clamp(2.65rem, 6vw, 4.6rem);
-    }
-
-    .cabinet-note {
-        position: sticky;
-        top: 2rem;
-        height: fit-content;
-        padding: 1.15rem;
-        border: 1px solid var(--arcade-border);
-        border-top-color: var(--arcade-purple-bright);
-        border-radius: var(--radius-md);
-        background: rgba(33, 23, 46, 0.7);
-    }
-
-    .cabinet-note__lights {
-        display: flex;
-        gap: 0.35rem;
-        margin-bottom: 1.2rem;
-    }
-
-    .cabinet-note__lights span {
-        width: 0.48rem;
-        height: 0.48rem;
-        border-radius: 50%;
-        background: var(--arcade-red);
-        box-shadow: 0 0 10px rgba(229, 69, 75, 0.4);
-    }
-
-    .cabinet-note__lights span:nth-child(2) { background: var(--arcade-yellow); }
-    .cabinet-note__lights span:nth-child(3) { background: var(--arcade-green); }
-
-    .cabinet-note p {
-        margin: 0;
-        color: var(--arcade-muted);
-        font-size: 0.82rem;
-        line-height: 1.65;
-    }
-
-    .about-copy {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .about-copy section {
-        padding-block: 0.25rem 2.4rem;
-        border-bottom: 1px solid var(--arcade-border);
-    }
-
-    .about-copy section + section { padding-top: 2.4rem; }
-
-    .about-copy h2 {
-        margin-bottom: 0.8rem;
-        color: var(--arcade-text);
-        font-size: clamp(1.45rem, 3vw, 2rem);
-        letter-spacing: -0.035em;
-    }
-
-    .about-copy p {
-        max-width: 680px;
-        margin-bottom: 0;
-        color: var(--arcade-muted);
-        font-size: 1rem;
-        line-height: 1.75;
-    }
-
-    .tool-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-        margin: 1.5rem 0 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .tool-list li {
-        padding: 0.45rem 0.8rem;
-        border: 1px solid var(--arcade-border-bright);
-        border-radius: 999px;
-        color: var(--arcade-muted);
-        background: var(--arcade-surface);
-        font-family: var(--font-utility);
-        font-size: 0.68rem;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
-    .about-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.7rem;
-        margin-top: 1.5rem;
-    }
-
-    @media (max-width: 760px) {
-        .about-grid { grid-template-columns: 1fr; }
-        .cabinet-note { position: static; }
-    }
-</style>

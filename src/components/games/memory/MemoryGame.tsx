@@ -83,8 +83,8 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
         : `/images/avatars/${playerData.avatar}.avif`
 
     return (
-        <div className="flex flex-col gap-6">
-            <div className="flex flex-wrap gap-2 font-mono text-[0.66rem] uppercase tracking-[0.08em] text-[#bdc9dc]">
+        <div className="flex flex-col gap-6 short-landscape:gap-3">
+            <div className="flex flex-wrap gap-2 font-mono text-[0.66rem] uppercase tracking-[0.08em] text-[#bdc9dc] short-landscape:hidden">
                 <p className="m-0 rounded-full border border-[#465a7a] bg-[#172238] px-3 py-1.5">
                     Difficulty · <span className="font-semibold">{config.difficulty}</span>
                 </p>
@@ -104,7 +104,7 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
                 </div>
             )}
 
-            <div className="grid items-start gap-5 lg:grid-cols-[11rem_minmax(0,1fr)]">
+            <div className="grid items-start gap-5 lg:grid-cols-[11rem_minmax(0,1fr)] short-landscape:grid-cols-[9rem_minmax(0,1fr)] short-landscape:gap-3">
                 <PlayerInfo
                     movesRemaining={movesRemaining}
                     score={score}
@@ -112,7 +112,7 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
                     totalPairs={numCards / 2}
                 />
 
-                <section className="mx-auto w-full rounded-xl border border-[#3b4d69] bg-[#121a2d] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-5">
+                <section className="mx-auto w-full rounded-xl border border-[#3b4d69] bg-[#121a2d] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-5 short-landscape:p-2">
                     <GameBoard cards={cards} onCardClick={flipCard} cardImages={cardImages} />
                     <GameControls
                         onRestart={handleRestart}

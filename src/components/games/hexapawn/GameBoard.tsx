@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { GameState, Move } from './hooks/useHexapawnGame'
+import type { GameState } from './hooks/useHexapawnGame'
 
 interface PawnProps {
     player: string
@@ -23,11 +23,11 @@ const Pawn: FC<PawnProps> = ({
     onDragEnd,
 }) => {
     const symbol = player === 'player' ? '♙' : '♟'
-    const pawnClass = player === 'player' ? 'player-pawn' : 'computer-pawn'
+    const colorClass = player === 'player' ? 'text-[var(--hex-accent)] drop-shadow-[0_0_0.75rem_rgba(0,255,65,0.65)]' : 'text-[var(--hex-warning)] drop-shadow-[0_0_0.75rem_rgba(255,107,53,0.55)]'
 
     return (
         <div
-            className={`pawn ${pawnClass} ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}`}
+            className={`relative z-10 flex w-[clamp(2.7rem,8vw,4.5rem)] h-[clamp(2.7rem,8vw,4.5rem)] items-center justify-center border rounded text-[clamp(2.2rem,7vw,3.8rem)] select-none transition-all duration-150 cursor-grab active:cursor-grabbing hover:-translate-y-0.5 hover:scale-105 ${colorClass} ${isSelected ? 'border-[var(--hex-accent)] bg-[rgba(0,255,65,0.14)] shadow-[0_0_0.9rem_rgba(0,255,65,0.34)]' : 'border-transparent'} ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
             data-player={player}
             data-row={row}
             data-col={col}
@@ -69,10 +69,12 @@ const Cell: FC<CellProps> = ({
     onDragStart,
     onDragEnd,
 }) => {
+    const bgClass = (row + col) % 2 === 1 ? 'bg-[#111713]' : 'bg-[#18201a]'
+
     return (
         <button
             type="button"
-            className={`cell ${isValidMove ? 'valid-move' : ''}`}
+            className={`relative flex aspect-square items-center justify-center border-0 p-0 cursor-pointer transition-colors duration-150 ${isValidMove ? 'bg-[rgba(0,255,65,0.16)] hover:bg-[rgba(0,255,65,0.16)] shadow-[inset_0_0_1.1rem_rgba(0,255,65,0.22)] after:absolute after:w-4 after:h-4 after:border-2 after:border-[var(--hex-accent)] after:rounded-full after:bg-[rgba(0,255,65,0.14)] after:shadow-[0_0_0.7rem_rgba(0,255,65,0.5)] after:content-[""]' : `${bgClass} hover:bg-[#202c23]`}`}
             data-row={row}
             data-col={col}
             onClick={onClick}
@@ -118,11 +120,11 @@ const GameBoard: FC<GameBoardProps> = ({
     onDragEnd,
 }) => {
     return (
-        <section className="game-board-container">
-            <h2 className="visually-hidden">Hexapawn Board</h2>
+        <section className="w-full max-w-[31rem] justify-self-center">
+            <h2 className="sr-only">Hexapawn Board</h2>
             <div
                 id="game-board"
-                className={`game-board ${gameState.gameOver ? 'game-over' : ''}`}
+                className={`grid grid-cols-3 gap-0.5 overflow-hidden p-0.5 border-4 border-[var(--hex-accent)] rounded-lg bg-[#0b9132] shadow-[0_0_1.6rem_rgba(0,255,65,0.18),inset_0_0_1rem_rgba(0,0,0,0.75)] ${gameState.gameOver ? 'animate-hex-finish motion-reduce:animate-none' : ''}`}
             >
                 {gameState.board.map((row, rowIndex) =>
                     row.map((cell, colIndex) => (

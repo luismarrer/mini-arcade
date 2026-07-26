@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { signIn } from '../../lib/auth';
+import PlayerSlotHeader from './PlayerSlotHeader';
 
 export default function LoginClient() {
   const [formData, setFormData] = useState({
@@ -42,6 +43,8 @@ export default function LoginClient() {
       onSubmit={handleSubmit}
       className="form-panel !m-0 flex flex-col gap-5"
     >
+      <PlayerSlotHeader label="Player slot // sign in" />
+
       {error && (
         <div className="notice">
           {error}

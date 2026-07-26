@@ -1,0 +1,24 @@
+---
+import type { Game } from "@/constants/games"
+
+interface Props {
+    game: Game
+}
+
+const { game } = Astro.props
+---
+
+<article class="shell py-11 pb-20" style={`--game-accent: ${game.accent};`}>
+    <header class="grid grid-cols-1 min-[801px]:grid-cols-[1fr_auto] gap-6 items-end mb-6.5">
+        <div>
+            <span class="eyebrow">{game.category} · {game.session}</span>
+            <h1 class="display-type mb-2 text-[clamp(2.5rem,7vw,4.8rem)]">{game.title}</h1>
+            <p class="max-w-[42rem] mb-0 text-arcade-muted">{game.description}</p>
+        </div>
+        <a href="/all-games" class="button button--secondary button--small self-start min-[801px]:self-auto">← All games</a>
+    </header>
+
+    <div class="relative p-2 min-[360px]:p-[clamp(1rem,3vw,2rem)] overflow-hidden border border-arcade-border border-t-3 border-t-[var(--game-accent,#8b2cff)] rounded-[1.35rem] bg-[rgba(25,16,34,0.88)] shadow-[0_18px_45px_rgba(0,0,0,0.24)]">
+        <slot />
+    </div>
+</article>

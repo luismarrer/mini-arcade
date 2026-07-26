@@ -1,20 +1,5 @@
 ---
-import HexapawnGameClient from "./hexapawn/HexapawnGameClient"
-import "@/styles/hexapawn/styles.css"
+import HexapawnGameClient from "@/components/games/hexapawn/HexapawnGameClient"
 ---
 
-<div class="hexapawn-experience">
-    <div class="hexapawn-play">
-        <HexapawnGameClient client:load />
-    </div>
-
-    <section class="game-rules">
-        <span>RULES.TXT</span>
-        <h2>How to win</h2>
-        <ul>
-            <li>Move one square forward into an empty cell.</li>
-            <li>Capture a computer pawn diagonally.</li>
-            <li>Reach the top row or leave the computer without a legal move.</li>
-        </ul>
-    </section>
-</div>
+<HexapawnGameClient client:load />

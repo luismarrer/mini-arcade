@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+import GameShell from "@/components/GameShell.astro"
 import MonkeytypeGame from "@/components/games/MonkeytypeGame.astro"
 import { getGame } from "@/constants/games"
 
@@ -7,15 +8,7 @@ const game = getGame("monkeytype")!
 ---
 
 <Layout title={game.title} description={game.description}>
-    <article class="shell game-page" style={`--game-accent: ${game.accent};`}>
-        <header class="game-page__header">
-            <div>
-                <span class="eyebrow">{game.category} · {game.session}</span>
-                <h1 class="display-type">{game.title}</h1>
-                <p>{game.description}</p>
-            </div>
-            <a href="/all-games" class="button button--secondary button--small">← All games</a>
-        </header>
-        <div class="game-page__stage"><MonkeytypeGame /></div>
-    </article>
+    <GameShell {game}>
+        <MonkeytypeGame />
+    </GameShell>
 </Layout>

@@ -75,9 +75,9 @@ const MemoryGameClient: FC<{ cards: CardImage[] }> = ({ cards }) => {
     }
 
     return (
-        <section className="mx-auto my-4 w-full max-w-5xl overflow-hidden rounded-2xl border border-[#465a7a] bg-[#222f49] shadow-[0_24px_70px_rgba(4,9,22,0.45)]">
+        <section className="mx-auto my-4 w-full max-w-5xl overflow-hidden rounded-2xl border border-[#465a7a] bg-[#222f49] shadow-[0_24px_70px_rgba(4,9,22,0.45)] short-landscape:my-0">
             <div className="h-1 bg-linear-to-r from-[#2387c4] via-[#536dfe] to-[#e34a7a]" />
-            <div className="flex flex-col gap-7 p-5 sm:p-8">
+            <div className="flex flex-col gap-7 p-5 sm:p-8 short-landscape:gap-3 short-landscape:p-3">
                 {phase === "config" && (
                     <header className="border-b border-[#465a7a] pb-5">
                         <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#91a8c8]">

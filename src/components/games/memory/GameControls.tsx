@@ -19,10 +19,10 @@ const GameControls: FC<GameControlsProps> = ({
     getArtifactText,
 }) => {
     return (
-        <nav className="mt-5 flex flex-wrap justify-end gap-2 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.06em]">
+        <nav className="mt-5 flex flex-wrap justify-end gap-2 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.06em] short-landscape:mt-2 short-landscape:grid short-landscape:grid-cols-3 short-landscape:gap-1.5">
             <button
                 type="button"
-                className="rounded-md border border-[#54aee3] bg-[#2387c4] px-4 py-2.5 text-white transition-colors hover:bg-[#2d9bdb] focus:outline-none focus:ring-2 focus:ring-[#6ec5f3]"
+                className="min-h-11 rounded-md border border-[#54aee3] bg-[#2387c4] px-4 py-2.5 text-white transition-colors hover:bg-[#2d9bdb] focus:outline-none focus:ring-2 focus:ring-[#6ec5f3] short-landscape:px-2 short-landscape:py-2 short-landscape:text-[0.58rem]"
                 onClick={onRestart}
             >
                 Restart Game
@@ -31,7 +31,7 @@ const GameControls: FC<GameControlsProps> = ({
             {artifact && (
                 <button
                     type="button"
-                    className={`rounded-md border px-4 py-2.5 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#d291e8] ${
+                    className={`min-h-11 rounded-md border px-4 py-2.5 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#d291e8] short-landscape:px-2 short-landscape:py-2 short-landscape:text-[0.58rem] ${
                         canUseArtifact
                             ? 'border-[#aa5cc7] bg-[#74328e] hover:bg-[#873ca4]'
                             : 'cursor-not-allowed border-[#465a7a] bg-[#2a3850] opacity-50'
@@ -45,7 +45,7 @@ const GameControls: FC<GameControlsProps> = ({
 
             <button
                 type="button"
-                className="rounded-md border border-[#52647f] bg-[#1b2840] px-4 py-2.5 text-[#dbe5f3] transition-colors hover:bg-[#2a3850] focus:outline-none focus:ring-2 focus:ring-[#91a8c8]"
+                className="min-h-11 rounded-md border border-[#52647f] bg-[#1b2840] px-4 py-2.5 text-[#dbe5f3] transition-colors hover:bg-[#2a3850] focus:outline-none focus:ring-2 focus:ring-[#91a8c8] short-landscape:px-2 short-landscape:py-2 short-landscape:text-[0.58rem]"
                 onClick={onBack}
             >
                 Back to Config

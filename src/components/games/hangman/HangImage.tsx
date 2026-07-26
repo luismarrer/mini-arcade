@@ -15,7 +15,7 @@ export function HangImage({ imageNumber }: Props) {
             viewBox="0 0 240 250"
             role="img"
             aria-label={`Hangman drawing after ${step} missed ${step === 1 ? "guess" : "guesses"}`}
-            className="h-auto w-full max-w-[230px]"
+            className="h-auto w-full max-w-[230px] short-landscape:max-w-[170px]"
         >
             <line x1="28" y1="225" x2="205" y2="225" {...lineProps} />
             <line x1="58" y1="225" x2="58" y2="26" {...lineProps} />

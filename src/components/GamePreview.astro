@@ -4,269 +4,68 @@ interface Props {
 }
 
 const { gameId } = Astro.props
+const previewArtClasses = "game-preview__art max-w-full max-h-full"
+const squareGridClasses = `${previewArtClasses} game-preview__art--square-grid grid aspect-square size-[min(100cqi,100cqb,var(--game-preview-art-max-size,11rem))]`
 ---
 
-<div class={`game-preview game-preview--${gameId}`} aria-hidden="true">
-    {gameId === "memory" && (
-        <div class="memory-grid">
-            {["●", "▲", "■", "●", "✦", "■", "▲", "✦"].map((mark, index) => (
-                <span class={index === 0 || index === 3 ? "is-up" : ""}>{mark}</span>
-            ))}
-        </div>
-    )}
-    {gameId === "twodots" && (
-        <div class="dots-grid">
-            {Array.from({ length: 16 }).map((_, index) => (
-                <span class={index === 5 || index === 6 || index === 10 ? "is-linked" : ""} />
-            ))}
-        </div>
-    )}
-    {gameId === "hexapawn" && (
-        <div class="pawn-grid">
-            {["♟", "♟", "♟", "", "♙", "", "♙", "", "♙"].map((piece) => <span>{piece}</span>)}
-        </div>
-    )}
-    {gameId === "hangman" && (
-        <div class="hangman-drawing">
-            <i class="beam" /><i class="rope" /><i class="head" /><i class="body" />
-            <span>_ A _ E</span>
-        </div>
-    )}
-    {gameId === "stack" && (
-        <div class="stack-preview"><span /><span /><span /><span /><span /></div>
-    )}
-    {gameId === "monkeytype" && (
-        <div class="type-preview">
-            <span>const practice =</span>
-            <span><b>"one more game"</b><i /></span>
-        </div>
-    )}
-    {gameId === "tetris" && (
-        <div class="tetris-preview">
-            {Array.from({ length: 20 }).map((_, index) => <span class={`block-${index}`} />)}
-        </div>
-    )}
+<div
+    class="game-preview relative grid w-full h-full min-h-[var(--game-preview-min-height,12rem)] place-items-center overflow-hidden p-[var(--game-preview-safe-block-start,0.75rem)_var(--game-preview-safe-inline,0.75rem)_var(--game-preview-safe-block-end,0.75rem)] text-[#f8f5fb] [background-color:var(--preview-soft,#16101f)] [background-image:radial-gradient(circle_at_50%_42%,color-mix(in_srgb,var(--preview-accent,#8b2cff)_24%,transparent),transparent_58%)] before:absolute before:inset-0 before:pointer-events-none before:content-[''] before:[background-image:linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] before:[background-size:20px_20px] before:[mask-image:linear-gradient(to_bottom,black,transparent_92%)] after:absolute after:inset-0 after:z-20 after:pointer-events-none after:content-[''] after:bg-[repeating-linear-gradient(0deg,transparent_0_3px,rgba(255,255,255,0.018)_3px_4px)]"
+    aria-hidden="true"
+>
+    <div class="game-preview__stage relative z-10 grid w-full h-full min-w-0 min-h-0 place-items-center [container-type:size]">
+        {gameId === "memory" && (
+            <div class={`${previewArtClasses} grid w-[min(67%,13rem)] grid-cols-4 gap-[0.42rem] [perspective:800px]`}>
+                {["●", "▲", "■", "●", "✦", "■", "▲", "✦"].map((mark, index) => (
+                    <span class={`grid aspect-[0.76] place-items-center rounded-[0.35rem] border font-mono text-[0.9rem] shadow-[0_7px_14px_rgba(0,0,0,0.28)] ${index === 0 || index === 3 ? "border-[#f4c430] text-[#1c1424] bg-[#f4c430] [transform:rotateY(180deg)]" : "border-[#594660] text-transparent bg-[linear-gradient(145deg,#382246,#21152d)]"}`}>{mark}</span>
+                ))}
+            </div>
+        )}
+        {gameId === "twodots" && (
+            <div class={`${squareGridClasses} grid-cols-4 gap-[0.95rem]`}>
+                {Array.from({ length: 16 }).map((_, index) => (
+                    <span class={`aspect-square rounded-full border-[3px] border-white/75 ${index % 2 === 0 ? "bg-[#fd315b] shadow-[0_0_12px_rgba(253,49,91,0.3)]" : "bg-[#72cf4d] shadow-[0_0_12px_rgba(114,207,77,0.25)]"} ${index === 5 || index === 6 || index === 10 ? "outline-2 outline-white outline-offset-[3px] scale-[1.08]" : ""}`} />
+                ))}
+            </div>
+        )}
+        {gameId === "hexapawn" && (
+            <div class={`${squareGridClasses} grid-cols-3 overflow-hidden border-2 border-[#00ff41] rounded-md shadow-[0_0_20px_rgba(0,255,65,0.18)]`}>
+                {["♟", "♟", "♟", "", "♙", "", "♙", "", "♙"].map((piece, index) => (
+                    <span class={`grid aspect-square place-items-center border border-[#25422b] bg-[#0d1410] text-[clamp(1.05rem,3vw,1.75rem)] ${index % 2 === 1 ? "bg-[#152019]" : ""} ${index < 3 ? "text-[#ff7445] drop-shadow-[0_0_8px_rgba(255,116,69,0.5)]" : "text-[#00ff41] drop-shadow-[0_0_8px_rgba(0,255,65,0.55)]"}`}>{piece}</span>
+                ))}
+            </div>
+        )}
+        {gameId === "hangman" && (
+            <div class={`${previewArtClasses} relative w-[min(66%,13rem)] h-32 border-b-4 border-blue-500 drop-shadow-[0_0_7px_rgba(59,130,246,0.45)]`}>
+                <i class="absolute top-0 left-4 w-24 h-1 bg-blue-500 after:absolute after:w-1 after:h-[6.8rem] after:bg-blue-500" />
+                <i class="absolute top-0 left-[6.7rem] w-[2px] h-6 bg-blue-500" />
+                <i class="absolute top-[1.35rem] left-[5.85rem] w-[1.85rem] h-[1.85rem] border-4 border-blue-500 rounded-full bg-transparent" />
+                <i class="absolute top-[3.1rem] left-[6.65rem] w-[3px] h-[2.8rem] bg-blue-500" />
+                <span class="absolute -right-3 bottom-1 text-[#c8dcff] font-utility text-[0.82rem] font-semibold tracking-widest">_ A _ E</span>
+            </div>
+        )}
+        {gameId === "stack" && (
+            <div class={`${previewArtClasses} flex w-[min(70%,13rem)] flex-col-reverse items-center gap-1`}>
+                <span class="w-full h-[1.3rem] rounded-[0.18rem] bg-[#e5454b] shadow-[0_5px_12px_rgba(0,0,0,0.25)]" />
+                <span class="w-[84%] h-[1.3rem] rounded-[0.18rem] bg-[#f4c430] shadow-[0_5px_12px_rgba(0,0,0,0.25)]" />
+                <span class="w-[68%] h-[1.3rem] rounded-[0.18rem] bg-[#82dc3d] shadow-[0_5px_12px_rgba(0,0,0,0.25)]" />
+                <span class="w-[52%] h-[1.3rem] rounded-[0.18rem] bg-[#2387c4] shadow-[0_5px_12px_rgba(0,0,0,0.25)]" />
+                <span class="w-[36%] h-[1.3rem] rounded-[0.18rem] bg-[#9b5cff] shadow-[0_5px_12px_rgba(0,0,0,0.25)] translate-x-[0.8rem]" />
+            </div>
+        )}
+        {gameId === "monkeytype" && (
+            <div class={`${previewArtClasses} w-[min(78%,18rem)] p-[1.1rem] border border-[#5e4575] rounded-[0.45rem] text-[#c7b7d5] bg-[#15101d] shadow-[0_14px_26px_rgba(0,0,0,0.25)] font-utility text-[clamp(0.68rem,2vw,0.86rem)] leading-[1.8]`}>
+                <span class="block whitespace-nowrap">const practice =</span>
+                <span class="block whitespace-nowrap"><b class="text-[#b783ff] font-semibold">"one more game"</b><i class="inline-block w-2 h-4 ml-1 bg-arcade-yellow align-middle animate-caret-blink motion-reduce:animate-none" /></span>
+            </div>
+        )}
+        {gameId === "tetris" && (
+            <div class={`${previewArtClasses} grid w-[min(40%,7rem)] grid-cols-4 gap-0.5 p-1 border-2 border-[#22b8cf] bg-[#0c1820] shadow-[0_0_20px_rgba(34,184,207,0.18)]`}>
+                {Array.from({ length: 20 }).map((_, index) => {
+                    const isCyan = [2, 6, 9, 10, 13, 14, 15, 16, 17, 18, 19].includes(index)
+                    const isRed = [10, 14].includes(index)
+                    return <span class={`aspect-square border border-white/5 ${isRed ? "bg-[#e5454b]" : isCyan ? "bg-[#22b8cf]" : "bg-[#1e3541]"}`} />
+                })}
+            </div>
+        )}
+    </div>
 </div>
-
-<style>
-    .game-preview {
-        position: relative;
-        display: grid;
-        width: 100%;
-        height: 100%;
-        min-height: 12rem;
-        place-items: center;
-        overflow: hidden;
-        color: #f8f5fb;
-        background:
-            radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--preview-accent, #8b2cff) 22%, transparent), transparent 55%),
-            var(--preview-soft, #16101f);
-    }
-
-    .game-preview::before {
-        position: absolute;
-        inset: 0;
-        content: "";
-        pointer-events: none;
-        background:
-            linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-        background-size: 20px 20px;
-        mask-image: linear-gradient(to bottom, black, transparent 92%);
-    }
-
-    .game-preview::after {
-        position: absolute;
-        inset: 0;
-        content: "";
-        pointer-events: none;
-        background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255, 255, 255, 0.018) 3px 4px);
-    }
-
-    .memory-grid {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        width: min(67%, 13rem);
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.42rem;
-        perspective: 800px;
-    }
-
-    .memory-grid span {
-        display: grid;
-        aspect-ratio: 0.76;
-        place-items: center;
-        border: 1px solid #594660;
-        border-radius: 0.35rem;
-        color: transparent;
-        background: linear-gradient(145deg, #382246, #21152d);
-        box-shadow: 0 7px 14px rgba(0, 0, 0, 0.28);
-        font-size: 0.9rem;
-    }
-
-    .memory-grid .is-up {
-        border-color: #f4c430;
-        color: #1c1424;
-        background: #f4c430;
-        transform: rotateY(180deg);
-    }
-
-    .dots-grid {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        width: min(58%, 11rem);
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.95rem;
-    }
-
-    .dots-grid span {
-        aspect-ratio: 1;
-        border: 3px solid rgba(255, 255, 255, 0.75);
-        border-radius: 50%;
-        background: #fd315b;
-        box-shadow: 0 0 12px rgba(253, 49, 91, 0.3);
-    }
-
-    .dots-grid span:nth-child(2n) {
-        background: #72cf4d;
-        box-shadow: 0 0 12px rgba(114, 207, 77, 0.25);
-    }
-
-    .dots-grid .is-linked {
-        outline: 2px solid #fff;
-        outline-offset: 3px;
-        transform: scale(1.08);
-    }
-
-    .pawn-grid {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        width: min(58%, 11rem);
-        overflow: hidden;
-        grid-template-columns: repeat(3, 1fr);
-        border: 2px solid #00ff41;
-        border-radius: 0.35rem;
-        box-shadow: 0 0 20px rgba(0, 255, 65, 0.18);
-    }
-
-    .pawn-grid span {
-        display: grid;
-        aspect-ratio: 1;
-        place-items: center;
-        border: 1px solid #25422b;
-        color: #00ff41;
-        background: #0d1410;
-        font-size: clamp(1.05rem, 3vw, 1.75rem);
-        text-shadow: 0 0 8px rgba(0, 255, 65, 0.55);
-    }
-
-    .pawn-grid span:nth-child(even) { background: #152019; }
-    .pawn-grid span:nth-child(-n + 3) { color: #ff7445; text-shadow: 0 0 8px rgba(255, 116, 69, 0.5); }
-
-    .hangman-drawing {
-        position: relative;
-        z-index: 1;
-        width: min(66%, 13rem);
-        height: 8rem;
-        border-bottom: 3px solid #3b82f6;
-        filter: drop-shadow(0 0 7px rgba(59, 130, 246, 0.45));
-    }
-
-    .hangman-drawing i {
-        position: absolute;
-        display: block;
-        background: #3b82f6;
-    }
-
-    .hangman-drawing .beam { top: 0; left: 1rem; width: 6rem; height: 3px; }
-    .hangman-drawing .beam::before { position: absolute; width: 3px; height: 6.8rem; background: #3b82f6; content: ""; }
-    .hangman-drawing .rope { top: 0; left: 6.7rem; width: 2px; height: 1.5rem; }
-    .hangman-drawing .head { top: 1.35rem; left: 5.85rem; width: 1.85rem; height: 1.85rem; border: 3px solid #3b82f6; border-radius: 50%; background: transparent; }
-    .hangman-drawing .body { top: 3.1rem; left: 6.65rem; width: 3px; height: 2.8rem; }
-
-    .hangman-drawing span {
-        position: absolute;
-        right: -0.7rem;
-        bottom: 0.2rem;
-        color: #c8dcff;
-        font-family: var(--font-utility);
-        font-size: 0.82rem;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-    }
-
-    .stack-preview {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        width: min(70%, 13rem);
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: 0.25rem;
-    }
-
-    .stack-preview span {
-        width: 100%;
-        height: 1.3rem;
-        border-radius: 0.18rem;
-        background: #e5454b;
-        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
-    }
-
-    .stack-preview span:nth-child(2) { width: 84%; background: #f4c430; }
-    .stack-preview span:nth-child(3) { width: 68%; background: #82dc3d; }
-    .stack-preview span:nth-child(4) { width: 52%; background: #2387c4; }
-    .stack-preview span:nth-child(5) { width: 36%; background: #9b5cff; transform: translateX(0.8rem); }
-
-    .type-preview {
-        position: relative;
-        z-index: 1;
-        width: min(78%, 18rem);
-        padding: 1.1rem;
-        border: 1px solid #5e4575;
-        border-radius: 0.45rem;
-        color: #c7b7d5;
-        background: #15101d;
-        box-shadow: 0 14px 26px rgba(0, 0, 0, 0.25);
-        font-family: var(--font-utility);
-        font-size: clamp(0.68rem, 2vw, 0.86rem);
-        line-height: 1.8;
-    }
-
-    .type-preview span { display: block; white-space: nowrap; }
-    .type-preview b { color: #b783ff; font-weight: 600; }
-    .type-preview i { display: inline-block; width: 0.5rem; height: 1rem; margin-left: 0.25rem; background: #f4c430; vertical-align: middle; animation: blink 1s steps(1) infinite; }
-
-    .tetris-preview {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        width: min(50%, 9.5rem);
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.13rem;
-        padding: 0.3rem;
-        border: 2px solid #22b8cf;
-        background: #0c1820;
-        box-shadow: 0 0 20px rgba(34, 184, 207, 0.18);
-    }
-
-    .tetris-preview span { aspect-ratio: 1; border: 1px solid rgba(255, 255, 255, 0.05); background: #1e3541; }
-    .tetris-preview .block-2,
-    .tetris-preview .block-6,
-    .tetris-preview .block-9,
-    .tetris-preview .block-10,
-    .tetris-preview .block-13,
-    .tetris-preview .block-14,
-    .tetris-preview .block-15,
-    .tetris-preview .block-16,
-    .tetris-preview .block-17,
-    .tetris-preview .block-18,
-    .tetris-preview .block-19 { background: #22b8cf; }
-    .tetris-preview .block-10,
-    .tetris-preview .block-14 { background: #e5454b; }
-
-    @keyframes blink { 50% { opacity: 0; } }
-</style>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getUserProfile, signOut, type UserProfile } from '../../lib/auth';
+import PlayerSlotHeader from './PlayerSlotHeader';
 
 export default function ProfileClient() {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
@@ -22,8 +23,11 @@ export default function ProfileClient() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20" aria-label="Loading profile">
-        <div className="animate-spin rounded-full h-10 w-10 border-2 border-[#665175] border-t-[#a857ff]"></div>
+      <div className="surface max-w-xl p-8" aria-label="Loading profile">
+        <PlayerSlotHeader label="Player slot // loading" />
+        <div className="flex justify-center items-center py-16">
+          <div className="animate-spin rounded-full h-10 w-10 border-2 border-arcade-border-bright border-t-arcade-purple-bright"></div>
+        </div>
       </div>
     );
   }
@@ -31,6 +35,7 @@ export default function ProfileClient() {
   if (!userProfile) {
     return (
       <div className="surface max-w-xl p-8 text-center">
+        <PlayerSlotHeader label="Player slot // empty" />
         <p className="text-lg font-semibold mb-2 text-[#f8f5fb]">There is no active player profile.</p>
         <p className="mb-5 text-sm text-[#b9a9c5]">Sign in to see your nickname and avatar.</p>
         <a href="/login" className="button">
@@ -41,10 +46,11 @@ export default function ProfileClient() {
   }
 
   return (
-    <div className="max-w-xl overflow-hidden rounded-[1.35rem] border border-[#443451] bg-[#21172e] p-6 text-[#f8f5fb] shadow-[0_18px_45px_rgba(0,0,0,0.24)] sm:p-8">
-      <div className="flex flex-col items-center gap-6">
+    <div className="surface max-w-xl overflow-hidden p-6 text-arcade-text sm:p-8">
+      <PlayerSlotHeader label="Player slot // active" />
+      <div className="mt-6 flex flex-col items-center gap-6">
         <div className="relative group">
-          <div className="w-24 h-24 rounded-full bg-[#8b2cff] flex items-center justify-center text-3xl font-bold text-white uppercase border-2 border-[#665175] overflow-hidden shadow-[0_0_24px_rgba(139,44,255,0.2)] transition-transform duration-300 group-hover:scale-105">
+          <div className="w-24 h-24 rounded-full bg-arcade-purple flex items-center justify-center text-3xl font-bold text-white uppercase border-2 border-arcade-border-bright overflow-hidden shadow-[0_0_24px_rgba(139,44,255,0.2)] transition-transform duration-300 group-hover:scale-105">
             {userProfile.profile.avatar ? (
               <img
                 src={userProfile.profile.avatar.startsWith('avatar') 
@@ -60,30 +66,30 @@ export default function ProfileClient() {
               <span>{userProfile.profile.nick.charAt(0)}</span>
             )}
           </div>
-          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#82dc3d] border-4 border-[#21172e] rounded-full shadow-[0_0_10px_rgba(130,220,61,0.45)]"></div>
+          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-arcade-green border-4 border-arcade-surface rounded-full shadow-[0_0_10px_rgba(130,220,61,0.45)]"></div>
         </div>
         
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold tracking-[-0.04em] text-[#f8f5fb] mb-1">
+          <h2 className="text-3xl font-extrabold tracking-[-0.04em] text-arcade-text mb-1">
             {userProfile.profile.nick}
           </h2>
-          <p className="text-[#b9a9c5] text-sm">
+          <p className="text-arcade-muted text-sm [overflow-wrap:anywhere]">
             {userProfile.user.email}
           </p>
         </div>
 
-        <div className="w-full h-px bg-[#443451] my-2"></div>
+        <div className="w-full h-px bg-arcade-border my-2"></div>
 
         <div className="grid grid-cols-2 gap-4 w-full">
-          <div className="bg-[#191022] p-4 rounded-lg border border-[#443451] text-center flex flex-col items-center justify-center">
-            <span className="block font-mono text-[0.62rem] uppercase tracking-wider text-[#82728f] mb-1">Avatar</span>
+          <div className="bg-arcade-bg-soft p-4 rounded-lg border border-arcade-border text-center flex flex-col items-center justify-center">
+            <span className="block font-mono text-[0.62rem] uppercase tracking-wider text-arcade-subtle mb-1">Avatar</span>
             <div className="flex items-center gap-2">
-              <span className="text-[#f8f5fb] font-medium capitalize">{userProfile.profile.avatar.replace(/-/g, ' ')}</span>
+              <span className="text-arcade-text font-medium capitalize">{userProfile.profile.avatar.replace(/-/g, ' ')}</span>
             </div>
           </div>
-          <div className="bg-[#191022] p-4 rounded-lg border border-[#443451] text-center">
-            <span className="block font-mono text-[0.62rem] uppercase tracking-wider text-[#82728f] mb-1">Joined</span>
-            <span className="text-[#f8f5fb] font-medium">
+          <div className="bg-arcade-bg-soft p-4 rounded-lg border border-arcade-border text-center">
+            <span className="block font-mono text-[0.62rem] uppercase tracking-wider text-arcade-subtle mb-1">Joined</span>
+            <span className="text-arcade-text font-medium">
               {new Date(userProfile.profile.created_at).toLocaleDateString()}
             </span>
           </div>

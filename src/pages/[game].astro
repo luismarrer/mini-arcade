@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+import GameShell from "@/components/GameShell.astro"
 import { games } from "@/constants/games"
 
 const gameModules = import.meta.glob("../components/games/*.astro", { eager: true })
@@ -23,22 +24,5 @@ const SelectedGame = gameComponents[game.id] ?? null
 ---
 
 <Layout title={game.title} description={game.description}>
-    <article class="shell game-page" style={`--game-accent: ${game.accent};`}>
-        <header class="game-page__header">
-            <div>
-                <span class="eyebrow">{game.category} · {game.session}</span>
-                <h1 class="display-type">{game.title}</h1>
-                <p>{game.description}</p>
-            </div>
-            <a href="/all-games" class="button button--secondary button--small">← All games</a>
-        </header>
-
-        {
-            SelectedGame ? (
-                <div class="game-page__stage">
-                    <SelectedGame />
-                </div>
-            ) : null
-        }
-    </article>
+    {SelectedGame ? <GameShell {game}><SelectedGame /></GameShell> : null}
 </Layout>

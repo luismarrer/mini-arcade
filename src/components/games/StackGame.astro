@@ -1,167 +1,42 @@
-<section class="stack-lab" aria-labelledby="stack-status">
-    <div class="stack-stage" aria-hidden="true">
-        <div class="stack-stage__skyline"></div>
-        <div class="stack-stage__target"></div>
-        <div class="stack-tower">
-            <span class="stack-block stack-block--1"></span>
-            <span class="stack-block stack-block--2"></span>
-            <span class="stack-block stack-block--3"></span>
-            <span class="stack-block stack-block--4"></span>
-            <span class="stack-block stack-block--5"></span>
-            <span class="stack-block stack-block--moving"></span>
+<section class="grid grid-cols-1 min-[761px]:grid-cols-[minmax(17rem,0.9fr)_minmax(0,1.1fr)] overflow-hidden border border-[#4b3823] rounded-2xl text-slate-50 bg-slate-900" aria-labelledby="stack-status">
+    <div class="relative grid min-h-[22rem] min-[761px]:min-h-[29rem] items-end justify-items-center overflow-hidden border-b min-[761px]:border-b-0 min-[761px]:border-r border-[#4b3823] bg-[radial-gradient(circle_at_50%_25%,rgba(245,158,11,0.18),transparent_45%),linear-gradient(180deg,#161d35_0%,#0f172a_72%)]" aria-hidden="true">
+        <div class="absolute inset-x-0 bottom-0 h-[28%] opacity-35 bg-[repeating-linear-gradient(90deg,#070b14_0,2.8rem,transparent_2.8rem,3.1rem)] [clip-path:polygon(0_45%,8%_45%,8%_17%,16%_17%,16%_60%,28%_60%,28%_30%,38%_30%,38%_67%,51%_67%,51%_8%,64%_8%,64%_52%,76%_52%,76%_24%,86%_24%,86%_61%,100%_61%,100%_100%,0_100%)]"></div>
+        <div class="absolute inset-x-[12%] top-[12%] h-[1px] bg-[repeating-linear-gradient(90deg,rgba(245,158,11,0.5)_0,0.55rem,transparent_0.55rem,1rem)]"></div>
+        <div class="relative z-10 flex w-[min(72%,16rem)] flex-col-reverse items-center gap-[0.2rem] pb-8">
+            <span class="w-full h-[2.15rem] border border-[rgba(255,255,255,0.22)] rounded-[0.18rem] bg-red-500 shadow-[0_8px_0_rgba(0,0,0,0.18)]"></span>
+            <span class="w-[92%] h-[2.15rem] border border-[rgba(255,255,255,0.22)] rounded-[0.18rem] bg-orange-500 shadow-[0_8px_0_rgba(0,0,0,0.18)] translate-x-[2%]"></span>
+            <span class="w-[82%] h-[2.15rem] border border-[rgba(255,255,255,0.22)] rounded-[0.18rem] bg-amber-500 shadow-[0_8px_0_rgba(0,0,0,0.18)] -translate-x-[2%]"></span>
+            <span class="w-[72%] h-[2.15rem] border border-[rgba(255,255,255,0.22)] rounded-[0.18rem] bg-lime-500 shadow-[0_8px_0_rgba(0,0,0,0.18)] translate-x-[1%]"></span>
+            <span class="w-[61%] h-[2.15rem] border border-[rgba(255,255,255,0.22)] rounded-[0.18rem] bg-sky-400 shadow-[0_8px_0_rgba(0,0,0,0.18)] -translate-x-[4%]"></span>
+            <span class="w-[52%] h-[2.15rem] border border-[rgba(255,255,255,0.22)] rounded-[0.18rem] bg-[#8b5cf6] shadow-[0_8px_0_rgba(0,0,0,0.18)] animate-stack-slide motion-reduce:animate-none"></span>
         </div>
-        <span class="stack-score">HEIGHT 05</span>
+        <span class="absolute top-4 left-4 text-amber-400 font-utility text-[0.72rem] tracking-widest">HEIGHT 05</span>
     </div>
 
-    <div class="stack-notes">
-        <p class="stack-kicker">Timing prototype / 15%</p>
-        <h2 id="stack-status">The tower is standing. The game loop is next.</h2>
-        <p>
+    <div class="flex flex-col justify-center p-[clamp(1.5rem,5vw,3.5rem)]">
+        <p class="mb-[0.8rem] text-amber-400 font-utility text-[0.7rem] font-semibold tracking-wider uppercase">Timing prototype / 15%</p>
+        <h2 id="stack-status" class="max-w-[32rem] mb-4 text-[clamp(2rem,5vw,3.4rem)] leading-[1.02] tracking-[-0.045em]">The tower is standing. The game loop is next.</h2>
+        <p class="max-w-[36rem] mb-0 text-slate-300">
             I’m tuning the snap, crop and speed-up that make each block placement
             feel fair. This page keeps the visual idea alive while that interaction
             is still being built.
         </p>
 
-        <dl>
-            <div><dt>Input</dt><dd>One tap</dd></div>
-            <div><dt>Goal</dt><dd>Build upward</dd></div>
-            <div><dt>Next</dt><dd>Scoring + sound</dd></div>
+        <dl class="grid grid-cols-1 min-[761px]:grid-cols-3 gap-0 mt-[1.2rem] mb-[1.6rem] border-y border-slate-700">
+            <div class="py-[0.8rem] pr-[0.55rem] pl-0 border-b min-[761px]:border-b-0 border-slate-700">
+                <dt class="text-slate-500 font-utility text-[0.62rem] uppercase">Input</dt>
+                <dd class="mt-1 m-0 text-[0.82rem] font-bold">One tap</dd>
+            </div>
+            <div class="py-[0.8rem] pr-[0.55rem] pl-0 border-b min-[761px]:border-b-0 border-slate-700">
+                <dt class="text-slate-500 font-utility text-[0.62rem] uppercase">Goal</dt>
+                <dd class="mt-1 m-0 text-[0.82rem] font-bold">Build upward</dd>
+            </div>
+            <div class="py-[0.8rem] pr-[0.55rem] pl-0 border-slate-700">
+                <dt class="text-slate-500 font-utility text-[0.62rem] uppercase">Next</dt>
+                <dd class="mt-1 m-0 text-[0.82rem] font-bold">Scoring + sound</dd>
+            </div>
         </dl>
 
-        <a href="/all-games" class="button button--secondary button--small">Play a finished game</a>
+        <a href="/all-games" class="button button--secondary button--small self-start">Play a finished game</a>
     </div>
 </section>
-
-<style>
-    .stack-lab {
-        display: grid;
-        grid-template-columns: minmax(17rem, 0.9fr) minmax(0, 1.1fr);
-        overflow: hidden;
-        border: 1px solid #4b3823;
-        border-radius: 1rem;
-        color: #f8fafc;
-        background: #111827;
-    }
-
-    .stack-stage {
-        position: relative;
-        display: grid;
-        min-height: 29rem;
-        place-items: end center;
-        overflow: hidden;
-        border-right: 1px solid #4b3823;
-        background:
-            radial-gradient(circle at 50% 25%, rgba(245, 158, 11, 0.18), transparent 45%),
-            linear-gradient(180deg, #161d35 0%, #0f172a 72%);
-    }
-
-    .stack-stage__skyline {
-        position: absolute;
-        inset: auto 0 0;
-        height: 28%;
-        opacity: 0.34;
-        background: repeating-linear-gradient(90deg, #070b14 0 2.8rem, transparent 2.8rem 3.1rem);
-        clip-path: polygon(0 45%, 8% 45%, 8% 17%, 16% 17%, 16% 60%, 28% 60%, 28% 30%, 38% 30%, 38% 67%, 51% 67%, 51% 8%, 64% 8%, 64% 52%, 76% 52%, 76% 24%, 86% 24%, 86% 61%, 100% 61%, 100% 100%, 0 100%);
-    }
-
-    .stack-stage__target {
-        position: absolute;
-        inset: 12% 12% auto;
-        height: 1px;
-        background: repeating-linear-gradient(90deg, rgba(245, 158, 11, 0.5) 0 0.55rem, transparent 0.55rem 1rem);
-    }
-
-    .stack-tower {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        width: min(72%, 16rem);
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: 0.2rem;
-        padding-bottom: 2rem;
-    }
-
-    .stack-block {
-        width: 100%;
-        height: 2.15rem;
-        border: 1px solid rgba(255, 255, 255, 0.22);
-        border-radius: 0.18rem;
-        background: #ef4444;
-        box-shadow: 0 8px 0 rgba(0, 0, 0, 0.18);
-    }
-
-    .stack-block--2 { width: 92%; background: #f97316; transform: translateX(2%); }
-    .stack-block--3 { width: 82%; background: #f59e0b; transform: translateX(-2%); }
-    .stack-block--4 { width: 72%; background: #84cc16; transform: translateX(1%); }
-    .stack-block--5 { width: 61%; background: #38bdf8; transform: translateX(-4%); }
-    .stack-block--moving {
-        width: 52%;
-        background: #8b5cf6;
-        animation: block-slide 2.6s ease-in-out infinite alternate;
-    }
-
-    .stack-score {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        color: #fbbf24;
-        font-family: var(--font-utility);
-        font-size: 0.72rem;
-        letter-spacing: 0.1em;
-    }
-
-    .stack-notes {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: clamp(1.5rem, 5vw, 3.5rem);
-    }
-
-    .stack-kicker {
-        margin-bottom: 0.8rem;
-        color: #fbbf24;
-        font-family: var(--font-utility);
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-    }
-
-    .stack-notes h2 {
-        max-width: 32rem;
-        margin-bottom: 1rem;
-        font-size: clamp(2rem, 5vw, 3.4rem);
-        line-height: 1.02;
-        letter-spacing: -0.045em;
-    }
-
-    .stack-notes > p:not(.stack-kicker) {
-        max-width: 36rem;
-        color: #cbd5e1;
-    }
-
-    .stack-notes dl {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        margin: 1.2rem 0 1.6rem;
-        border-block: 1px solid #334155;
-    }
-
-    .stack-notes dl div { padding: 0.8rem 0.55rem 0.8rem 0; }
-    .stack-notes dt { color: #64748b; font-family: var(--font-utility); font-size: 0.62rem; text-transform: uppercase; }
-    .stack-notes dd { margin: 0.2rem 0 0; font-size: 0.82rem; font-weight: 700; }
-    .stack-notes .button { align-self: flex-start; }
-
-    @keyframes block-slide {
-        from { transform: translateX(-44%); }
-        to { transform: translateX(44%); }
-    }
-
-    @media (max-width: 760px) {
-        .stack-lab { grid-template-columns: 1fr; }
-        .stack-stage { min-height: 22rem; border-right: 0; border-bottom: 1px solid #4b3823; }
-        .stack-notes dl { grid-template-columns: 1fr; }
-        .stack-notes dl div + div { border-top: 1px solid #334155; }
-    }
-</style>

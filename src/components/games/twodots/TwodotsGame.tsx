@@ -29,7 +29,7 @@ const TwodotsGame: FC<TwodotsGameBoardProps> = ({ config, onBackToConfig }) => {
     } = useTwodotsGame({ size })
 
     return (
-        <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_15rem]">
+        <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_15rem] short-landscape:grid-cols-[minmax(0,1fr)_13rem] short-landscape:gap-3">
             <GameBoard
                 dots={dots}
                 size={size}
