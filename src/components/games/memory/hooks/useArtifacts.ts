@@ -20,8 +20,8 @@ const AVAILABLE_ARTIFACTS: Record<string, Artifact> = {
     },
     'more-turns': {
         id: 'more-turns',
-        name: 'More turns',
-        description: 'Adds 5 additional moves',
+        name: 'Second wind',
+        description: 'Adds 5 additional attempts',
         maxUses: 2,
         remainingUses: 2,
         active: true,

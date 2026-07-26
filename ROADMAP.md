@@ -69,28 +69,28 @@ No se recomienda self-hosting solo para evitar la tarifa: actualizaciones, segur
 
 ### 1. Backend reproducible
 
-- [ ] Añadir Supabase CLI, configuración local, migraciones y seeds al repositorio.
-- [ ] Corregir y documentar las variables `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY`.
-- [ ] Eliminar el cliente Supabase duplicado y mantener una sola integración tipada.
-- [ ] Crear el esquema inicial: `profiles`, `game_sessions` y un ledger de puntos; derivar mejores marcas mediante consulta o vista.
-- [ ] Crear constraints para `user_id`, nickname único sin distinguir mayúsculas y claves válidas de avatar.
-- [ ] Crear el perfil automáticamente y de forma atómica al registrarse un usuario.
-- [ ] Implementar RLS y probar que un jugador no pueda leer o modificar datos privados de otro.
-- [ ] Generar los tipos TypeScript desde el esquema, en vez de mantenerlos a mano.
+- [x] Añadir Supabase CLI, configuración, migraciones y seeds al repositorio.
+- [x] Corregir y documentar las variables `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY`.
+- [x] Eliminar el cliente Supabase duplicado y mantener una sola integración tipada.
+- [x] Crear el esquema inicial: `profiles`, `game_sessions` y un ledger de puntos; derivar mejores marcas mediante consulta.
+- [x] Crear constraints para `user_id`, nickname único sin distinguir mayúsculas y claves válidas de avatar.
+- [x] Crear el perfil automáticamente y de forma atómica al registrarse un usuario.
+- [x] Implementar RLS y probar que un jugador no pueda leer o modificar datos privados de otro.
+- [x] Generar los tipos TypeScript desde el esquema remoto, en vez de mantenerlos a mano.
 - [ ] Versionar el procedimiento de exportación, restauración y migración a otro Postgres.
 - [ ] Mostrar un estado de servicio comprensible cuando Supabase no esté configurado, esté pausado o no responda.
 
 ### 2. Flujo de cuenta completo
 
-- [ ] Registro con validación y manejo correcto de nickname duplicado.
+- [x] Registro con validación y manejo correcto de nickname duplicado.
 - [ ] Confirmación y reenvío de email, si se decide exigir email.
-- [ ] Login, logout y persistencia de sesión.
+- [x] Login, logout y persistencia de sesión.
 - [ ] Recuperación y cambio de contraseña.
-- [ ] Perfil editable: nickname y uno de los avatares estáticos existentes.
+- [x] Perfil editable: nickname y uno de los avatares estáticos existentes.
 - [ ] Eliminación de cuenta y datos asociados.
 - [ ] Distinguir en la UI entre “sin sesión”, “perfil incompleto” y “error de servicio”.
 - [ ] Crear un `PlayerProvider` compartido y retirar nombres o avatares hardcodeados dentro de los juegos.
-- [ ] Mantener el modo invitado con progreso local aunque el backend no esté disponible.
+- [x] Mantener el modo invitado con progreso local aunque el backend no esté disponible.
 
 ### Criterios de salida
 
@@ -101,16 +101,16 @@ No se recomienda self-hosting solo para evitar la tarifa: actualizaciones, segur
 
 ## P0 — Resultados, mejores marcas y puntos
 
-- [ ] Definir un contrato `GameResult` común con `gameId`, versión de reglas, modo/dificultad, resultado, score nativo, duración y metadata permitida.
-- [ ] Separar tres conceptos:
+- [x] Definir un contrato `GameResult` común con `gameId`, versión de reglas, modo/dificultad, resultado, score nativo, duración y metadata permitida.
+- [x] Separar tres conceptos:
     - **Score:** resultado propio de cada juego.
     - **Mejor marca:** mejor score del jugador por juego, modo y versión.
     - **Puntos/XP:** progreso global comparable, calculado con reglas del servidor.
-- [ ] Emitir el resultado una sola vez al terminar una partida y hacerlo idempotente.
-- [ ] Persistir sesiones y mejores marcas para usuarios autenticados.
-- [ ] Calcular los puntos mediante una función/RPC controlada; el navegador nunca enviará un total de puntos arbitrario.
-- [ ] Mostrar puntos totales, historial básico y mejores marcas en el perfil.
-- [ ] Guardar resultados de invitado localmente. En la primera versión, las partidas offline no entrarán en rankings públicos.
+- [x] Emitir el resultado una sola vez al terminar una partida y hacerlo idempotente.
+- [x] Persistir sesiones y mejores marcas para usuarios autenticados.
+- [x] Calcular los puntos mediante una función/RPC controlada; el navegador nunca envía un total de puntos arbitrario.
+- [x] Mostrar puntos totales, historial básico y mejores marcas en el perfil.
+- [x] Guardar resultados de invitado localmente. En la primera versión, las partidas offline no entran en rankings públicos.
 - [ ] Añadir pruebas para duplicados, versiones de reglas, permisos y manipulación básica del cliente.
 
 El sistema de puntos depende de cerrar las reglas y el scoring de cada juego. No se asignarán equivalencias globales hasta que esas specs estén definidas.

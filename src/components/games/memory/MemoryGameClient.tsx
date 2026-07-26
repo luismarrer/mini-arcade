@@ -5,7 +5,7 @@ import GameBoard from "./MemoryGame"
 
 type Phase = "config" | "playing"
 
-interface MemoryConfig {
+export interface MemoryConfig {
     difficulty: string
     cards: string
     artifacts: string
@@ -31,7 +31,7 @@ const MemoryGameClient: FC<{ cards: CardImage[] }> = ({ cards }) => {
     const [phase, setPhase] = useState<Phase>("config")
     const [config, setConfig] = useState<MemoryConfig>(defaultConfig)
 
-    const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target
         setConfig((prev) => ({ ...prev, [name]: value }))
     }
@@ -75,20 +75,25 @@ const MemoryGameClient: FC<{ cards: CardImage[] }> = ({ cards }) => {
     }
 
     return (
-        <section className="mx-auto my-4 w-full max-w-5xl overflow-hidden rounded-2xl border border-[#465a7a] bg-[#222f49] shadow-[0_24px_70px_rgba(4,9,22,0.45)] short-landscape:my-0">
-            <div className="h-1 bg-linear-to-r from-[#2387c4] via-[#536dfe] to-[#e34a7a]" />
-            <div className="flex flex-col gap-7 p-5 sm:p-8 short-landscape:gap-3 short-landscape:p-3">
+        <section className="mx-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-[#465a7a] bg-[#18243a] shadow-[0_24px_70px_rgba(4,9,22,0.45)] short-landscape:my-0">
+            <div className="h-1 bg-linear-to-r from-[#2387c4] via-[#6ec5f3] to-[#ef476f]" />
+            <div className="flex flex-col gap-7 p-4 sm:p-7 short-landscape:gap-3 short-landscape:p-3">
                 {phase === "config" && (
-                    <header className="border-b border-[#465a7a] pb-5">
-                        <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#91a8c8]">
-                            Pair-Memory · DC deck
-                        </span>
-                        <h2 className="mt-2 text-3xl font-black uppercase italic tracking-[-0.04em] text-white sm:text-4xl">
-                            Set the deck
-                        </h2>
-                        <p className="mt-2 mb-0 max-w-xl text-sm leading-6 text-[#bdc9dc]">
-                            Match every hero and villain before your moves run out.
-                        </p>
+                    <header className="grid gap-4 border-b border-[#465a7a] pb-5 sm:grid-cols-[auto_1fr] sm:items-end">
+                        <div className="grid size-14 place-items-center rounded-xl border border-[#6ec5f3] bg-[linear-gradient(145deg,#277fbc,#245da4_55%,#273364)] text-2xl font-black italic tracking-[-0.16em] text-white shadow-[0_8px_20px_rgba(3,11,29,0.35)]">
+                            M<span className="text-[#ef476f]">/</span>
+                        </div>
+                        <div>
+                            <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#91a8c8]">
+                                Case file · DC deck
+                            </span>
+                            <h2 className="mt-1 text-3xl font-black uppercase italic tracking-[-0.04em] text-white sm:text-4xl">
+                                Build your board
+                            </h2>
+                            <p className="mt-1 mb-0 max-w-xl text-sm leading-6 text-[#bdc9dc]">
+                                Choose the pressure, board size and one optional advantage.
+                            </p>
+                        </div>
                     </header>
                 )}
                 {phase === "config" ? (

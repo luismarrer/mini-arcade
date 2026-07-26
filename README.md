@@ -29,8 +29,19 @@ The site compiles and runs without Supabase credentials. Player accounts connect
 
 ```bash
 pnpm install
+cp .env.example .env
 pnpm dev
 ```
+
+This repository is linked directly to its Supabase Cloud project. Authenticate
+with `pnpm supabase login` and run `pnpm supabase link --project-ref <ref>` when
+setting up a new machine. Use `pnpm db:push:dry` before `pnpm db:push`, then run
+`pnpm db:types` and `pnpm db:lint` after changing the remote schema.
+
+Authenticated players receive a profile automatically at sign-up. Completed
+games are saved idempotently, and global points are calculated by the database
+rather than accepted from the browser. Guest results remain in local storage
+when Supabase is unavailable or the player is signed out.
 
 Run `pnpm build` before shipping changes.
 

@@ -3,6 +3,7 @@ import { useHexapawnGame } from './hooks/useHexapawnGame'
 import GameInfo from './GameInfo'
 import GameBoard from './GameBoard'
 import GameControls from './GameControls'
+import { useGameResult } from '../../../lib/use-game-result'
 
 const HexapawnGame: FC = () => {
     const {
@@ -19,6 +20,16 @@ const HexapawnGame: FC = () => {
         isValidMoveCell,
         isPawnSelected,
     } = useHexapawnGame()
+
+    useGameResult(gameState.gameOver, {
+        gameId: 'hexapawn',
+        rulesVersion: 1,
+        mode: 'computer',
+        outcome: gameState.winner === 'player' ? 'won' : 'lost',
+        score: gameState.winner === 'player' ? 1 : 0,
+        metadata: { winner: gameState.winner },
+        idempotencyKey: gameState.resultId,
+    })
 
     return (
         <div className="relative grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.42fr)] gap-5 overflow-hidden p-4 sm:p-6 border border-[#304235] rounded-xl text-[#effff2] [--hex-accent:#00ff41] [--hex-warning:#ff6b35] [--hex-bg:#070a08] bg-[var(--hex-bg)] [background-image:linear-gradient(rgba(0,255,65,0.018)_50%,transparent_50%),radial-gradient(circle_at_35%_30%,rgba(0,255,65,0.055),transparent_42%)] [background-size:100%_4px,auto] shadow-[0_1.5rem_4rem_rgba(0,0,0,0.35),inset_0_0_3rem_rgba(0,0,0,0.5)] font-mono">

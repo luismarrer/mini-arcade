@@ -58,7 +58,7 @@ export const games: Game[] = [
     {
         id: "memory",
         title: "Pair-Memory (DC)",
-        description: "Match DC characters before your moves run out.",
+        description: "Match DC characters before your attempts run out.",
         path: "/memory",
         status: "playable",
         category: "Memory",

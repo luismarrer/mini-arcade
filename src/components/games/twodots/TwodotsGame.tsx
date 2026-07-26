@@ -2,6 +2,7 @@ import type { FC } from "react"
 import { useTwodotsGame } from "./hooks/useTwodotsGame"
 import PlayerInfo from "./PlayerInfo"
 import GameBoard from "./GameBoard"
+import { useGameResult } from "../../../lib/use-game-result"
 
 interface TwodotsConfig {
     size: string
@@ -27,6 +28,16 @@ const TwodotsGame: FC<TwodotsGameBoardProps> = ({ config, onBackToConfig }) => {
         finishMarking,
         resetGame,
     } = useTwodotsGame({ size })
+
+    useGameResult(isGameOver, {
+        gameId: 'twodots',
+        rulesVersion: 1,
+        mode: `${size}x${size}`,
+        outcome: 'completed',
+        score,
+        durationMs: 60000,
+        metadata: { board_size: size },
+    })
 
     return (
         <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_15rem] short-landscape:grid-cols-[minmax(0,1fr)_13rem] short-landscape:gap-3">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { HangImage } from "./HangImage"
 import { getRandomWord } from "./getRandomWord"
 import { letters } from "./letters"
+import { useGameResult } from "../../../lib/use-game-result"
 
 function HangmanGameClient() {
     const [word, setWord] = useState("")
@@ -10,6 +11,15 @@ function HangmanGameClient() {
     const [guessedLetters, setGuessedLetters] = useState<string[]>([])
     const [lose, setLose] = useState(false)
     const [won, setWon] = useState(false)
+
+    useGameResult(won || lose, {
+        gameId: 'hangman',
+        rulesVersion: 1,
+        mode: 'english',
+        outcome: won ? 'won' : 'lost',
+        score: won ? Math.max(0, 9 - attempts) : 0,
+        metadata: { misses_remaining: Math.max(0, 9 - attempts) },
+    })
 
     useEffect(() => {
         if (attempts >= 9) setLose(true)

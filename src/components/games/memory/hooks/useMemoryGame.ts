@@ -21,9 +21,9 @@ const FLIP_TIME: Record<string, number> = {
 }
 
 const MOVE_MULTIPLIERS: Record<string, number> = {
-    low: 5,
-    medium: 4,
-    high: 3,
+    low: 2.5,
+    medium: 2,
+    high: 1.5,
 }
 
 const createCards = (numCards: number, cardImages: CardImage[]): Card[] => {
@@ -65,6 +65,8 @@ export const useMemoryGame = ({ difficulty, numCards, cardImages }: UseMemoryGam
     const [maxMoves] = useState(() => calculateMaxMoves(difficulty, numCards))
     const [movesRemaining, setMovesRemaining] = useState(() => calculateMaxMoves(difficulty, numCards))
     const [score, setScore] = useState(0)
+    const [matchedPairs, setMatchedPairs] = useState(0)
+    const [streak, setStreak] = useState(0)
     const [gameWon, setGameWon] = useState(false)
     const [gameLost, setGameLost] = useState(false)
 
@@ -81,11 +83,13 @@ export const useMemoryGame = ({ difficulty, numCards, cardImages }: UseMemoryGam
             // Check if player has moves left
             if (movesRemaining <= 0) return
 
-            // Reduce moves
-            setMovesRemaining((prev) => prev - 1)
-
             // Don't allow more than 2 cards flipped
             if (flippedCards.length >= 2) return
+
+            // One move is one completed pair attempt, not one card flip.
+            if (flippedCards.length === 1) {
+                setMovesRemaining((prev) => Math.max(0, prev - 1))
+            }
 
             // Flip the card
             setCards((prev) =>
@@ -121,7 +125,9 @@ export const useMemoryGame = ({ difficulty, numCards, cardImages }: UseMemoryGam
                             : c
                     )
                 )
-                setScore((prev) => prev + 1)
+                setMatchedPairs((prev) => prev + 1)
+                setStreak((prev) => prev + 1)
+                setScore((current) => current + 100 + streak * 25)
             } else {
                 // Flip back
                 setCards((prev) =>
@@ -131,13 +137,14 @@ export const useMemoryGame = ({ difficulty, numCards, cardImages }: UseMemoryGam
                             : c
                     )
                 )
+                setStreak(0)
             }
 
             // Reset state
             setFlippedCards([])
             setIsLocked(false)
         }, flipTime)
-    }, [flippedCards, cards, flipTime])
+    }, [flippedCards, cards, flipTime, streak])
 
     // Check for game over
     useEffect(() => {
@@ -157,6 +164,8 @@ export const useMemoryGame = ({ difficulty, numCards, cardImages }: UseMemoryGam
         setIsLocked(false)
         setMovesRemaining(maxMoves)
         setScore(0)
+        setMatchedPairs(0)
+        setStreak(0)
         setGameWon(false)
         setGameLost(false)
     }, [numCards, maxMoves, cardImages])
@@ -183,6 +192,8 @@ export const useMemoryGame = ({ difficulty, numCards, cardImages }: UseMemoryGam
         movesRemaining,
         maxMoves,
         score,
+        matchedPairs,
+        streak,
         gameWon,
         gameLost,
         flipCard,

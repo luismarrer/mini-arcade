@@ -1,0 +1,2 @@
+-- Authentication users are intentionally not seeded. Create one through the app's
+-- sign-up flow so the auth trigger, profile constraints and RLS are exercised.

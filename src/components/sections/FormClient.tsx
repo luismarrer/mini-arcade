@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabase';
+import { AVATARS } from '../../constants/avatars';
 import PlayerSlotHeader from './PlayerSlotHeader';
 
 interface FormData {
@@ -8,17 +9,6 @@ interface FormData {
   password: string;
   avatar: string;
 }
-
-const avatars = [
-  { value: 'batman', label: 'Batman' },
-  { value: 'superman', label: 'Superman' },
-  { value: 'wonder-woman', label: 'Wonder Woman' },
-  { value: 'the-flash', label: 'The Flash' },
-  { value: 'green-lantern', label: 'Green Lantern' },
-  { value: 'supergirl', label: 'Supergirl' },
-  { value: 'cyborg', label: 'Cyborg' },
-  { value: 'catwoman', label: 'Catwoman' },
-] as const;
 
 export default function FormClient() {
   const [formData, setFormData] = useState<FormData>({
@@ -42,30 +32,12 @@ export default function FormClient() {
         throw new Error('Authentication is not configured for this deployment.');
       }
 
-      // Check if nick already exists
-      const { data: existingProfile, error: checkError } = await supabase
-        .from('profiles')
-        .select('nick')
-        .eq('nick', formData.nick)
-        .maybeSingle();
-
-      if (checkError && checkError.code !== 'PGRST116') {
-        throw checkError;
-      }
-
-      if (existingProfile) {
-        setError('This nickname is already in use. Please choose another.');
-        setLoading(false);
-        return;
-      }
-
-      // Register user in Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
           data: {
-            nick: formData.nick,
+            nick: formData.nick.trim(),
             avatar: formData.avatar,
           },
         },
@@ -83,9 +55,14 @@ export default function FormClient() {
       setTimeout(() => {
         window.location.href = '/';
       }, 2000);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error registering:', err);
-      setError(err.message || 'Error registering user');
+      const message = err instanceof Error ? err.message : 'Error registering user';
+      setError(
+        /nickname|database error saving new user/i.test(message)
+          ? 'This nickname is invalid or already in use.'
+          : message
+      );
     } finally {
       setLoading(false);
     }
@@ -166,7 +143,7 @@ export default function FormClient() {
           Avatar
         </legend>
         <div className="grid grid-cols-4 gap-2" role="radiogroup" aria-label="Choose an avatar">
-          {avatars.map((avatar) => (
+          {AVATARS.map((avatar) => (
             <label
               key={avatar.value}
               className="group relative grid min-w-0 cursor-pointer place-items-center"

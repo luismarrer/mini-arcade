@@ -18,6 +18,7 @@ export interface GameState {
     currentPlayer: Player
     gameOver: boolean
     winner: Player | null
+    resultId: string
 }
 
 export interface Stats {
@@ -42,6 +43,7 @@ const getInitialState = (): GameState => ({
     currentPlayer: 'player',
     gameOver: false,
     winner: null,
+    resultId: crypto.randomUUID(),
 })
 
 const getValidMoves = (from: Position, state: GameState): Move[] => {
@@ -184,7 +186,10 @@ export const useHexapawnGame = () => {
             try {
                 const parsedState = JSON.parse(savedState)
                 if (parsedState.board && Array.isArray(parsedState.board) && parsedState.board.length === 3) {
-                    setGameState(parsedState)
+                    setGameState({
+                        ...parsedState,
+                        resultId: parsedState.resultId || crypto.randomUUID(),
+                    })
                 }
             } catch (error) {
                 console.warn('Failed to load game state:', error)

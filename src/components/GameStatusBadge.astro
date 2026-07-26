@@ -16,8 +16,8 @@ const statusStyles: Record<GameStatus, string> = {
 ---
 
 <span
-    class={`inline-flex min-h-[1.75rem] items-center px-2.5 py-1 border ${statusStyles[status]} rounded-full bg-[#0d0912]/90 backdrop-blur-md font-utility text-[0.58rem] font-semibold tracking-wider uppercase whitespace-nowrap`}
+    class={`inline-flex min-h-[var(--game-status-badge-height,1.75rem)] items-center px-2.5 py-1 border ${statusStyles[status]} rounded-full bg-[#0d0912]/90 backdrop-blur-md font-utility text-[0.58rem] font-semibold tracking-wider uppercase whitespace-nowrap`}
     title={details.description}
 >
-    {details.label}
+    <span class="relative top-px">{details.label}</span>
 </span>

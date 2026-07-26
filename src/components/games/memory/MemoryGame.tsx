@@ -5,6 +5,7 @@ import PlayerInfo from "./PlayerInfo"
 import GameBoard from "./GameBoard"
 import GameControls from "./GameControls"
 import type { CardImage } from "./MemoryGameClient"
+import { useGameResult } from "../../../lib/use-game-result"
 
 interface MemoryConfig {
     difficulty: string
@@ -25,6 +26,8 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
         cards,
         movesRemaining,
         score,
+        matchedPairs,
+        streak,
         gameWon,
         gameLost,
         flipCard,
@@ -35,6 +38,19 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
         difficulty: config.difficulty,
         numCards,
         cardImages,
+    })
+
+    useGameResult(gameWon || gameLost, {
+        gameId: 'memory',
+        rulesVersion: 1,
+        mode: `${config.difficulty}-${numCards}`,
+        outcome: gameWon ? 'won' : 'lost',
+        score,
+        metadata: {
+            difficulty: config.difficulty,
+            cards: numCards,
+            pairs_found: matchedPairs,
+        },
     })
 
     const {
@@ -81,12 +97,17 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
     const avatarSrc = playerData.avatar.startsWith('avatar')
         ? `/images/avatars/${playerData.avatar}.png`
         : `/images/avatars/${playerData.avatar}.avif`
+    const difficultyLabel: Record<string, string> = {
+        low: "Rookie",
+        medium: "Detective",
+        high: "Vigilante",
+    }
 
     return (
         <div className="flex flex-col gap-6 short-landscape:gap-3">
             <div className="flex flex-wrap gap-2 font-mono text-[0.66rem] uppercase tracking-[0.08em] text-[#bdc9dc] short-landscape:hidden">
                 <p className="m-0 rounded-full border border-[#465a7a] bg-[#172238] px-3 py-1.5">
-                    Difficulty · <span className="font-semibold">{config.difficulty}</span>
+                    Pressure · <span className="font-semibold">{difficultyLabel[config.difficulty] || config.difficulty}</span>
                 </p>
                 <p className="m-0 rounded-full border border-[#465a7a] bg-[#172238] px-3 py-1.5">
                     Cards · <span className="font-semibold">{config.cards}</span>
@@ -100,7 +121,7 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
 
             {(gameWon || gameLost) && (
                 <div role="status" className={`rounded-lg border px-4 py-3 font-semibold ${gameWon ? 'border-[#4fbf90] bg-[#16392f] text-[#a4f3d2]' : 'border-[#e34a7a] bg-[#451d2d] text-[#ffc2d5]'}`}>
-                    {gameWon ? 'Board cleared — every pair found.' : 'No moves left. Reset the deck and try another route.'}
+                    {gameWon ? `Case closed — ${score} points.` : 'No attempts left. Redeal the board or adjust the case.'}
                 </div>
             )}
 
@@ -108,8 +129,9 @@ const MemoryGameBoard: FC<MemoryGameBoardProps> = ({ config, onBackToConfig, car
                 <PlayerInfo
                     movesRemaining={movesRemaining}
                     score={score}
-                    pairsFound={score}
+                    pairsFound={matchedPairs}
                     totalPairs={numCards / 2}
+                    streak={streak}
                 />
 
                 <section className="mx-auto w-full rounded-xl border border-[#3b4d69] bg-[#121a2d] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-5 short-landscape:p-2">

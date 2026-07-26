@@ -25,7 +25,7 @@ const GameControls: FC<GameControlsProps> = ({
                 className="min-h-11 rounded-md border border-[#54aee3] bg-[#2387c4] px-4 py-2.5 text-white transition-colors hover:bg-[#2d9bdb] focus:outline-none focus:ring-2 focus:ring-[#6ec5f3] short-landscape:px-2 short-landscape:py-2 short-landscape:text-[0.58rem]"
                 onClick={onRestart}
             >
-                Restart Game
+                Redeal board
             </button>
 
             {artifact && (
@@ -48,7 +48,7 @@ const GameControls: FC<GameControlsProps> = ({
                 className="min-h-11 rounded-md border border-[#52647f] bg-[#1b2840] px-4 py-2.5 text-[#dbe5f3] transition-colors hover:bg-[#2a3850] focus:outline-none focus:ring-2 focus:ring-[#91a8c8] short-landscape:px-2 short-landscape:py-2 short-landscape:text-[0.58rem]"
                 onClick={onBack}
             >
-                Back to Config
+                Adjust case
             </button>
         </nav>
     )

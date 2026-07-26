@@ -30,8 +30,8 @@ const GameBoard: FC<GameBoardProps> = ({ cards, onCardClick, cardImages }) => {
                             type="button"
                             className={`
                                 absolute inset-0 rounded-lg p-0 sm:rounded-xl
-                                transition-transform duration-200 ease-out
-                                hover:scale-105 disabled:hover:scale-100
+                                transition-transform duration-200 ease-out hover:-translate-y-1
+                                disabled:hover:translate-y-0
                                 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6ec5f3] focus-visible:ring-offset-2 focus-visible:ring-offset-[#121a2d]
                                 [perspective:1000px]
                                 ${card.isMatched ? 'animate-memory-match motion-reduce:animate-none cursor-default' : 'cursor-pointer'}
@@ -51,8 +51,12 @@ const GameBoard: FC<GameBoardProps> = ({ cards, onCardClick, cardImages }) => {
                                     border-[3px] border-[#6ec5f3]
                                     shadow-[0_8px_18px_rgba(3,11,29,0.45)]
                                     [backface-visibility:hidden]
-                                    before:content-['?'] before:text-3xl before:md:text-4xl before:drop-shadow-md
-                                "/>
+                                ">
+                                    <span className="text-2xl font-black italic tracking-[-0.16em] drop-shadow-md md:text-3xl">
+                                        M<span className="text-[#ef476f]">/</span>
+                                    </span>
+                                    <i className="absolute inset-x-2 bottom-2 h-px bg-white/25" />
+                                </div>
                                 {/* Back face (face up) */}
                                 <div className={`
                                     absolute w-full h-full rounded-xl
@@ -62,8 +66,8 @@ const GameBoard: FC<GameBoardProps> = ({ cards, onCardClick, cardImages }) => {
                                     overflow-hidden
                                     [backface-visibility:hidden] [transform:rotateY(180deg)]
                                     ${card.isMatched
-                                        ? 'bg-[#214f45] border-[#68d2ae]'
-                                        : 'bg-[#55243a] border-[#e34a7a]'
+                                        ? 'bg-[#214f45] border-[#68d2ae] shadow-[0_0_20px_rgba(104,210,174,0.28)]'
+                                        : 'bg-[#55243a] border-[#ef476f]'
                                     }
                                 `}>
                                     {cardImage && (
@@ -77,6 +81,7 @@ const GameBoard: FC<GameBoardProps> = ({ cards, onCardClick, cardImages }) => {
                                             className="w-full h-full object-cover"
                                         />
                                     )}
+                                    <i className={`absolute inset-x-0 bottom-0 h-1 ${card.isMatched ? "bg-[#68d2ae]" : "bg-[#ef476f]"}`} />
                                 </div>
                             </div>
                         </button>
